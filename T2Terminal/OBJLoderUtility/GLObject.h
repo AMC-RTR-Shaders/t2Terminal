@@ -10,7 +10,7 @@
 #define _GL_OBJECT_H_
 
 #include<stdio.h>
-#include <gl\glew.h>
+#include<gl/glew.h>
 #include<iostream>
 #include<vector>
 #include<tchar.h>

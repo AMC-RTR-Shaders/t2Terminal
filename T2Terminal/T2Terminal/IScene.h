@@ -12,7 +12,7 @@
 
 #include <Windows.h>
 #include<stdio.h>
-#include <gl\glew.h>
+#include <GL/glew.h>
 #include<gl/GL.h>
 #include<Math.h>
 #include "vmath.h"
