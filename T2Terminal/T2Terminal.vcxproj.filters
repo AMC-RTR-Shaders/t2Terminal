@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Framework">
+      <UniqueIdentifier>{92c50dff-dd03-45e8-9324-217c32d47ae0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Framework\Events">
+      <UniqueIdentifier>{d4a732d4-f2c1-475d-9fab-a35229068e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Framework\IScene">
+      <UniqueIdentifier>{31cbd10e-9892-4059-850e-94ae8b5f5668}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Framework\Windowing">
+      <UniqueIdentifier>{2f36d793-1053-41ac-a5ae-5ad2a262e382}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal">
+      <UniqueIdentifier>{0e859e63-bdcb-47f9-a41f-c88c26e3509a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes">
+      <UniqueIdentifier>{06694a87-0f4c-4010-b33c-c7e42d6719da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Windowing">
+      <UniqueIdentifier>{952c503c-f36e-4417-83f4-cfa928a2f37b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal">
+      <UniqueIdentifier>{78cf992b-ca4f-47ef-bf23-821ee67d4dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes">
+      <UniqueIdentifier>{288cdced-0f05-4d96-8946-e5ece8e009df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Praveen">
+      <UniqueIdentifier>{715bf869-6e1a-4765-ab34-5097645d0e26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Praveen">
+      <UniqueIdentifier>{d17c58ce-d0d7-4043-971e-b03a6faafdef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Sanket">
+      <UniqueIdentifier>{31cf8659-4f94-4510-a241-dd326b00f151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Sanket">
+      <UniqueIdentifier>{530bcc2e-39b9-4432-be5a-0e1189bf6f19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Aashish">
+      <UniqueIdentifier>{ff4dafb4-6629-484a-8d37-549da300b617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Aashish">
+      <UniqueIdentifier>{b2a0533b-74fc-4db2-95d8-e11fbd0c1274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Abhijeet">
+      <UniqueIdentifier>{9305e475-fb10-4016-ac8f-1ae21ebe4e2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Abhijeet">
+      <UniqueIdentifier>{f9384df8-5a4f-481d-99b4-4b12cb3db46d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Harsh">
+      <UniqueIdentifier>{83039efe-b883-42aa-bd3c-2367d498df4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Harsh">
+      <UniqueIdentifier>{38330f2d-1488-4452-8bd4-6e7b48316ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Manisha">
+      <UniqueIdentifier>{da47a8e9-de2a-4d82-93f1-9017c5ad788a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Manisha">
+      <UniqueIdentifier>{177abcd6-b6ff-4731-b3a0-e2355d862a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Pratik">
+      <UniqueIdentifier>{a1043a32-e6d5-49f5-96e1-e45491d35572}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Pratik">
+      <UniqueIdentifier>{5274ccc6-66f4-4f07-afbf-1406ccd6c608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Priyanka">
+      <UniqueIdentifier>{b2bc66df-0343-4f4a-930b-dadca291d0a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Priyanka">
+      <UniqueIdentifier>{b4429cb1-ac7f-41a8-982e-466962a0dcf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Rahul">
+      <UniqueIdentifier>{5778eaf0-ab17-4c90-aad8-e47fdc69d207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Rahul">
+      <UniqueIdentifier>{2a38479d-6b44-4b9c-83fb-202e900e42f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Rushabh">
+      <UniqueIdentifier>{3afee630-c177-4225-a8ab-f9955a99f323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Rushabh">
+      <UniqueIdentifier>{33779cfa-9202-40b9-b9cf-73f0310ce776}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Suraj">
+      <UniqueIdentifier>{2ff44f72-87dc-448f-8c36-0d626fa70450}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Suraj">
+      <UniqueIdentifier>{0c299133-4dcd-4386-86f9-aab79efc9932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Abhishek">
+      <UniqueIdentifier>{7d58c8b2-23e3-4bda-8e47-18e866b4f9c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Abhishek">
+      <UniqueIdentifier>{e299674c-a3ef-4b5c-8b80-6cddd692b1c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Scene_1">
+      <UniqueIdentifier>{95b17083-05dc-45a0-ac56-f41496a39807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Scene_1">
+      <UniqueIdentifier>{a7a0bbd3-34cf-48d8-b31b-6f1c27e29123}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Scene_2">
+      <UniqueIdentifier>{b1b8373f-4670-4ab9-999b-9c1ab9564e87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Scene_2">
+      <UniqueIdentifier>{db541ff6-1086-4b2b-9d90-37b4ed6f8eb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Scene_3">
+      <UniqueIdentifier>{68bb0c79-0066-4b02-bf21-685fab58e7e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Scene_3">
+      <UniqueIdentifier>{346b6236-04ea-4648-929d-794b616bfb34}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Windowing.cpp">
+      <Filter>Source Files\Windowing</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScene.cpp">
+      <Filter>Source Files\T2Terminal\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Aeroplane.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Praveen</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_1.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Scene_1</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_2.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Scene_2</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_3.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Scene_3</Filter>
+    </ClCompile>
+    <ClCompile Include="Chair.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Praveen</Filter>
+    </ClCompile>
+    <ClCompile Include="Runway.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClCompile>
+    <ClCompile Include="AeroplaneInstanceing.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClCompile>
+    <ClCompile Include="Tset.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Windowing.h">
+      <Filter>Header Files\Framework\Windowing</Filter>
+    </ClInclude>
+    <ClInclude Include="IScene.h">
+      <Filter>Header Files\Framework\IScene</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyBoard.h">
+      <Filter>Header Files\Framework\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="MainScene.h">
+      <Filter>Header Files\T2Terminal\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="vmath.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Aeroplane.h">
+      <Filter>Header Files\T2Terminal\Scenes\Praveen</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_1.h">
+      <Filter>Header Files\T2Terminal\Scenes\Scene_1</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_2.h">
+      <Filter>Header Files\T2Terminal\Scenes\Scene_2</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene_3.h">
+      <Filter>Header Files\T2Terminal\Scenes\Scene_3</Filter>
+    </ClInclude>
+    <ClInclude Include="Chair.h">
+      <Filter>Header Files\T2Terminal\Scenes\Praveen</Filter>
+    </ClInclude>
+    <ClInclude Include="Runway.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
+    <ClInclude Include="AeroplaneInstanceing.h">
+      <Filter>Header Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClInclude>
+    <ClInclude Include="Tset.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

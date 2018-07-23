@@ -1,0 +1,50 @@
+GitHub ReadMe 
+
+Steps to work with github and pushing your code and creating pull requests
+
+Pre-requisite For This
+	-Git must be installed in your PC
+	-You must have github account
+	-You must have accepted invitation for AMC-RTR-Shaders/t2Terminal.  
+
+- Login to your github account
+- Go to https://github.com/AMC-RTR-Shaders/t2Terminal
+- On top right side you will see "fork" button besind star click on that button (only for first time).
+	-This will fork the current code in repo to your own repo and will automatically open your foked repo page which url will be like 
+	https://github.com/YOUR_GIT_USER_ID/t2Terminal
+	- Now  you will see green colored button on right side of the page labeled as " Clone or download " click on it.
+	- You will see popup with clone url or download zip option or you can use ssh url.
+	- If you are using clone URL (either SSH or HTTPS) copy it by clicking button beside it or manually selecting and copying it.
+	- After Copying you can open (PowerShell,Git Bash,CMD) and go to your desired location where you want to clone repo by using cd( change directory ) command.
+	- Now execute the following command e.g git clone https://github.com/YOUR_GIT_USER_ID/t2Terminal.git (this is the URL you copied).
+	- After successfully copying you can cd into that directory e.g cd t2Terminal
+
+
+- Here you will see the existing code on AMC-RTR-Shaders/t2Terminal repo and you can checkout to varoius branches and run code and try out code locally.
+
+
+-Before doing any commits you need to set origin and upstream for your repo
+	- Run the command git remote -v ( to check origin of the branch and current status)
+	- Run git remote add upstream https://github.com/AMC-RTR-Shaders/t2Terminal.git  (this URL you will get by clicking clone button of actual repo which will be same for all)
+	- Now check again status by git remote -v  (now you will see that upstream is set)
+
+
+- Creating your branch and pushing the code
+	- You can see exsting branches by command git branch  there is "*" before active branch so you can know which branch you are checked out
+	- Sometimes you can not find branch which actually exist but not visible so if you know the name of that branch then just type command git checkout branchname  (this command will look for the branchname you provided and make that branch active[checked out]).
+	- To create a new branch type command  git checkout -b "branchname" this will create new branch and also directly checkout into that.
+	- After creating the branch you can start writing code the code is not added to main code until you push that code and raise the pull request for the same
+
+- Steps to push the code
+	- "git add filename" , or if you want all files to be pushed type "git add ."
+	- Always run git staus after running git add command to see if only necessary files are added
+	- After modifying the exsting file you can also see the changes you have made in existing file by typing commnd "git diff filename" for single file or only git diff for all files.
+	- Once files are added make sure you add commit message (commit message should be short and self explanatory)
+	- To add commit message you should type command as git commit -m "your commit message".
+	- After adding commit message you are ready to push code so type command "git push"
+	- Once code is pushed you can now create the pull request so got to your repo url https://github.com/YOUR_GIT_USER_ID/t2Terminal and there you will see branches you can choose your branch form drop down and after selecting that branch you will see your code there and there is a button to create new pull request beside the drop down of branch selection. So click on that you will see there are mutiple drowp down of branch selection on main repo and branch selection on your repo so choose in which branch your code is going to be mereged so you can know if there is any conflict in code or it is safe to merge and also you can added extra description about your commit and branch there so that reviewers can know what this branch contains.
+	- After that you can click on create pull request button to create new pull request for that branch and after reviewing that branch can be merged to main code and all can access your code.
+
+
+Thank You.
+If any doubts you can contact me anytime.
