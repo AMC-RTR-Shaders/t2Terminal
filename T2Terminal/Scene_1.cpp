@@ -48,7 +48,6 @@ void Scene_1::Scene_1::Initialize()
 	CHECK_NEW(_airport);
 
 	//Initializ.
-	//_aeroplane->Initialize();
 	//_cubeTemplate->Initialize();
 	//_quad->Initialize();
 	//_terminalGlass->Initialize();
@@ -96,5 +95,4 @@ void Scene_1::Scene_1::UnInitialize()
 	SAFE_SCENE_DELETE(_quad)
 	SAFE_SCENE_DELETE(_terminalGlass)
 	SAFE_SCENE_DELETE(_airport)
-
 }

@@ -11,7 +11,7 @@ Rushabh::Airport::Airport()
 {
 	_angle = 0.0f;
 
-	_modelParser = new ModelParser("3DModels\\Scene_1\\TopView\\Hanger.obj");
+	_modelParser = new ModelParser("3DModels\\Scene_1\\TopView\\T2Terminal.obj");
 	CHECK_NULL(_modelParser);
 
 	return;

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 c:\opengl\t2terminal\t2terminal\debug\vc140.pdb
 c:\opengl\t2terminal\t2terminal\debug\vc140.idb
 c:\opengl\t2terminal\t2terminal\debug\airport.obj
@@ -22,3 +23,31 @@ c:\opengl\t2terminal\t2terminal\debug\t2terminal.tlog\cl.write.1.tlog
 c:\opengl\t2terminal\t2terminal\debug\t2terminal.tlog\link.command.1.tlog
 c:\opengl\t2terminal\t2terminal\debug\t2terminal.tlog\link.read.1.tlog
 c:\opengl\t2terminal\t2terminal\debug\t2terminal.tlog\link.write.1.tlog
+=======
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\vc140.pdb
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\vc140.idb
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\aeroplane.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\airport.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\chair.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\aeroplaneinstanceing.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\main.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\mainscene.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\cube.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\quad.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\scene_1.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\scene_2.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\scene_3.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\cubetemplate.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\terminalglass.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\windowing.obj
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\debug\t2terminal.ilk
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\debug\t2terminal.exe
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\debug\t2terminal.pdb
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\t2terminal.vcxprojresolveassemblyreference.cache
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\t2terminal.tlog\cl.command.1.tlog
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\t2terminal.tlog\cl.read.1.tlog
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\t2terminal.tlog\cl.write.1.tlog
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\t2terminal.tlog\link.command.1.tlog
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\t2terminal.tlog\link.read.1.tlog
+c:\opengl\opengl-ki-duniya\t2terminal-1\t2terminal\t2terminal\debug\t2terminal.tlog\link.write.1.tlog
+>>>>>>> upstream/master
