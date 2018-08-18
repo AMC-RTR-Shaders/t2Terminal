@@ -9,7 +9,6 @@
 
 Scene_1::Scene_1::Scene_1()
 {
-	_aeroplane = NULL;
 	_cube = NULL;
 	_aeroplaneInstancing = NULL;
 	_quad = NULL;
@@ -30,9 +29,6 @@ BOOL Scene_1::Scene_1::SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPAR
 void Scene_1::Scene_1::Initialize()
 {
 	//create objects.
-	_aeroplane = new Praveen::Aeroplane();
-	CHECK_NEW(_aeroplane);
-
 	_cube = new Utility::Cube();
 	CHECK_NEW(_cube);
 	
@@ -52,7 +48,6 @@ void Scene_1::Scene_1::Initialize()
 	CHECK_NEW(_airport);
 
 	//Initializ.
-	//_aeroplane->Initialize();
 	//_cubeTemplate->Initialize();
 	//_quad->Initialize();
 	//_terminalGlass->Initialize();
@@ -68,7 +63,6 @@ void Scene_1::Scene_1::Update()
 {
 	_terminalGlass->Update();
 	_aeroplaneInstancing->Update();
-	_aeroplane->Update();
 	_airport->Update();
 }
 
@@ -77,7 +71,6 @@ void Scene_1::Scene_1::ReSize(int width, int height, struct ResizeAttributes att
 	_terminalGlass->ReSize(width, height, attributes);
 	_aeroplaneInstancing->ReSize(width, height, attributes);
 	_airport->ReSize(width, height, attributes);
-	_aeroplane->ReSize(width, height, attributes);
 }
 
 void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
@@ -85,8 +78,6 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 	//_terminalGlass->Render(hdc, attributes);
 	_aeroplaneInstancing->Render(hdc, attributes);
 	_airport->Render(hdc, attributes);
-	//_aeroplane->Render(hdc, attributes);
-
 }
 
 void Scene_1::Scene_1::SceneTransition()
@@ -94,18 +85,14 @@ void Scene_1::Scene_1::SceneTransition()
 	_terminalGlass->SceneTransition();
 	_aeroplaneInstancing->SceneTransition();
 	_airport->SceneTransition();
-	_aeroplane->SceneTransition();
-
 }
 
 void Scene_1::Scene_1::UnInitialize()
 {
-	SAFE_SCENE_DELETE(_aeroplane)
 	SAFE_SCENE_DELETE(_cube)
 	SAFE_SCENE_DELETE(_aeroplaneInstancing)
 	SAFE_SCENE_DELETE(_cubeTemplate)
 	SAFE_SCENE_DELETE(_quad)
 	SAFE_SCENE_DELETE(_terminalGlass)
 	SAFE_SCENE_DELETE(_airport)
-
 }
