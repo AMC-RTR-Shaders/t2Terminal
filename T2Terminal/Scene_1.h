@@ -11,7 +11,6 @@
 #define _SCENE_1_H_
 
 #include "IScene.h"
-#include "Aeroplane.h"
 #include "Cube.h"
 #include "Quad.h"
 #include "AeroplaneInstanceing.h"
@@ -31,7 +30,6 @@ namespace Scene_1
 		~Scene_1();
 
 	private:
-		Praveen::Aeroplane *_aeroplane;
 		Rushabh::CubeTemplate *_cubeTemplate;
 		Rushabh::TerminalGlass *_terminalGlass;
 		Rushabh::Airport *_airport;
