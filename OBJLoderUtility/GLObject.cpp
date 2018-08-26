@@ -131,6 +131,7 @@ void GLObject::draw_using_draw_array(int count,std::vector<ThreeDModelLoader::MO
 			end_offset = modelIndicesMatrialMapTable->at(i)->end_index;
 
 
+
 			if (_instancing->instancingQuery == INSTANCING_QUERY::YES)
 			{
 				glDrawArraysInstanced(GL_TRIANGLES, start_offset * 3, end_offset * 3, _instancing->numberOfInstance);
@@ -161,7 +162,7 @@ void GLObject::draw_using_draw_array(int count,std::vector<ThreeDModelLoader::MO
 void GLObject::initialize_for_draw_elements_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat * vertices_data, int tex_cord_size, GLfloat * tex_cords_data, int normal_size, GLfloat * normals_data, int elements_size, unsigned short * elements_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing)
 {
 	_instancing = instancing;
-	
+
 	initializeMaterials(materialTable, shaderProgramObject);
 	initializeTextures(materialTable, shaderProgramObject);
 
@@ -239,10 +240,7 @@ void GLObject::initialize_for_draw_elements_from_cpu(GLuint shaderProgramObject,
 			glEnableVertexAttribArray(AMC_ATTRIBUTE_POSITION);
 			glVertexAttribDivisor(AMC_ATTRIBUTE_POSITION, instancing->position_attriDivisorCount);
 
-			glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-			
-			
+			glBindBuffer(GL_ARRAY_BUFFER, 0);			
 
 		}
 
@@ -271,6 +269,7 @@ void GLObject::initialize_for_draw_elements_from_cpu(GLuint shaderProgramObject,
 
 void GLObject::draw_using_draw_elements( int count,std::vector<ThreeDModelLoader::MODEL_INDICES_MAP_TABLE*>  *modelIndicesMatrialMapTable, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable)
 {
+
 	//https://www.reddit.com/r/opengl/comments/4jwj9n/single_mesh_multiple_materials/
 	int start_offset = 0;
 	int buffer_count = 0;
@@ -287,7 +286,7 @@ void GLObject::draw_using_draw_elements( int count,std::vector<ThreeDModelLoader
 			int materialIndex = modelIndicesMatrialMapTable->at(i)->material_index;
 			MATERIAL *material = materialTable->at(materialIndex);
 			char *name = material->name;
-
+			
 			applyMaterial(material);
 			applyTexture(material);
 
@@ -305,6 +304,7 @@ void GLObject::draw_using_draw_elements( int count,std::vector<ThreeDModelLoader
 				buffer_count = (count-1) - start_offset + 1;
 				
 			}
+
 
 			if (_instancing !=NULL &&  _instancing->instancingQuery == INSTANCING_QUERY::YES)
 			{
@@ -371,17 +371,13 @@ GLObject::~GLObject()
 
 void GLObject::LoadGLTexture(GLuint *texture, char *path)
 {
-	HBITMAP hBitmap;
-	BITMAP bmp;
-
-	WCHAR  tpath[1024];
-	swprintf(tpath,L"%S", path);
-
-	hBitmap = (HBITMAP)LoadImage(NULL, tpath, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE );
-
-	if (hBitmap)
+	
+	int width = 0, height = 0, channels = 0;
+	unsigned char *ht_map = NULL;
+	
+	ht_map = SOIL_load_image(path,&width, &height, &channels,SOIL_LOAD_RGB);
+	if (ht_map!=NULL)
 	{
-		GetObject(hBitmap, sizeof(bmp), &bmp);
 		glGenTextures(1, texture);
 		
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -390,10 +386,18 @@ void GLObject::LoadGLTexture(GLuint *texture, char *path)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		
-		glTexImage2D(GL_TEXTURE_2D, 0/*LOD*/, GL_RGB, bmp.bmWidth, bmp.bmHeight, 0/*border width*/, GL_BGR, GL_UNSIGNED_BYTE, bmp.bmBits);
+		glTexImage2D(GL_TEXTURE_2D, 0/*LOD*/, GL_RGB, (GLsizei)width, (GLsizei)height, 0/*border width*/, GL_RGB, GL_UNSIGNED_BYTE, (void*)ht_map);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		
-		DeleteObject(hBitmap);
+		SOIL_free_image_data(ht_map);
+	}
+	else
+	{
+		const char * error= SOIL_last_result();
+		TCHAR msg[1024];
+		wsprintf(msg, TEXT("[error]:loading texture :%S\n[error]: %S\nexitting now..."), path, error);
+		MessageBox(NULL, msg, TEXT("ERROR"), MB_OK | MB_ICONERROR);
+		exit(0);
 	}
 }
 
@@ -421,22 +425,22 @@ void GLObject::initializeMaterials(std::vector<ThreeDModelLoader::MATERIAL*>* ma
 		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_KaAvailable, material->map_Ka_Texture_smapler_uniform, shaderProgramObject, "u_texture0_sampler")
 
 		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_KdAvailable, material->map_Kd_Uniform, shaderProgramObject, "u_map_Kd")
-		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_KdAvailable, material->map_Kd_Texture_smapler_uniform, shaderProgramObject, "u_texture1_sampler")
+		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_KdAvailable, material->map_Kd_Texture_smapler_uniform, shaderProgramObject, "u_texture0_sampler")
 
 		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_KsAvailable, material->map_Ks_Uniform, shaderProgramObject, "u_map_Ks")
-		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_KsAvailable, material->map_Ks_Texture_smapler_uniform, shaderProgramObject, "u_texture2_sampler")
+		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_KsAvailable, material->map_Ks_Texture_smapler_uniform, shaderProgramObject, "u_texture0_sampler")
 
 		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_NsAvailable, material->map_Ns_Uniform, shaderProgramObject, "u_map_Ns")
-		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_NsAvailable, material->map_Ns_Texture_smapler_uniform, shaderProgramObject, "u_texture3_sampler")
+		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_NsAvailable, material->map_Ns_Texture_smapler_uniform, shaderProgramObject, "u_texture0_sampler")
 
 		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_bumpAvailable, material->map_bump_Uniform, shaderProgramObject, "u_map_bump")
-		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_bumpAvailable, material->map_bump_Texture_smapler_uniform, shaderProgramObject, "u_texture4_sampler")
+		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_bumpAvailable, material->map_bump_Texture_smapler_uniform, shaderProgramObject, "u_texture0_sampler")
 
 		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_dispAvailable, material->map_disp_Uniform, shaderProgramObject, "u_map_disp")
-		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_dispAvailable, material->map_disp_Texture_smapler_uniform, shaderProgramObject, "u_texture5_sampler")
+		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_dispAvailable, material->map_disp_Texture_smapler_uniform, shaderProgramObject, "u_texture0_sampler")
 
 		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_dAvailable, material->map_d_Uniform, shaderProgramObject, "u_map_d")
-		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_dAvailable, material->map_d_Texture_smapler_uniform, shaderProgramObject, "u_texture6_sampler")
+		GL_SAFE_GET_UNIFORM_LOCATION(material->ismap_dAvailable, material->map_d_Texture_smapler_uniform, shaderProgramObject, "u_texture0_sampler")
 	}
 	//
 
@@ -451,13 +455,13 @@ void GLObject::initializeTextures(std::vector<ThreeDModelLoader::MATERIAL*>* mat
 	for (int i = 0; i < (int)materialTable->size(); i++)
 	{
 
-		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_KaAvailable,NULL,LoadGLTexture(&materialTable->at(i)->map_Ka_Uniform, materialTable->at(i)->map_Ka.texturename), NULL)
-		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_KdAvailable, NULL, LoadGLTexture(&materialTable->at(i)->map_Kd_Uniform, materialTable->at(i)->map_Kd.texturename), NULL)
-		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_KsAvailable, NULL, LoadGLTexture(&materialTable->at(i)->map_Ks_Uniform, materialTable->at(i)->map_Ks.texturename), NULL)
-		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_NsAvailable, NULL, LoadGLTexture(&materialTable->at(i)->map_Ns_Uniform, materialTable->at(i)->map_Ns.texturename), NULL)
+		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_KaAvailable,NULL,    LoadGLTexture(&materialTable->at(i)->map_Ka_Uniform, materialTable->at(i)->map_Ka.texturename), NULL)
+		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_KdAvailable, NULL,   LoadGLTexture(&materialTable->at(i)->map_Kd_Uniform, materialTable->at(i)->map_Kd.texturename), NULL)
+		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_KsAvailable, NULL,   LoadGLTexture(&materialTable->at(i)->map_Ks_Uniform, materialTable->at(i)->map_Ks.texturename), NULL)
+		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_NsAvailable, NULL,   LoadGLTexture(&materialTable->at(i)->map_Ns_Uniform, materialTable->at(i)->map_Ns.texturename), NULL)
 		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_bumpAvailable, NULL, LoadGLTexture(&materialTable->at(i)->map_bump_Uniform, materialTable->at(i)->map_bump.texturename), NULL)
 		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_dispAvailable, NULL, LoadGLTexture(&materialTable->at(i)->map_disp_Uniform, materialTable->at(i)->map_disp.texturename), NULL)
-		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_dAvailable,NULL,LoadGLTexture(&materialTable->at(i)->map_d_Uniform, materialTable->at(i)->map_d.texturename), NULL)
+		GL_SAFE_LOAD_TEXTURE(materialTable, materialTable->at(i)->ismap_dAvailable,NULL,     LoadGLTexture(&materialTable->at(i)->map_d_Uniform, materialTable->at(i)->map_d.texturename), NULL)
 
 	}
 	/**/
@@ -475,21 +479,20 @@ void GLObject::applyMaterial(MATERIAL * material)
 	GL_SAFE_LOAD_MATERIAL(material, material->isdAvailable,		glUniform1f(material->d_Uniform,  material->d))
 	GL_SAFE_LOAD_MATERIAL(material, material->isTrAvailable,	glUniform1f(material->Tr_Uniform,  material->Tr))
 	GL_SAFE_LOAD_MATERIAL(material, material->isTfAvailable,	glUniform1f(material->Tf_Uniform,  material->Tf))
-	GL_SAFE_LOAD_MATERIAL(material, material->isillumAvailable,glUniform1f(material->illum_Uniform,  material->illum))
+	GL_SAFE_LOAD_MATERIAL(material, material->isillumAvailable, glUniform1f(material->illum_Uniform,  material->illum))
 
 }
 
 void GLObject::applyTexture(MATERIAL * material)
 {
-	
 
-	GL_SAFE_LOAD_TEXTURE(material, material->ismap_KaAvailable, glActiveTexture(GL_TEXTURE0),glBindTexture(GL_TEXTURE_2D, material->map_Ka_Uniform), glUniform1i(material->map_Ka_Texture_smapler_uniform, 0))
-	GL_SAFE_LOAD_TEXTURE(material, material->ismap_KdAvailable, glActiveTexture(GL_TEXTURE1),glBindTexture(GL_TEXTURE_2D, material->map_Kd_Uniform), glUniform1i(material->map_Kd_Texture_smapler_uniform, 0))
-	GL_SAFE_LOAD_TEXTURE(material, material->ismap_KsAvailable, glActiveTexture(GL_TEXTURE2),glBindTexture(GL_TEXTURE_2D, material->map_Ks_Uniform), glUniform1i(material->map_Ks_Texture_smapler_uniform, 0))
-	GL_SAFE_LOAD_TEXTURE(material, material->ismap_NsAvailable, glActiveTexture(GL_TEXTURE3),glBindTexture(GL_TEXTURE_2D, material->map_Ns_Uniform), glUniform1i(material->map_Ns_Texture_smapler_uniform, 0))
-	GL_SAFE_LOAD_TEXTURE(material, material->ismap_bumpAvailable, glActiveTexture(GL_TEXTURE4),glBindTexture(GL_TEXTURE_2D, material->map_bump_Uniform), glUniform1i(material->map_bump_Texture_smapler_uniform, 0))
-	GL_SAFE_LOAD_TEXTURE(material, material->ismap_dispAvailable, glActiveTexture(GL_TEXTURE5),glBindTexture(GL_TEXTURE_2D, material->map_disp_Uniform), glUniform1i(material->map_disp_Texture_smapler_uniform, 0))
-	GL_SAFE_LOAD_TEXTURE(material, material->ismap_dAvailable, glActiveTexture(GL_TEXTURE6),glBindTexture(GL_TEXTURE_2D, material->map_d_Uniform), glUniform1i(material->map_d_Texture_smapler_uniform, 0))
+	GL_SAFE_LOAD_TEXTURE(material, material->ismap_KaAvailable,   glActiveTexture(GL_TEXTURE0),glBindTexture(GL_TEXTURE_2D, material->map_Ka_Uniform),   glUniform1i(material->map_Ka_Texture_smapler_uniform, 0))
+	GL_SAFE_LOAD_TEXTURE(material, material->ismap_KdAvailable,   glActiveTexture(GL_TEXTURE0),glBindTexture(GL_TEXTURE_2D, material->map_Kd_Uniform),   glUniform1i(material->map_Kd_Texture_smapler_uniform, 0))
+	GL_SAFE_LOAD_TEXTURE(material, material->ismap_KsAvailable,   glActiveTexture(GL_TEXTURE0),glBindTexture(GL_TEXTURE_2D, material->map_Ks_Uniform),   glUniform1i(material->map_Ks_Texture_smapler_uniform, 0))
+	GL_SAFE_LOAD_TEXTURE(material, material->ismap_NsAvailable,	  glActiveTexture(GL_TEXTURE0),glBindTexture(GL_TEXTURE_2D, material->map_Ns_Uniform),   glUniform1i(material->map_Ns_Texture_smapler_uniform, 0))
+	GL_SAFE_LOAD_TEXTURE(material, material->ismap_bumpAvailable, glActiveTexture(GL_TEXTURE0),glBindTexture(GL_TEXTURE_2D, material->map_bump_Uniform), glUniform1i(material->map_bump_Texture_smapler_uniform, 0))
+	GL_SAFE_LOAD_TEXTURE(material, material->ismap_dispAvailable, glActiveTexture(GL_TEXTURE0),glBindTexture(GL_TEXTURE_2D, material->map_disp_Uniform), glUniform1i(material->map_disp_Texture_smapler_uniform, 0))
+	GL_SAFE_LOAD_TEXTURE(material, material->ismap_dAvailable,    glActiveTexture(GL_TEXTURE0),glBindTexture(GL_TEXTURE_2D, material->map_d_Uniform),    glUniform1i(material->map_d_Texture_smapler_uniform, 0))
 
 }
 

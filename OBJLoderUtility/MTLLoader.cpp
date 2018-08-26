@@ -14,12 +14,11 @@ ThreeDModelLoader::MTLLoader::MTLLoader(char * filename)
 
 	_szMtlLib = NULL;
 
-	_szMtlLib = filename;
-
 	_szNextLine = NULL;
 
 	_pvMaterial = NULL;
 
+	_szMtlLib = filename;
 
 	_pvMaterial = new std::vector<MATERIAL*>();
 	CHECK_NEW(_pvMaterial)
@@ -380,8 +379,10 @@ void ThreeDModelLoader::MTLLoader::onMaterialTextureMapAmbient( char * line)
 	char token_name[25], texture_name[256];
 	
 	sscanf(line, "%s %s", token_name, texture_name);
-	
-	_material->map_Ka.texturename =  texture_name;
+
+	char path[256];
+	sprintf(path, "%sr\\%s", _szMtlLib, texture_name);
+	strcpy(_material->map_Ka.texturename, path);
 
 	_material->ismap_KaAvailable = true;
 }
@@ -397,14 +398,16 @@ void ThreeDModelLoader::MTLLoader::onMaterialTextureMapDiffuse( char *line)
 	
 	sscanf(line, "%s %s", token_name,texture_name);
 	
-	_material->map_Kd.texturename = texture_name;
+	char path[256];
+	sprintf(path, "%sr\\%s", _szMtlLib, texture_name);
+	strcpy(_material->map_Kd.texturename ,path);
 
 	_material->ismap_KdAvailable = true;
 }
 
 bool ThreeDModelLoader::MTLLoader::isMaterialTextureMapSpecular(char * token)
 {
-	return token != NULL ? (strcmp(token, "map_Kd") == 0) : false;
+	return token != NULL ? (strcmp(token, "map_Ks") == 0) : false;
 }
 
 void ThreeDModelLoader::MTLLoader::onMaterialTextureMapSpecular(char * line)
@@ -412,8 +415,10 @@ void ThreeDModelLoader::MTLLoader::onMaterialTextureMapSpecular(char * line)
 	char token_name[25], texture_name[256];
 	
 	sscanf(line, "%s %s", token_name, texture_name);
-	
-	_material->map_Ks.texturename = texture_name;
+
+	char path[256];
+	sprintf(path, "%sr\\%s", _szMtlLib, texture_name);
+	strcpy(_material->map_Ks.texturename , path);
 
 	_material->ismap_KdAvailable = true;
 }
@@ -429,7 +434,9 @@ void ThreeDModelLoader::MTLLoader::onMaterialTextureMapSpecularHightLight(char *
 
 	sscanf(line, "%s %s", token_name, texture_name);
 
-	_material->map_Ns.texturename = texture_name;
+	char path[256];
+	sprintf(path, "%sr\\%s", _szMtlLib, texture_name);
+	strcpy(_material->map_Ns.texturename , path);
 
 	_material->ismap_NsAvailable = true;
 }
@@ -445,7 +452,9 @@ void ThreeDModelLoader::MTLLoader::onMaterialTextureMapBump(char * line)
 
 	sscanf(line, "%s %s", token_name, texture_name);
 
-	_material->map_bump.texturename = texture_name;
+	char path[256];
+	sprintf(path, "%sr\\%s", _szMtlLib, texture_name);
+	strcpy(_material->map_bump.texturename , path);
 
 	_material->ismap_bumpAvailable = true;
 }
@@ -461,7 +470,9 @@ void ThreeDModelLoader::MTLLoader::onMaterialTextureMapDisplacement(char * line)
 
 	sscanf(line, "%s %s", token_name, texture_name);
 
-	_material->map_disp.texturename = texture_name;
+	char path[256];
+	sprintf(path, "%sr\\%s", _szMtlLib, texture_name);
+	strcpy(_material->map_disp.texturename , path);
 
 	_material->ismap_dispAvailable = true;
 }
@@ -477,7 +488,9 @@ void ThreeDModelLoader::MTLLoader::onMaterialTextureMapAlpha(char * line)
 
 	sscanf(line, "%s %s", token_name, texture_name);
 
-	_material->map_d.texturename = texture_name;
+	char path[256];
+	sprintf(path, "%sr\\%s", _szMtlLib, texture_name);
+	strcpy(_material->map_d.texturename , path);
 
 	_material->ismap_dAvailable = true;
 }

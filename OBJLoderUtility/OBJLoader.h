@@ -116,6 +116,15 @@ namespace ThreeDModelLoader
 
 	}MODEL_INDICES_MAP_TABLE;
 
+	typedef struct _model_sub_object_map_table_
+	{
+		char subObjectName[256];
+		int start_index;
+		int end_index;
+
+	}MODEL_SUB_OBJECT_MAPT_TABLE;
+
+
 	class OBJLoader
 	{
 		const char *separater_space = " ";
@@ -128,6 +137,9 @@ namespace ThreeDModelLoader
 		bool isVertex(char* token);
 		void onVertex();
 		
+		bool isSubObject(char *token);
+		void onSubObject();
+
 		bool isTextureCoords(char* token);
 		void onTextureCoords(int token_count);
 		
@@ -188,8 +200,9 @@ namespace ThreeDModelLoader
 		
 		std::vector<TRIANGLE_FACE_INDICES>  *_pvFaces;
 
-		std::vector<MODEL_INDICES_MAP_TABLE*>  *_pvModelIndicesMapTable;
-	
+		std::vector<MODEL_INDICES_MAP_TABLE*>  *_pvModelIndicesMapTable; 
+		
+		std::vector<MODEL_SUB_OBJECT_MAPT_TABLE*>  *_pvModelSubObjectMaptTable;
 
 		int _nTexCordCount;
 
@@ -200,6 +213,7 @@ namespace ThreeDModelLoader
 
 		MODEL_INDICES_MAP_TABLE *_model;
 
+		MODEL_SUB_OBJECT_MAPT_TABLE *_subModel;
 
 	};
 

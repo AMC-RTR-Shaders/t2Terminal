@@ -20,7 +20,7 @@ ThreeDModelLoader::OBJLoader::OBJLoader(char * szfileFullPath)
 	_pvNormals = NULL;
 	_pvFaces= NULL;
 	_model = NULL;
-
+	_subModel = NULL;
 
 	CHECK_MALLOC(szfileFullPath)
 
@@ -30,6 +30,9 @@ ThreeDModelLoader::OBJLoader::OBJLoader(char * szfileFullPath)
 	_pvModelIndicesMapTable = new std::vector<MODEL_INDICES_MAP_TABLE*>();
 	CHECK_NEW(_pvModelIndicesMapTable)
 
+	_pvModelSubObjectMaptTable = new std::vector<MODEL_SUB_OBJECT_MAPT_TABLE*>();
+	CHECK_NEW(_pvModelSubObjectMaptTable)
+		
 
 	_pvVertices = new std::vector<VERTEX>();
 	CHECK_NEW(_pvVertices)
@@ -84,6 +87,9 @@ void ThreeDModelLoader::OBJLoader::parse()
 		if (isTextureCoords(token))
 			onTextureCoords(number_of_tokens_in_line);
 
+		if (isSubObject(token))
+			onSubObject();
+
 		if (isNormal(token))
 			onNormal();
 
@@ -104,7 +110,8 @@ void ThreeDModelLoader::OBJLoader::parse()
 	SAFE_CLOSE(fpMeshFile);
 	onEndUseMtl();
 
-	
+	if(_subModel)
+		_subModel->end_index =(int) _pvVertices->size();
 	
 	MapMaterialsTObject();
 
@@ -150,6 +157,25 @@ void ThreeDModelLoader::OBJLoader::onVertex()
 	v.X3 = (GLfloat)atof(strtok(NULL, separater_space));
 
 	_pvVertices->push_back(v);
+	_subModel->end_index = (int)_pvVertices->size();
+}
+
+bool ThreeDModelLoader::OBJLoader::isSubObject(char * token)
+{
+	return token != NULL ? (strcmp(token, "o") == 0) : false;
+}
+
+void ThreeDModelLoader::OBJLoader::onSubObject()
+{
+	char *filename = NULL;
+	filename = strtok(NULL, separater_space);
+
+	_subModel = (MODEL_SUB_OBJECT_MAPT_TABLE*)malloc(sizeof(MODEL_SUB_OBJECT_MAPT_TABLE));
+	strcpy(_subModel->subObjectName, filename);
+	_subModel->start_index = (int)_pvVertices->size();
+
+	_pvModelSubObjectMaptTable->push_back(_subModel);
+
 }
 
 
@@ -209,21 +235,35 @@ bool ThreeDModelLoader::OBJLoader::isFaces(char* token)
 
 void ThreeDModelLoader::OBJLoader::onFaces()
 {
+	int t1_skip = 0;
+	int t2_skip = 0;
+	int t3_skip = 0;
 
 	char *token_1 = NULL;
 	char *token_2 = NULL;
 	char *token_3 = NULL;
 	TRIANGLE_FACE_INDICES face;
-
+	
 	token_1 = strtok(NULL, separater_space);
 	token_2= strtok(NULL, separater_space);
 	token_3 = strtok(NULL, separater_space);
+	char *a = strstr(token_1, "//");
+	if (a != NULL)
+		t1_skip = 1;
+
+	a = strstr(token_2, "//");
+	if (a != NULL)
+		t2_skip = 1;
+
+	a = strstr(token_3, "//");
+	if (a != NULL)
+		t3_skip = 1;
 
 
 	/*face point 1: v,t,n*/
 	face.V1 = (int)(atoi(strtok(token_1, separater_slash)))-1;
 	
-	if(_pvTexturesCoords->size()>0)
+	if(_pvTexturesCoords->size()>0 && !t1_skip)
 		face.T1 = (int)(atoi(strtok(NULL, separater_slash)))-1;
 	
 	if (_pvNormals->size()>0)
@@ -234,7 +274,7 @@ void ThreeDModelLoader::OBJLoader::onFaces()
 	/*face point 2: v,t,n*/
 	face.V2 = (int)(atoi(strtok(token_2, separater_slash)))-1;
 	
-	if (_pvTexturesCoords->size()>0)
+	if (_pvTexturesCoords->size()>0 && !t2_skip)
 		face.T2 = (int)(atoi(strtok(NULL, separater_slash))-1);
 	
 	if (_pvNormals->size()>0)
@@ -246,7 +286,7 @@ void ThreeDModelLoader::OBJLoader::onFaces()
 	/*face point 3: v,t,n*/
 	face.V3 = (int)(atoi(strtok(token_3, separater_slash)))-1;
 	
-	if (_pvTexturesCoords->size()>0)
+	if (_pvTexturesCoords->size()>0 && !t3_skip)
 		face.T3 = (int)(atoi(strtok(NULL, separater_slash))-1);
 	
 	if (_pvNormals->size()>0)
@@ -381,7 +421,7 @@ int ThreeDModelLoader::OBJLoader::equals(char * src, char * dest)
 {
 	int flag = 0;
 	int i = 0;
-	int len = strlen(src)-1;
+	int len = (int)strlen(src)-1;
 
 
 	while (true)
@@ -444,6 +484,7 @@ void ThreeDModelLoader::OBJLoader::cleanUpMemory()
 ThreeDModelLoader::OBJLoader::~OBJLoader()
 {
 
+	SAFE_CLEAR_VECTOR_AND_FREE(_pvModelSubObjectMaptTable)
 	SAFE_CLEAR_VECTOR_AND_FREE(_pvVertices)
 	SAFE_CLEAR_VECTOR_AND_FREE(_pvModelIndicesMapTable)
 	SAFE_CLEAR_VECTOR_AND_FREE(_pvTexturesCoords)
