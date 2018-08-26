@@ -71,8 +71,6 @@ namespace Windowing
 		static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 
 		LRESULT CALLBACK OGLSurfaceProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
-		
-		void InitializeAttributes();
 
 		HINSTANCE _hInstance;
 		HWND _hwnd;
@@ -81,6 +79,9 @@ namespace Windowing
 		int _width;
 		int _height;
 
+
+		IScene::ResizeAttributes _resizeAttributes;
+		IScene::Attributes _attributes;
 
 		bool _IsFullScreen;
 		LONG _PreviousStyle;
@@ -96,9 +97,6 @@ namespace Windowing
 		bool _IsGameDone;
 
 		IScene * _scene;
-
-		IScene::ResizeAttributes _resizeAttributes;
-		IScene::Attributes _attributes;
 	};
 }
 

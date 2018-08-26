@@ -154,15 +154,6 @@ BOOL Windowing::OGLSurface::Show(int width, int height , int style)
 	 return true;
 }
 
-void Windowing::OGLSurface::InitializeAttributes()
-{
-	_attributes.translateCoords[0] = 0.0f;
-	_attributes.translateCoords[1] = 0.0f;
-	_attributes.translateCoords[2] = -15.0f;
-
-	_resizeAttributes.farValue = 5000.0f;
-	_resizeAttributes.nearValue = 0.1f;
-}
 
 BOOL Windowing::OGLSurface::IntializeGL()
 {
@@ -206,7 +197,6 @@ BOOL Windowing::OGLSurface::IntializeGL()
 
 	
 	_scene->Initialize();
-	InitializeAttributes();
 
 	//WARM UP CALL
 	_scene->ReSize(_width,_height,_resizeAttributes);

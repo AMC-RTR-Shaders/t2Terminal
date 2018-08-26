@@ -324,6 +324,10 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 
+
+
+# End of https://www.gitignore.io/api/visualstudio
+=======
 # RTR git changes
 T2Terminal/Debug/
 T2Terminal/x64/
@@ -331,4 +335,5 @@ OBJLoderUtility/Debug/
 T2Terminal/GL_LOG.txt
 
 # End of https://www.gitignore.io/api/visualstudio
+
 

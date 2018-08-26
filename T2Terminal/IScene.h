@@ -81,7 +81,6 @@ namespace T2Terminal
 			float centerCoords[3];
 			float upCoords[3];
 			float eyeCoords[3];
-
 		};
 
 		struct ResizeAttributes

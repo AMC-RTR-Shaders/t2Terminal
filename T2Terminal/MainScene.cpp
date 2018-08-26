@@ -88,6 +88,8 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 
 void T2Terminal::MainScene::Initialize()
 {
+	InitializeTransformationAttributes();
+	InitializeResizeAttributes();
 
 	_scene_1 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_1);
 	if(_scene_1)
@@ -107,14 +109,17 @@ void T2Terminal::MainScene::Initialize()
 
 void T2Terminal::MainScene::Update()
 {
-	if(_scene)
+	if (_scene)
+	{
 		_scene->Update();
+		UpdateTransformationAttributes();
+	}
 }
 
 void T2Terminal::MainScene::ReSize(int width, int height, struct ResizeAttributes attributes)
 {
 	if(_scene)
-		_scene->ReSize(width, height, attributes);
+		_scene->ReSize(width, height, _resizeAttributes);
 }
 
 void T2Terminal::MainScene::Render(HDC hdc, struct Attributes attributes)
@@ -122,7 +127,7 @@ void T2Terminal::MainScene::Render(HDC hdc, struct Attributes attributes)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if(_scene)
-		_scene->Render(hdc, attributes);
+		_scene->Render(hdc, _attributes);
 
 	SwapBuffers(hdc);
 }
@@ -138,4 +143,35 @@ void T2Terminal::MainScene::UnInitialize()
 	SAFE_SCENE_DELETE(_scene_1)
 	SAFE_SCENE_DELETE(_scene_2)
 	SAFE_SCENE_DELETE(_scene_3)
+}
+
+void T2Terminal::MainScene::UpdateTransformationAttributes()
+{
+	_attributes.eyeCoords[0] = eye[eyeIndex][0];
+	_attributes.eyeCoords[1] = eye[eyeIndex][2];
+	_attributes.eyeCoords[2] = -eye[eyeIndex][1];
+
+	if(eyeIndex< 249)
+		eyeIndex++;
+}
+
+void T2Terminal::MainScene::InitializeTransformationAttributes()
+{
+	_attributes.translateCoords[0] = 0.0f;
+	_attributes.translateCoords[1] = 0.0f;
+	_attributes.translateCoords[2] = -15.0f;
+
+	_attributes.centerCoords[0] = 0.0f;
+	_attributes.centerCoords[1] = 0.0f;
+	_attributes.centerCoords[2] = 0.0f;
+
+	_attributes.upCoords[0] = 0.0f;
+	_attributes.upCoords[1] = 0.0f;
+	_attributes.upCoords[2] = 1.0f;
+}
+
+void T2Terminal::MainScene::InitializeResizeAttributes()
+{
+	_resizeAttributes.farValue = 5000.0f;
+	_resizeAttributes.nearValue = 0.1f;
 }
