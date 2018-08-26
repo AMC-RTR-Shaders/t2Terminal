@@ -35,7 +35,7 @@ namespace ThreeDModelLoader
 {
 	typedef struct _texture_
 	{
-		char * texturename;
+		char texturename[256];
 
 	}TEXTURE;
 
@@ -212,7 +212,6 @@ namespace ThreeDModelLoader
 		std::vector<MATERIAL*> *_pvMaterial;
 		MATERIAL *_material;
 		char *_szNextLine;
-
 	};
 }
 #endif

@@ -15,6 +15,7 @@
 #include<vector>
 #include<tchar.h>
 #include"OBJLoader.h"
+#include "../SOIL/SOIL.h"
 //#include<gl/GL.h>
 
 #pragma comment(lib,"glew32.lib")
