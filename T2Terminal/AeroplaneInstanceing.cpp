@@ -2,7 +2,7 @@
 
 Harsh::AeroplaneInstanceing::AeroplaneInstanceing()
 {
-	_modelParser = new ModelParser("3DModels\\Scene_1\\Aeroplane\\aeroplane.obj");
+	_modelParser = new ModelParser("3DModels\\Scene_1\\Aeroplane\\airpl.obj");
 	CHECK_NULL(_modelParser);
 
 	return;
@@ -251,12 +251,60 @@ void Harsh::AeroplaneInstanceing::Initialize()
 	//LOAD THE MODEL HERE
 	const GLfloat aeroplanePosition[] =
 	{
-		0.0f, 0.0f, 0.0f,
+		-442.38006591796875f,597.3568725585938f, -1.1920928955078125e-07f,
+		-235.2344512939453f, 278.9481506347656f, -1.7881393432617188e-06f,
+		-743.2999877929688f,  819.7822265625f,-1.1920928955078125e-07f,
+		-444.4163513183594f, -9.498588562011719f, -1.7881393432617188e-06f,
+		-530.5835571289062f, -122.79051208496094f, -3.6954879760742188e-06f,
+		-596.292236328125f,  -271.97576904296875f,-3.6954879760742188e-06f,
+		-820.8156127929688f,  949.6500854492188f,7.510185241699219e-06f,
+		-685.8102416992188f,  1118.2052001953125f, 11.995464324951172f,
+		-532.0331420898438f, 1117.9698486328125f, 6.318092346191406e-06f,
+		-281.33740234375f,  848.8373413085938f, 2.5033950805664062e-06f,
+		-159.4169921875f,  737.2481079101562f,2.5033950805664062e-06f,
+		80.270751953125f,  706.0451049804688f, 3.4570693969726562e-06f,
+		240.75062561035156f,  813.7158203125f, 3.4570693969726562e-06f,
+		367.567626953125f,  1035.059326171875f, 3.4570693969726562e-06f,
+		613.4510498046875f,  1120.7261962890625f, 1.5497207641601562e-06f,
+		801.5818481445312f,  1046.99072265625f, 1.5497207641601562e-06f,
+		759.7669677734375f,  861.5180053710938f, 1.5497207641601562e-06f,
+		521.7274780273438f,  709.3599243164062f, -6.079673767089844e-06f,
+		420.3172302246094f,  596.7721557617188f, -6.139278411865234e-06f,
+		274.1110534667969f,  400.63153076171875f, -6.616115570068359e-06f,
+		317.5008850097656f, 188.65992736816406f, -8.52346420288086e-06f,
+		401.7718505859375f, 53.963531494140625f, -8.52346420288086e-06f,
+		401.7718505859375f, 53.963531494140625f, -8.52346420288086e-06f,
+		488.0202331542969f, -72.20281982421875f, -8.52346420288086e-06f,
+		601.9674072265625f, -172.35833740234375f, -1.043081283569336e-05f,
 	};
 
 	const GLfloat aeroplaneRotation[] =
 	{
-		90.0f,54.0f, 0.0f,
+		1.5708f, 148.0f, -0.0000f,
+		1.5708f, 120.0000f, 2.0909f,
+		1.5708f, 148.0000f, 2.5746f,
+		1.5708f, 58.9000f, 1.0283f,
+		1.5708f, 58.9000f, 1.0283f,
+		1.5708f, 89.6f, 1.5631f,
+		1.5708f, 110.0f, 1.9204f,
+		1.5708f, 35.1f, 0.6127f,
+		1.5708f, 7.41f, 0.1294f,
+		1.5708f, -24.7f, -0.4319f,
+		1.5708f, -24.7f, -0.4319f,
+		1.5708f, 37.0f, 0.6466f,
+		1.5708f, 49.9f, 0.8702f,
+		1.5708f, 46.5f, 0.8109f,
+		1.5708f, 337.0f, 5.8777f,
+		1.5708f, 305.0f, 5.3272f,
+		1.5708f,256.0f, 4.4715f,
+		1.5708f, 256.0f, 4.4715f,
+		1.5708f, 247.0f, 4.3145f,
+		1.5708f, 260.0f, 4.5297f,
+		1.5708f, 317.0f, 5.5355f,
+		1.5708f, 317.0f, 5.5355f,
+		1.5708f, 317.0f, 5.5355f,
+		1.5708f, 317.0f, 5.5355f,
+		1.5010f, 281.0f, 4.9043f,
 	};
 
 	CHECK_NULL(_modelParser);
@@ -273,7 +321,7 @@ void Harsh::AeroplaneInstanceing::Initialize()
 	instancing->countOfRotation = sizeof(aeroplanePosition);
 	instancing->rotation_attriDivisorCount = 1;
 
-	instancing->numberOfInstance = 1;
+	instancing->numberOfInstance = 26;
 	
 
 	_modelParser->parse(_shaderProgramObject, ThreeDModelLoader::PROCESS_TYPE::CPU, ThreeDModelLoader::DRAW_TYPE::DRAW_USING_ARRAYS, instancing);
@@ -345,10 +393,10 @@ void Harsh::AeroplaneInstanceing::Render(HDC hdc, struct Attributes attributes)
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
 	//
+
+	modelMatrix = translate(attributes.translateCoords[0] -0.0f, attributes.translateCoords[0] -0.0f, attributes.translateCoords[0] -2500.0f);
+	modelMatrix = modelMatrix * rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	
-	modelMatrix = translate(attributes.translateCoords[0] -517.0f, attributes.translateCoords[0] -459.0f, attributes.translateCoords[0] - 63.0f);
-
-
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);

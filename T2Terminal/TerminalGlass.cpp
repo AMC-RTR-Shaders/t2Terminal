@@ -4,26 +4,26 @@
 Rushabh::TerminalGlass::TerminalGlass()
 {
 	angle = 0.0f;
-	quadWidth[0] = 300.0f;
-	quadHeight[0] = 30.0f;
+	quadWidth[0] = 627.609f;
+	quadHeight[0] = 36.1994f;
 
-	quadWidth[1] = 150.0f;
-	quadHeight[1] = 30.0f;
+	quadWidth[1] = 322.625f;
+	quadHeight[1] = 36.1994f;
 
 	quadWidth[2] = quadWidth[1];
 	quadHeight[2] = quadHeight[1];
 
-	translateCoords[0][0] = 0.0f;
-	translateCoords[0][1] = 0.0f;
-	translateCoords[0][2] = 0.0f;
+	translateCoords[0][0] = 7.45414f;
+	translateCoords[0][1] = -104.097f;
+	translateCoords[0][2] = 21.3039f;
 
-	translateCoords[1][0] = 0.0f;
-	translateCoords[1][1] = 70.0f;
-	translateCoords[1][2] = 0.0f;
+	translateCoords[1][0] = 230.709f;
+	translateCoords[1][1] = 59.5085f;
+	translateCoords[1][2] = 21.3709f;
 
-	translateCoords[2][0] = 0.0f;
-	translateCoords[2][1] = 140.0f;
-	translateCoords[2][2] = 0.0f;
+	translateCoords[2][0] = -221.029f;
+	translateCoords[2][1] = 59.5085f;
+	translateCoords[2][2] = 21.193f;
 
 
 }
@@ -134,7 +134,7 @@ void Rushabh::TerminalGlass::Initialize()
 		"out vec4 FragColor;" \
 		"void main(void)" \
 		"{" \
-		"FragColor = vec4(phong_ads_color, 1.0);" \
+		"FragColor = vec4(1.0,0.0,0.0,1.0);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -389,7 +389,7 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 
 		modelMatrix = translate(attributes.translateCoords[0] + translateCoords[i][0], 
 								attributes.translateCoords[1] + translateCoords[i][1], 
-								attributes.translateCoords[2] + translateCoords[i][2]);
+								attributes.translateCoords[2] -2500.0f + translateCoords[i][2]);
 
 		glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 		glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
@@ -413,8 +413,8 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 			modelMatrix = translate(attributes.translateCoords[0] + translateCoords[i][0],
 									attributes.translateCoords[1] + translateCoords[i][1]+y,
 									attributes.translateCoords[2] + translateCoords[i][2]);			
-			//rotateMatrix = rotate(-30.0f, 1.0f, 0.0f, 0.0f);
-			//modelMatrix = modelMatrix * rotateMatrix;
+			rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+			modelMatrix = modelMatrix * rotateMatrix;
 
 			glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 			glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);

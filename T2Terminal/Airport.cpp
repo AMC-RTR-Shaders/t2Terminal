@@ -12,7 +12,7 @@ Rushabh::Airport::Airport()
 {
 	_angle = 0.0f;
 
-	_modelParser = new ModelParser("3DModels\\Scene_1\\TopView\\T2TerminaltRotateX.obj");
+	_modelParser = new ModelParser("3DModels\\Scene_1\\TopView\\ter3.obj");
 	CHECK_NULL(_modelParser);
 
 	return;
@@ -313,10 +313,11 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	glUniform1f(material_shininess_uniform, material_shininess);
 	//
 	
-	lookAtMatrix = lookat(eyeLookAt, centerLookAt, upLookAt);
-	translateMatrix = translate(attributes.translateCoords[0] + 0.0f, attributes.translateCoords[1] + 0.0f, attributes.translateCoords[2] + 0.0f);
+	//lookAtMatrix = lookat(eyeLookAt, centerLookAt, upLookAt);
+	translateMatrix = translate(attributes.translateCoords[0] + 0.0f, attributes.translateCoords[1] + 0.0f, attributes.translateCoords[2] + -2500.0f);
 	modelMatrix = translateMatrix;
-	modelMatrix = modelMatrix * lookAtMatrix;
+	rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	modelMatrix = modelMatrix * rotateMatrix*lookAtMatrix ;
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
