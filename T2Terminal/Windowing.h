@@ -11,8 +11,6 @@
 #ifndef  _WINDOWING_H_
 #define _WINDOWING_H_
 
-
-
 #include <Windows.h>
 #include<stdio.h>
 #include <gl\glew.h>
