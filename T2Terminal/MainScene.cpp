@@ -104,29 +104,12 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 			axis = 2;
 			break;
 		case Event::KeyBoard::KEYS::Q:
-			_attributes.rotateCoords[axis] += CAM_SPEED / 10;
+			if (axis == 0 || axis == 1 || axis == 2)
+				_attributes.rotateCoords[axis] += CAM_SPEED / 10;
 			break;
 		case Event::KeyBoard::KEYS::W:
-			_attributes.rotateCoords[axis] -= CAM_SPEED / 10;
-			break;
-
-			//case 0x50://P:
-			//	gEyeZ = gCenterZ + gEyeCenterDist*cos(gThetaZ);
-			//	gEyeX = gCenterX + gEyeCenterDist*sin(gThetaZ);
-			//	gThetaZ += CAM_SPEED;
-			//	break;
-			//case 0x4F://O:
-			//	gEyeZ = gCenterZ + gEyeCenterDist*cos(gThetaZ);
-			//	gEyeX = gCenterX + gEyeCenterDist*sin(gThetaZ);
-			//	gThetaZ -= CAM_SPEED;
-			//	break;
-		case Event::KeyBoard::KEYS::K: //K
-			_attributes.eyeCoords[1] -= CAM_SPEED;
-			_attributes.centerCoords[1] -= CAM_SPEED;
-			break;
-		case Event::KeyBoard::KEYS::I: //I
-			_attributes.eyeCoords[1] += CAM_SPEED;
-			_attributes.centerCoords[1] += CAM_SPEED;
+			if (axis == 0 || axis == 1 || axis == 2)
+				_attributes.rotateCoords[axis] -= CAM_SPEED / 10;
 			break;
 		}
 
@@ -212,18 +195,6 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.rotateCoords[0] = 0.0f;
 	_attributes.rotateCoords[1] = 0.0f;
 	_attributes.rotateCoords[2] = 0.0f;
-
-	_attributes.eyeCoords[0] = 0.0f;
-	_attributes.eyeCoords[1] = 0.0f;
-	_attributes.eyeCoords[2] = 5.0f;
-
-	_attributes.centerCoords[0] = 0.0f;
-	_attributes.centerCoords[1] = 0.0f;
-	_attributes.centerCoords[2] = 0.0f;
-
-	_attributes.upCoords[0] = 0.0f;
-	_attributes.upCoords[1] = 0.0f;
-	_attributes.upCoords[2] = 1.0f;
 }
 
 void T2Terminal::MainScene::InitializeResizeAttributes()

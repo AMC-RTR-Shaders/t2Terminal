@@ -35,7 +35,7 @@ namespace T2Terminal
 		IScene *_scene_3;
 
 		bool _switch;
-		int axis;
+		int axis= 0;
 
 		vmath::mat4 _perspectiveProjectionMatrix;
 

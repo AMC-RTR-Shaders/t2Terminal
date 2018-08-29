@@ -92,7 +92,6 @@ Windowing::OGLSurface::OGLSurface(HINSTANCE hInstance,TCHAR *title)
 	_szAppName = title;
 	_hInstance = hInstance;
 
-	_attributes.freeCamera = false;
 	_scene = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::MAIN);
 
 	if (_scene == NULL)
