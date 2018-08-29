@@ -279,21 +279,11 @@ void Rushabh::Airport::ReSize(int width, int height, struct ResizeAttributes att
 
 void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 {
-
-	vmath::vec3 eyeLookAt = { attributes.eyeCoords[0], attributes.eyeCoords[1], attributes.eyeCoords[2] };
-	vmath::vec3 centerLookAt = {attributes.centerCoords[0], attributes.centerCoords[1], attributes.centerCoords[2]};
-	vmath::vec3 upLookAt = {attributes.upCoords[0], attributes.upCoords[1], attributes.upCoords[2]};
-
-	//vmath::vec3 eyeLookAt = { 0.0f, 0.0f, 10.0f };
-	//vmath::vec3 centerLookAt = { 0.0f, 0.0f, 0.0f };
-	//vmath::vec3 upLookAt = { 0.0f, 1.0f, 0.0f };
-
 	mat4 modelMatrix = mat4::identity();
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotateMatrix = mat4::identity();
 	mat4 translateMatrix = mat4::identity();
-	mat4 lookAtMatrix = mat4::identity(); 
-	
+
 	static GLfloat lightAmbient[] = { 0.0f,0.0f,0.0f,1.0f };
 	static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat lightSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
@@ -311,13 +301,11 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
-	//
 	
-	//lookAtMatrix = lookat(eyeLookAt, centerLookAt, upLookAt);
-	translateMatrix = translate(attributes.translateCoords[0] + 0.0f, attributes.translateCoords[1] + 0.0f, attributes.translateCoords[2] + -2500.0f);
-	modelMatrix = translateMatrix;
-	rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
-	modelMatrix = modelMatrix * rotateMatrix*lookAtMatrix ;
+	translateMatrix = translate(attributes.translateCoords[0] + 0.0f, attributes.translateCoords[1] + 0.0f, attributes.translateCoords[2] + 0.0f);
+	
+	rotateMatrix = rotate(90.0f + attributes.rotateCoords[0], 0.0f + attributes.rotateCoords[1], 0.0f + attributes.rotateCoords[2]);
+	modelMatrix = translateMatrix * rotateMatrix;
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);

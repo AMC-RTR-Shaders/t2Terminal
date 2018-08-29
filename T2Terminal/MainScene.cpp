@@ -76,6 +76,41 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 
 		case Event::KeyBoard::KEYS::T:
 			break;
+		case VK_UP:
+			_attributes.translateCoords[2] += CAM_SPEED;
+			break;
+		case VK_DOWN:
+			_attributes.translateCoords[2] -= CAM_SPEED;
+			break;
+		case VK_LEFT:
+			_attributes.translateCoords[0] -= CAM_SPEED;
+			break;
+		case VK_RIGHT:
+			_attributes.translateCoords[0] += CAM_SPEED;
+			break;
+		case Event::KeyBoard::KEYS::P:
+			_attributes.translateCoords[1] -= CAM_SPEED;
+			break;
+		case Event::KeyBoard::KEYS::L:
+			_attributes.translateCoords[1] += CAM_SPEED;
+			break;
+		case Event::KeyBoard::KEYS::X:
+			axis = 0;
+			break;
+		case Event::KeyBoard::KEYS::Y:
+			axis = 1;
+			break;
+		case Event::KeyBoard::KEYS::Z:
+			axis = 2;
+			break;
+		case Event::KeyBoard::KEYS::Q:
+			if (axis == 0 || axis == 1 || axis == 2)
+				_attributes.rotateCoords[axis] += CAM_SPEED / 10;
+			break;
+		case Event::KeyBoard::KEYS::W:
+			if (axis == 0 || axis == 1 || axis == 2)
+				_attributes.rotateCoords[axis] -= CAM_SPEED / 10;
+			break;
 		}
 
 	default: 
@@ -126,9 +161,10 @@ void T2Terminal::MainScene::Render(HDC hdc, struct Attributes attributes)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if(_scene)
+	if (_scene)
+	{
 		_scene->Render(hdc, _attributes);
-
+	}
 	SwapBuffers(hdc);
 }
 
@@ -147,27 +183,18 @@ void T2Terminal::MainScene::UnInitialize()
 
 void T2Terminal::MainScene::UpdateTransformationAttributes()
 {
-	_attributes.eyeCoords[0] = eye[eyeIndex][0];
-	_attributes.eyeCoords[1] = eye[eyeIndex][2];
-	_attributes.eyeCoords[2] = -eye[eyeIndex][1];
 
-	if(eyeIndex< 249)
-		eyeIndex++;
 }
 
 void T2Terminal::MainScene::InitializeTransformationAttributes()
 {
 	_attributes.translateCoords[0] = 0.0f;
 	_attributes.translateCoords[1] = 0.0f;
-	_attributes.translateCoords[2] = -15.0f;
+	_attributes.translateCoords[2] = -2500.0f;
 
-	_attributes.centerCoords[0] = 0.0f;
-	_attributes.centerCoords[1] = 0.0f;
-	_attributes.centerCoords[2] = 0.0f;
-
-	_attributes.upCoords[0] = 0.0f;
-	_attributes.upCoords[1] = 0.0f;
-	_attributes.upCoords[2] = 1.0f;
+	_attributes.rotateCoords[0] = 0.0f;
+	_attributes.rotateCoords[1] = 0.0f;
+	_attributes.rotateCoords[2] = 0.0f;
 }
 
 void T2Terminal::MainScene::InitializeResizeAttributes()
