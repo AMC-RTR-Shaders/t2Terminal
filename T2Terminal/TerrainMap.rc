@@ -1,0 +1,6 @@
+#pragma once
+#include "TerrainMap.h"
+
+ID_BITMAP_TERRAIN_MAP BITMAP "TerrainMap.bmp"
+
+

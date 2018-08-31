@@ -50,5 +50,4 @@ namespace Event
 	};
 
 }
-
 #endif

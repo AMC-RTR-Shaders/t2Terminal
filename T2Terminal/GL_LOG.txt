@@ -318,3 +318,14 @@ AeroplaneInstanceing shading language supported verison is : 4.30 - Build 20.19.
 Airport shading language supported verison is : 4.30 - Build 20.19.15.4835
 AeroplaneInstanceing shading language supported verison is : 4.30 - Build 20.19.15.4835
 Airport shading language supported verison is : 4.30 - Build 20.19.15.4835
+AeroplaneInstanceing shading language supported verison is : 4.30 - Build 20.19.15.4835
+Airport shading language supported verison is : 4.30 - Build 20.19.15.4835
+AeroplaneInstanceing shading language supported verison is : 4.30 - Build 20.19.15.4835
+Airport shading language supported verison is : 4.30 - Build 20.19.15.4835
+TerrainMap Tesselation Control Shader Compilation Log : 
+AeroplaneInstanceing shading language supported verison is : 4.30 - Build 20.19.15.4835
+Airport shading language supported verison is : 4.30 - Build 20.19.15.4835
+AeroplaneInstanceing shading language supported verison is : 4.30 - Build 20.19.15.4835
+Airport shading language supported verison is : 4.30 - Build 20.19.15.4835
+AeroplaneInstanceing shading language supported verison is : 4.30 - Build 20.19.15.4835
+Airport shading language supported verison is : 4.30 - Build 20.19.15.4835
