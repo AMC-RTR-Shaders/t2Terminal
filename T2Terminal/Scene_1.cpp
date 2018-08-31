@@ -14,6 +14,7 @@ Scene_1::Scene_1::Scene_1()
 	_quad = NULL;
 	_terminalGlass = NULL;
 	_airport = NULL;
+	_terrainMap = NULL;
 }
 
 Scene_1::Scene_1::~Scene_1()
@@ -47,12 +48,16 @@ void Scene_1::Scene_1::Initialize()
 	_airport = new Rushabh::Airport();
 	CHECK_NEW(_airport);
 
+	_terrainMap = new Rushabh::TerrainMap();
+	CHECK_NEW(_terrainMap);
+
 	//Initializ.
 	//_cubeTemplate->Initialize();
 	//_quad->Initialize();
 	_terminalGlass->Initialize();
 	_aeroplaneInstancing->Initialize();
 	_airport->Initialize();
+	_terrainMap->Initialize();
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -61,6 +66,7 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 
 void Scene_1::Scene_1::Update()
 {
+	_terrainMap->Update();
 	_terminalGlass->Update();
 	_aeroplaneInstancing->Update();
 	_airport->Update();
@@ -68,6 +74,7 @@ void Scene_1::Scene_1::Update()
 
 void Scene_1::Scene_1::ReSize(int width, int height, struct ResizeAttributes attributes)
 {
+	_terrainMap->ReSize(width, height, attributes);
 	_terminalGlass->ReSize(width, height, attributes);
 	_aeroplaneInstancing->ReSize(width, height, attributes);
 	_airport->ReSize(width, height, attributes);
@@ -77,13 +84,15 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 {
 	//_terminalGlass->Render(hdc, attributes);
 	_aeroplaneInstancing->Render(hdc, attributes);
-	_airport->Render(hdc, attributes);
+	_terrainMap->Render(hdc, attributes);
+	//_airport->Render(hdc, attributes);
 }
 
 void Scene_1::Scene_1::SceneTransition()
 {
 	_terminalGlass->SceneTransition();
 	_aeroplaneInstancing->SceneTransition();
+	_terrainMap->SceneTransition();
 	_airport->SceneTransition();
 }
 
@@ -95,4 +104,5 @@ void Scene_1::Scene_1::UnInitialize()
 	SAFE_SCENE_DELETE(_quad)
 	SAFE_SCENE_DELETE(_terminalGlass)
 	SAFE_SCENE_DELETE(_airport)
+	SAFE_SCENE_DELETE(_terrainMap)
 }

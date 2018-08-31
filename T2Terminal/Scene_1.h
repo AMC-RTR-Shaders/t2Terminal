@@ -17,6 +17,7 @@
 #include "CubeTemplate.h"
 #include "TerminalGlass.h"
 #include "Airport.h"
+#include "TerrainMap.h"
 
 
 namespace Scene_1
@@ -33,9 +34,11 @@ namespace Scene_1
 		Rushabh::CubeTemplate *_cubeTemplate;
 		Rushabh::TerminalGlass *_terminalGlass;
 		Rushabh::Airport *_airport;
+		Rushabh::TerrainMap *_terrainMap;
 		Harsh::AeroplaneInstanceing *_aeroplaneInstancing;
 		Utility::Cube *_cube;
 		Utility::Quad *_quad;
+
 
 		// Inherited via IScene
 		virtual BOOL SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) override;

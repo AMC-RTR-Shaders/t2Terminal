@@ -95,6 +95,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\glew\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>C:\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -158,6 +161,7 @@
     <ClCompile Include="Scene_3.cpp" />
     <ClCompile Include="CubeTemplate.cpp" />
     <ClCompile Include="TerminalGlass.cpp" />
+    <ClCompile Include="TerrainMap.cpp" />
     <ClCompile Include="Windowing.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,6 +177,7 @@
     <ClInclude Include="Scene_3.h" />
     <ClInclude Include="CubeTemplate.h" />
     <ClInclude Include="TerminalGlass.h" />
+    <ClInclude Include="TerrainMap.h" />
     <ClInclude Include="vmath.h" />
     <ClInclude Include="Windowing.h" />
   </ItemGroup>
@@ -180,6 +185,12 @@
     <ProjectReference Include="..\OBJLoderUtility\OBJLoderUtility.vcxproj">
       <Project>{ebad1d9c-5072-4e2a-9bdc-a3674484e752}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\TerrainMap.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TerrainMap.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
