@@ -15,6 +15,7 @@ Scene_1::Scene_1::Scene_1()
 	_terminalGlass = NULL;
 	_airport = NULL;
 	_terrainMap = NULL;
+	_singleAeroplane = NULL;
 }
 
 Scene_1::Scene_1::~Scene_1()
@@ -51,6 +52,9 @@ void Scene_1::Scene_1::Initialize()
 	_terrainMap = new Rushabh::TerrainMap();
 	CHECK_NEW(_terrainMap);
 
+	_singleAeroplane = new Rushabh::SingleAeroplane();
+	CHECK_NEW(_singleAeroplane);
+
 	//Initializ.
 	//_cubeTemplate->Initialize();
 	//_quad->Initialize();
@@ -58,6 +62,7 @@ void Scene_1::Scene_1::Initialize()
 	_aeroplaneInstancing->Initialize();
 	_airport->Initialize();
 	_terrainMap->Initialize();
+	_singleAeroplane->Initialize();
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -70,6 +75,8 @@ void Scene_1::Scene_1::Update()
 	_terminalGlass->Update();
 	_aeroplaneInstancing->Update();
 	_airport->Update();
+	_singleAeroplane->Update();
+
 }
 
 void Scene_1::Scene_1::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -78,14 +85,24 @@ void Scene_1::Scene_1::ReSize(int width, int height, struct ResizeAttributes att
 	_terminalGlass->ReSize(width, height, attributes);
 	_aeroplaneInstancing->ReSize(width, height, attributes);
 	_airport->ReSize(width, height, attributes);
+	_singleAeroplane->ReSize(width, height, attributes);
 }
 
 void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 {
 	//_terminalGlass->Render(hdc, attributes);
-	_aeroplaneInstancing->Render(hdc, attributes);
-	_terrainMap->Render(hdc, attributes);
-	//_airport->Render(hdc, attributes);
+	if (attributes.currentScene == SCENE_TERRAIN_MAP)
+	{
+		_terrainMap->Render(hdc, attributes);
+		_singleAeroplane->Render(hdc, attributes);
+	}
+
+	if (attributes.currentScene == SCENE_AIRPORT)
+	{
+		_airport->Render(hdc, attributes);
+		_aeroplaneInstancing->Render(hdc, attributes);
+	}
+
 }
 
 void Scene_1::Scene_1::SceneTransition()
@@ -94,6 +111,7 @@ void Scene_1::Scene_1::SceneTransition()
 	_aeroplaneInstancing->SceneTransition();
 	_terrainMap->SceneTransition();
 	_airport->SceneTransition();
+	_singleAeroplane->SceneTransition();
 }
 
 void Scene_1::Scene_1::UnInitialize()
@@ -105,4 +123,5 @@ void Scene_1::Scene_1::UnInitialize()
 	SAFE_SCENE_DELETE(_terminalGlass)
 	SAFE_SCENE_DELETE(_airport)
 	SAFE_SCENE_DELETE(_terrainMap)
+	SAFE_SCENE_DELETE(_singleAeroplane)
 }

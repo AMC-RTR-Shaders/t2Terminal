@@ -16,7 +16,12 @@
 #include "Scene_3.h"
 
 
-#define CAM_SPEED 5.0f
+#define CAM_SPEED_AIRPORT 5.0f
+#define CAM_SPEED_TERRAIN 5.05f
+#define TRANSLATE_Z_AIRPORT -2500.0f
+#define TRANSLATE_Z_TERRAIN -30.0f
+#define TRANSLATE_Z_TERRAIN_LIMIT 15.0f
+#define TRANSLATE_Z_SINGLE_AEROPLANE_LIMIT -2000.0f
 
 using namespace T2Terminal;
 
@@ -35,13 +40,13 @@ namespace T2Terminal
 		IScene *_scene_3;
 
 		bool _switch;
-		int axis= 0;
-
+		int _axis= 0;
+		float _cam_speed;
+		
 		vmath::mat4 _perspectiveProjectionMatrix;
 
 		IScene::ResizeAttributes _resizeAttributes;
 		IScene::Attributes _attributes;
-
 
 	public:
 		MainScene();

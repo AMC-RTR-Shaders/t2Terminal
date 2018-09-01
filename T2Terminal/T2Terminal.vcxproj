@@ -160,6 +160,7 @@
     <ClCompile Include="Scene_2.cpp" />
     <ClCompile Include="Scene_3.cpp" />
     <ClCompile Include="CubeTemplate.cpp" />
+    <ClCompile Include="SingleAeroplane.cpp" />
     <ClCompile Include="TerminalGlass.cpp" />
     <ClCompile Include="TerrainMap.cpp" />
     <ClCompile Include="Windowing.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Scene_2.h" />
     <ClInclude Include="Scene_3.h" />
     <ClInclude Include="CubeTemplate.h" />
+    <ClInclude Include="SingleAeroplane.h" />
     <ClInclude Include="TerminalGlass.h" />
     <ClInclude Include="TerrainMap.h" />
     <ClInclude Include="vmath.h" />
