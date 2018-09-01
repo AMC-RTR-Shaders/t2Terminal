@@ -77,39 +77,39 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		case Event::KeyBoard::KEYS::T:
 			break;
 		case VK_UP:
-			_attributes.translateCoords[2] += CAM_SPEED;
+			_attributes.translateCoords[2] += _cam_speed;
 			break;
 		case VK_DOWN:
-			_attributes.translateCoords[2] -= CAM_SPEED;
+			_attributes.translateCoords[2] -= _cam_speed;
 			break;
 		case VK_LEFT:
-			_attributes.translateCoords[0] -= CAM_SPEED;
+			_attributes.translateCoords[0] -= _cam_speed;
 			break;
 		case VK_RIGHT:
-			_attributes.translateCoords[0] += CAM_SPEED;
+			_attributes.translateCoords[0] += _cam_speed;
 			break;
 		case Event::KeyBoard::KEYS::P:
-			_attributes.translateCoords[1] -= CAM_SPEED;
+			_attributes.translateCoords[1] -= _cam_speed;
 			break;
 		case Event::KeyBoard::KEYS::L:
-			_attributes.translateCoords[1] += CAM_SPEED;
+			_attributes.translateCoords[1] += _cam_speed;
 			break;
 		case Event::KeyBoard::KEYS::X:
-			axis = 0;
+			_axis = 0;
 			break;
 		case Event::KeyBoard::KEYS::Y:
-			axis = 1;
+			_axis = 1;
 			break;
 		case Event::KeyBoard::KEYS::Z:
-			axis = 2;
+			_axis = 2;
 			break;
 		case Event::KeyBoard::KEYS::Q:
-			if (axis == 0 || axis == 1 || axis == 2)
-				_attributes.rotateCoords[axis] += CAM_SPEED / 10;
+			if (_axis == 0 || _axis == 1 || _axis == 2)
+				_attributes.rotateCoords[_axis] += _cam_speed / 10;
 			break;
 		case Event::KeyBoard::KEYS::W:
-			if (axis == 0 || axis == 1 || axis == 2)
-				_attributes.rotateCoords[axis] -= CAM_SPEED / 10;
+			if (_axis == 0 || _axis == 1 || _axis == 2)
+				_attributes.rotateCoords[_axis] -= _cam_speed / 10;
 			break;
 		}
 
@@ -147,7 +147,7 @@ void T2Terminal::MainScene::Update()
 	if (_scene)
 	{
 		_scene->Update();
-		UpdateTransformationAttributes();
+	//	UpdateTransformationAttributes();
 	}
 }
 
@@ -183,18 +183,62 @@ void T2Terminal::MainScene::UnInitialize()
 
 void T2Terminal::MainScene::UpdateTransformationAttributes()
 {
+	if (_attributes.currentScene == SCENE_TERRAIN_MAP)
+	{
+		if (_attributes.translateCoords[2] < TRANSLATE_Z_TERRAIN_LIMIT)
+		{
+			_attributes.translateCoords[2] += _cam_speed;
+			_attributes.translateCoords[1] -= _cam_speed / 2;
+		}
+		else
+		{
+			_attributes.rotateCoords[0] = 0.0f;
+			_attributes.rotateCoords[1] = 0.0f;
+			_attributes.rotateCoords[2] = 0.0f;
 
+			_attributes.currentScene = SCENE_SINGLE_AEROPLANE;
+
+			_cam_speed = CAM_SPEED_AIRPORT;
+		}
+	}
+
+	if (_attributes.currentScene == SCENE_SINGLE_AEROPLANE)
+	{
+		if (_attributes.translateCoords[2] < TRANSLATE_Z_SINGLE_AEROPLANE_LIMIT)
+		{
+			_attributes.translateCoords[2] -= _cam_speed;
+			_attributes.translateCoords[1] -= _cam_speed / 2;
+		}
+		else
+		{
+			_attributes.translateCoords[0] = 0.0f;
+			_attributes.translateCoords[1] = 0.0f;
+			_attributes.translateCoords[2] = TRANSLATE_Z_AIRPORT;
+
+			_attributes.rotateCoords[0] = 0.0f;
+			_attributes.rotateCoords[1] = 0.0f;
+			_attributes.rotateCoords[2] = 0.0f;
+
+			_attributes.currentScene = SCENE_AIRPORT;
+
+			_cam_speed = CAM_SPEED_AIRPORT;
+		}
+	}
 }
 
 void T2Terminal::MainScene::InitializeTransformationAttributes()
 {
 	_attributes.translateCoords[0] = 0.0f;
 	_attributes.translateCoords[1] = 0.0f;
-	_attributes.translateCoords[2] = -2500.0f;
+	_attributes.translateCoords[2] = TRANSLATE_Z_TERRAIN;
 
 	_attributes.rotateCoords[0] = 0.0f;
 	_attributes.rotateCoords[1] = 0.0f;
 	_attributes.rotateCoords[2] = 0.0f;
+
+	_attributes.currentScene = SCENE_TERRAIN_MAP;
+
+	_cam_speed = CAM_SPEED_TERRAIN;
 }
 
 void T2Terminal::MainScene::InitializeResizeAttributes()

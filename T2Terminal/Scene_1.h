@@ -18,6 +18,7 @@
 #include "TerminalGlass.h"
 #include "Airport.h"
 #include "TerrainMap.h"
+#include "SingleAeroplane.h"
 
 
 namespace Scene_1
@@ -35,6 +36,7 @@ namespace Scene_1
 		Rushabh::TerminalGlass *_terminalGlass;
 		Rushabh::Airport *_airport;
 		Rushabh::TerrainMap *_terrainMap;
+		Rushabh::SingleAeroplane *_singleAeroplane;
 		Harsh::AeroplaneInstanceing *_aeroplaneInstancing;
 		Utility::Cube *_cube;
 		Utility::Quad *_quad;

@@ -177,6 +177,9 @@
     <ClCompile Include="TerrainMap.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClCompile>
+    <ClCompile Include="SingleAeroplane.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -222,6 +225,9 @@
       <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClInclude>
     <ClInclude Include="TerrainMap.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleAeroplane.h">
       <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClInclude>
   </ItemGroup>
