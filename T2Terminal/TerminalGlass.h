@@ -52,6 +52,7 @@ namespace Rushabh
 		GLuint _KaUniform;
 		GLuint _KdUniform;
 		GLuint _KsUniform;
+		GLuint _ColorUniform;
 		GLuint material_shininess_uniform;
 		float quadWidth[3];
 		float quadHeight[3];
