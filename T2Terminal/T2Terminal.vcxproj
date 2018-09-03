@@ -152,6 +152,7 @@
   <ItemGroup>
     <ClCompile Include="Airport.cpp" />
     <ClCompile Include="AeroplaneInstanceing.cpp" />
+    <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Cube.cpp" />
@@ -168,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="Airport.h" />
     <ClInclude Include="AeroplaneInstanceing.h" />
+    <ClInclude Include="Cubemap.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="MainScene.h" />
@@ -192,6 +194,7 @@
     <Image Include="..\TerrainMap.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <ResourceCompile Include="Cubemap.rc" />
     <ResourceCompile Include="TerrainMap.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
