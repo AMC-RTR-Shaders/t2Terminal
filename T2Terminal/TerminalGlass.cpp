@@ -4,26 +4,26 @@
 Rushabh::TerminalGlass::TerminalGlass()
 {
 	angle = 0.0f;
-	quadWidth[0] = 627.609f;
-	quadHeight[0] = 36.1994f;
+	quadWidth[0] = 627.609253f;
+	quadHeight[0] = 36.199402f;
 
-	quadWidth[1] = 322.625f;
-	quadHeight[1] = 36.1994f;
+	quadWidth[1] = 189.634139f;
+	quadHeight[1] = 36.199421f;
 
-	quadWidth[2] = quadWidth[1];
-	quadHeight[2] = quadHeight[1];
+	quadWidth[2] = 194.100614f;
+	quadHeight[2] = 366.1994f;
 
-	translateCoords[0][0] = 7.45414f;
-	translateCoords[0][1] = -104.097f;
-	translateCoords[0][2] = 21.3039f;
+	translateCoords[0][0] = 0.0f;
+	translateCoords[0][1] = 0.0f;
+	translateCoords[0][2] = 0.0f;
 
-	translateCoords[1][0] = 230.709f;
-	translateCoords[1][1] = 59.5085f;
-	translateCoords[1][2] = 21.3709f;
+	translateCoords[1][0] = 0.0f;
+	translateCoords[1][1] = 0.0f;
+	translateCoords[1][2] = 0.0f;
 
-	translateCoords[2][0] = -221.029f;
-	translateCoords[2][1] = 59.5085f;
-	translateCoords[2][2] = 21.193f;
+	translateCoords[2][0] = 0.0f;
+	translateCoords[2][1] = 0.0f;
+	translateCoords[2][2] = 0.0f;
 
 
 }
@@ -53,36 +53,8 @@ void Rushabh::TerminalGlass::Initialize()
 		"uniform mat4 u_model_matrix;" \
 		"uniform mat4 u_view_matrix;" \
 		"uniform mat4 u_projection_matrix;" \
-		"uniform vec3 u_La;" \
-		"uniform vec3 u_Ld;" \
-		"uniform vec3 u_Ls;" \
-		"uniform vec4 u_light_position;" \
-		"uniform vec3 u_Ka;" \
-		"uniform vec3 u_Kd;" \
-		"uniform vec3 u_Ks;" \
-		"uniform float u_material_shininess;" \
-		"out vec3 phong_ads_color;" \
-
 		"void main(void)" \
 		"{" \
-		"if(1 == 1)" \
-		"{" \
-		"vec4 eye_coordinates=u_view_matrix * u_model_matrix * vPosition;" \
-		"vec3 transformed_normals=normalize(mat3(u_view_matrix * u_model_matrix) * vNormal);" \
-		"vec3 light_direction = normalize(vec3(u_light_position) - eye_coordinates.xyz);" \
-		"float tn_dot_ld = max(dot(transformed_normals, light_direction),0.0);" \
-		"vec3 ambient = u_La * u_Ka;" \
-		"vec3 diffuse = u_Ld * u_Kd * tn_dot_ld;" \
-		"vec3 reflection_vector = reflect(-light_direction, transformed_normals);" \
-		"vec3 viewer_vector = normalize(-eye_coordinates.xyz);" \
-		"vec3 specular = u_Ls * u_Ks * pow(max(dot(reflection_vector, viewer_vector), 0.0), u_material_shininess);" \
-		"phong_ads_color=ambient + diffuse + specular;" \
-		"}" \
-		"else" \
-		"{" \
-		"phong_ads_color = vec3(1.0, 1.0, 1.0);" \
-		"}" \
-
 		"gl_Position=u_projection_matrix * u_view_matrix * u_model_matrix * vPosition;" \
 		"}";
 
@@ -130,11 +102,11 @@ void Rushabh::TerminalGlass::Initialize()
 	const GLchar *fragmentShaderSourceCode =
 		"#version 430"\
 		"\n" \
-		"in vec3 phong_ads_color;" \
+		"uniform vec3 color;"
 		"out vec4 FragColor;" \
 		"void main(void)" \
 		"{" \
-		"FragColor = vec4(1.0,0.0,0.0,1.0);" \
+		"FragColor = vec4(color,0.5);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -232,6 +204,7 @@ void Rushabh::TerminalGlass::Initialize()
 	_KaUniform = glGetUniformLocation(_shaderProgramObject, "u_Ka");
 	_KdUniform = glGetUniformLocation(_shaderProgramObject, "u_Kd");
 	_KsUniform = glGetUniformLocation(_shaderProgramObject, "u_Ks");
+	_ColorUniform = glGetUniformLocation(_shaderProgramObject, "color");
 
 	// LIGHT POSITION TOKEN
 	_LightPositionUniform = glGetUniformLocation(_shaderProgramObject, "u_light_position");
@@ -239,14 +212,6 @@ void Rushabh::TerminalGlass::Initialize()
 
 	//SHINYNESS COLOR TOKEN
 	material_shininess_uniform = glGetUniformLocation(_shaderProgramObject, "u_material_shininess");;
-
-	const GLfloat TerminalGlassVertices[] =
-	{
-		quadWidth[0], quadHeight[0], 0.0f,
-		-quadWidth[0], quadHeight[0], 0.0f,
-		-quadWidth[0], -quadHeight[0], 0.0f,
-		quadWidth[0], -quadHeight[0], 0.0f,
-	};
 
 	const GLfloat TerminalGlassNormals[] =
 	{
@@ -256,64 +221,45 @@ void Rushabh::TerminalGlass::Initialize()
 		0.0f, 0.0f, 1.0f,
 	};
 
-	const GLfloat TerminalSideVertices[] =
+	
+	const GLfloat TerminalGlassVertices[]
 	{
-		quadWidth[1], quadHeight[1], 0.0f,
-		-quadWidth[1], quadHeight[1], 0.0f,
-		-quadWidth[1], -quadHeight[1], 0.0f,
-		quadWidth[1], -quadHeight[1], 0.0f,
-	};
+		-306.350494f, 3.204212f, 104.097000f,
+		321.258759f, 3.204212f, 104.097000f,
+		321.258759f, 39.403614f, 104.097000f,
+		-306.350494f, 39.403614f, 104.097000f,
+		-315.846130f, 3.093319f, 70.996063f,
+		-126.211891f, 3.093319f, -190.013062f,
+		-126.211891f, 39.292740f, -190.013062f,
+		-315.846130f, 39.292740f, 70.996063f,
+		133.628693f, 3.271151f, -188.338379f,
+		327.789307f, 3.271151f, 69.321381f,
+		327.789307f, 39.470551f, 69.321381f,
+		133.628693f, 39.470551f, -188.338379f,
 
-	const GLfloat TerminalSideNormals[] =
-	{
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
 	};
 
 	glGenVertexArrays(1, &vao[0]);
 
 	glBindVertexArray(vao[0]);
 
-		glGenBuffers(1, &vbo_position);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_position);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(TerminalGlassVertices), TerminalGlassVertices, GL_STATIC_DRAW);
-			glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-			glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glGenBuffers(1, &vbo_position);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_position);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(TerminalGlassVertices), TerminalGlassVertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		glGenBuffers(1, &vbo_normal);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(TerminalGlassNormals), TerminalGlassNormals, GL_STATIC_DRAW);
-			glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-			glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindVertexArray(0);
-
-	glGenVertexArrays(1, &vao[1]);
-
-	glBindVertexArray(vao[1]);
-
-		glGenBuffers(1, &vbo_position);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_position);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(TerminalSideVertices), TerminalSideVertices, GL_STATIC_DRAW);
-			glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-			glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		glGenBuffers(1, &vbo_normal);
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-			glBufferData(GL_ARRAY_BUFFER, sizeof(TerminalSideNormals), TerminalSideNormals, GL_STATIC_DRAW);
-			glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-			glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glGenBuffers(1, &vbo_normal);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(TerminalGlassNormals), TerminalGlassNormals, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
 
-	vao[2] = vao[1];
-
+	
 	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClearDepth(1.0f);
 
@@ -350,98 +296,107 @@ void Rushabh::TerminalGlass::ReSize(int width, int height, struct ResizeAttribut
 
 void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 {
-	int i = 0;
+	mat4 modelMatrix = mat4::identity();
+	mat4 viewMatrix = mat4::identity();
+	mat4 rotateMatrix = mat4::identity();
 
-	for (i = 0; i < 3; i++)
+	static GLfloat lightAmbient[] = { 0.0f,0.0f,0.0f,1.0f };
+	static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
+	static GLfloat lightSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
+	static GLfloat lightPosition[] = { 100.0f,100.0f,100.0f,1.0f };
+	static GLfloat materialQuadAmbient[] = { 1.0f,0.0f,0.0f,1.0f };
+	static GLfloat materialQuadDiffuse[] = { 1.0f,0.0f,0.0f,1.0f };
+	static GLfloat materialQuadSpecular[] = { 1.0f,0.0f,0.0f,1.0f };
+
+	static GLfloat materialFrameAmbient[] = { 0.0f,1.0f,0.0f,1.0f };
+	static GLfloat materialFrameDiffuse[] = { 0.0f,1.0f,0.0f,1.0f };
+	static GLfloat materialFrameSpecular[] = { 0.0f,1.0f,0.0f,1.0f };
+	static GLfloat glassColor[] = { 0.8f,0.8f,0.0f,1.0f };
+	static GLfloat lineColor[] = { 0.0f,0.0f,0.0f,1.0f };
+
+	static GLfloat material_shininess = 50.0f;
+
+	//START USING SHADER OBJECT	
+	glUseProgram(_shaderProgramObject);
+
+	// setting light's properties
+	glUniform3fv(_LaUniform, 1, lightAmbient);
+	glUniform3fv(_LdUniform, 1, lightDiffuse);
+	glUniform3fv(_LsUniform, 1, lightSpecular);
+	glUniform4fv(_LightPositionUniform, 1, lightPosition);
+	glUniform3fv(_KaUniform, 1, materialQuadAmbient);
+	glUniform3fv(_KdUniform, 1, materialQuadDiffuse);
+	glUniform3fv(_KsUniform, 1, materialQuadSpecular);
+	glUniform3fv(_ColorUniform, 1, glassColor);
+
+	//material shininess
+	glUniform1f(material_shininess_uniform, material_shininess);
+
+	modelMatrix = translate(attributes.translateCoords[0] + translateCoords[0][0],
+		attributes.translateCoords[1] + translateCoords[0][1],
+		attributes.translateCoords[2] + translateCoords[0][2]);
+	rotateMatrix = rotate(90.0f + attributes.rotateCoords[0], 0.0f + attributes.rotateCoords[1], 0.0f + attributes.rotateCoords[2]);
+	modelMatrix = modelMatrix * rotateMatrix;
+
+	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glBindVertexArray(vao[0]);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	glDrawArrays(GL_TRIANGLE_FAN, 4, 4);
+	glDrawArrays(GL_TRIANGLE_FAN, 8, 4);
+	glBindVertexArray(0);
+
+	glDisable(GL_BLEND);
+
+	glUniform3fv(_KaUniform, 1, materialFrameAmbient);
+	glUniform3fv(_KdUniform, 1, materialFrameDiffuse);
+	glUniform3fv(_KsUniform, 1, materialFrameSpecular);
+	for(int i = 0 ;i<2 ;i++)
 	{
-		mat4 modelMatrix = mat4::identity();
-		mat4 viewMatrix = mat4::identity();
-		mat4 rotateMatrix = mat4::identity();
-
-		static GLfloat lightAmbient[] = { 0.0f,0.0f,0.0f,1.0f };
-		static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
-		static GLfloat lightSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
-		static GLfloat lightPosition[] = { 100.0f,100.0f,100.0f,1.0f };
-		static GLfloat materialQuadAmbient[] = { 1.0f,0.0f,0.0f,1.0f };
-		static GLfloat materialQuadDiffuse[] = { 1.0f,0.0f,0.0f,1.0f };
-		static GLfloat materialQuadSpecular[] = { 1.0f,0.0f,0.0f,1.0f };
-
-		static GLfloat materialFrameAmbient[] = { 0.0f,1.0f,0.0f,1.0f };
-		static GLfloat materialFrameDiffuse[] = { 0.0f,1.0f,0.0f,1.0f };
-		static GLfloat materialFrameSpecular[] = { 0.0f,1.0f,0.0f,1.0f };
-
-		static GLfloat material_shininess = 50.0f;
-
-		//START USING SHADER OBJECT	
-		glUseProgram(_shaderProgramObject);
-
-		// setting light's properties
-		glUniform3fv(_LaUniform, 1, lightAmbient);
-		glUniform3fv(_LdUniform, 1, lightDiffuse);
-		glUniform3fv(_LsUniform, 1, lightSpecular);
-		glUniform4fv(_LightPositionUniform, 1, lightPosition);
-		glUniform3fv(_KaUniform, 1, materialQuadAmbient);
-		glUniform3fv(_KdUniform, 1, materialQuadDiffuse);
-		glUniform3fv(_KsUniform, 1, materialQuadSpecular);
-
-		//material shininess
-		glUniform1f(material_shininess_uniform, material_shininess);
-
-		modelMatrix = translate(attributes.translateCoords[0] + translateCoords[i][0], 
-								attributes.translateCoords[1] + translateCoords[i][1], 
-								attributes.translateCoords[2] -2500.0f + translateCoords[i][2]);
-
-		glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
-		glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-		glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
-
-		glBindVertexArray(vao[i]);
-		glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-		glBindVertexArray(0);
-
-
-		glUniform3fv(_KaUniform, 1, materialFrameAmbient);
-		glUniform3fv(_KdUniform, 1, materialFrameDiffuse);
-		glUniform3fv(_KsUniform, 1, materialFrameSpecular);
-
 		float increment = quadHeight[i] / 5;
-		for (float y = -2 * quadHeight[i]; y < 0.0f; y += increment)
+		for (float y = quadHeight[i]; y > 0.0f; y -= increment)
 		{
 			modelMatrix = mat4::identity();
 			viewMatrix = mat4::identity();
-
-			modelMatrix = translate(attributes.translateCoords[0] + translateCoords[i][0],
-									attributes.translateCoords[1] + translateCoords[i][1]+y,
-									attributes.translateCoords[2] + translateCoords[i][2]);			
-			rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+			
+			modelMatrix = translate(attributes.translateCoords[0] + translateCoords[0][0],
+				attributes.translateCoords[1] + translateCoords[0][1] + y,
+				attributes.translateCoords[2] + translateCoords[0][2]);
 			modelMatrix = modelMatrix * rotateMatrix;
 
 			glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 			glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 			glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+			glUniform3fv(_ColorUniform, 1, lineColor);
 
-			glBindVertexArray(vao[i]);
+			glBindVertexArray(vao[0]);
 			glDrawArrays(GL_LINES, 0, 2);
 			glBindVertexArray(0);
 		}
 
 		increment = quadWidth[i] / 20;
-		for (float x = 0.0; x < 2 * quadWidth[i]; x += increment)
+		for (float x = 0.0f; x < quadWidth[i]; x += increment)
 		{
 			modelMatrix = mat4::identity();
 			viewMatrix = mat4::identity();
 
-			modelMatrix = translate(attributes.translateCoords[0] + translateCoords[i][0]+x,
-									attributes.translateCoords[1] + translateCoords[i][1],
-									attributes.translateCoords[2] + translateCoords[i][2]);			
-			//rotateMatrix = rotate(-30.0f, 1.0f, 0.0f, 0.0f);
-			//modelMatrix = modelMatrix * rotateMatrix;
+			modelMatrix = translate(attributes.translateCoords[0] + translateCoords[0][0] + x,
+				attributes.translateCoords[1] + translateCoords[0][1],
+				attributes.translateCoords[2] + translateCoords[0][2]);
+				rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+			modelMatrix = modelMatrix * rotateMatrix;
 
 			glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 			glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 			glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+			glUniform3fv(_ColorUniform, 1, lineColor);
 
-			glBindVertexArray(vao[i]);
+
+			glBindVertexArray(vao[0]);
 			glDrawArrays(GL_LINES, 1, 2);
 			glBindVertexArray(0);
 		}
