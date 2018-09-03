@@ -180,6 +180,9 @@
     <ClCompile Include="SingleAeroplane.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClCompile>
+    <ClCompile Include="Cubemap.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Priyanka</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -230,6 +233,9 @@
     <ClInclude Include="SingleAeroplane.h">
       <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClInclude>
+    <ClInclude Include="Cubemap.h">
+      <Filter>Header Files\T2Terminal\Scenes\Priyanka</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\TerrainMap.bmp">
@@ -238,6 +244,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TerrainMap.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="Cubemap.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

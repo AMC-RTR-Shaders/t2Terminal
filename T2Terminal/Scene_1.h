@@ -19,6 +19,7 @@
 #include "Airport.h"
 #include "TerrainMap.h"
 #include "SingleAeroplane.h"
+#include "Cubemap.h"
 
 
 namespace Scene_1
@@ -38,8 +39,10 @@ namespace Scene_1
 		Rushabh::TerrainMap *_terrainMap;
 		Rushabh::SingleAeroplane *_singleAeroplane;
 		Harsh::AeroplaneInstanceing *_aeroplaneInstancing;
+		Priyanka::Cubemap *_cubemap;
 		Utility::Cube *_cube;
 		Utility::Quad *_quad;
+		
 
 
 		// Inherited via IScene
