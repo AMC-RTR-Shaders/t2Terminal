@@ -461,3 +461,8 @@ AeroplaneInstanceing shading language supported verison is : 4.00 - Build 10.18.
 Airport shading language supported verison is : 4.00 - Build 10.18.10.4358
 SingleAeroplane shading language supported verison is : 4.00 - Build 10.18.10.4358
 Cubemap shading language supported verison is : 4.00 - Build 10.18.10.4358
+AeroplaneInstanceing shading language supported verison is : 4.30 - Build 20.19.15.4531
+Airport shading language supported verison is : 4.30 - Build 20.19.15.4531
+SingleAeroplane shading language supported verison is : 4.30 - Build 20.19.15.4531
+Cubemap shading language supported verison is : 4.30 - Build 20.19.15.4531
+Starfield shading language supported version is : 4.30 - Build 20.19.15.4531
