@@ -20,7 +20,7 @@
 #include "TerrainMap.h"
 #include "SingleAeroplane.h"
 #include "Cubemap.h"
-
+#include "Starfield.h"
 
 namespace Scene_1
 {
@@ -40,6 +40,7 @@ namespace Scene_1
 		Rushabh::SingleAeroplane *_singleAeroplane;
 		Harsh::AeroplaneInstanceing *_aeroplaneInstancing;
 		Priyanka::Cubemap *_cubemap;
+		Sanket::Starfield *_starfield;
 		Utility::Cube *_cube;
 		Utility::Quad *_quad;
 		

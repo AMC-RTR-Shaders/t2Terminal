@@ -183,6 +183,9 @@
     <ClCompile Include="Cubemap.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Priyanka</Filter>
     </ClCompile>
+    <ClCompile Include="Starfield.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="Cubemap.h">
       <Filter>Header Files\T2Terminal\Scenes\Priyanka</Filter>
+    </ClInclude>
+    <ClInclude Include="Starfield.h">
+      <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

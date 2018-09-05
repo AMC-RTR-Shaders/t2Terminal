@@ -17,6 +17,7 @@ Scene_1::Scene_1::Scene_1()
 	_terrainMap = NULL;
 	_singleAeroplane = NULL;
 	_cubemap = NULL;
+	_starfield = NULL;
 }
 
 Scene_1::Scene_1::~Scene_1()
@@ -59,7 +60,8 @@ void Scene_1::Scene_1::Initialize()
 	_cubemap = new Priyanka::Cubemap();
 	CHECK_NEW(_cubemap);
 
-
+	_starfield = new Sanket::Starfield();
+	CHECK_NEW(_starfield);
 
 	//Initializ.
 	//_cubeTemplate->Initialize();
@@ -70,7 +72,7 @@ void Scene_1::Scene_1::Initialize()
 	_terrainMap->Initialize();
 	_singleAeroplane->Initialize();
 	_cubemap->Initialize();
-
+	_starfield->Initialize();
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -85,7 +87,7 @@ void Scene_1::Scene_1::Update()
 	_airport->Update();
 	_singleAeroplane->Update();
 	_cubemap->Update();
-
+	_starfield->Update();
 }
 
 void Scene_1::Scene_1::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -96,6 +98,7 @@ void Scene_1::Scene_1::ReSize(int width, int height, struct ResizeAttributes att
 	_airport->ReSize(width, height, attributes);
 	_singleAeroplane->ReSize(width, height, attributes);
 	_cubemap->ReSize(width, height, attributes);
+	_starfield->ReSize(width, height, attributes);
 }
 
 void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
@@ -117,6 +120,7 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 	// render at last
 	_cubemap->Render(hdc, attributes);
 
+	_starfield->Render(hdc, attributes);
 }
 
 void Scene_1::Scene_1::SceneTransition()
@@ -127,6 +131,7 @@ void Scene_1::Scene_1::SceneTransition()
 	_airport->SceneTransition();
 	_singleAeroplane->SceneTransition();
 	_cubemap->SceneTransition();
+	_starfield->SceneTransition();
 }
 
 void Scene_1::Scene_1::UnInitialize()
@@ -140,4 +145,5 @@ void Scene_1::Scene_1::UnInitialize()
 	SAFE_SCENE_DELETE(_terrainMap)
 	SAFE_SCENE_DELETE(_singleAeroplane)
 	SAFE_SCENE_DELETE(_cubemap)
+	SAFE_SCENE_DELETE(_starfield)
 }
