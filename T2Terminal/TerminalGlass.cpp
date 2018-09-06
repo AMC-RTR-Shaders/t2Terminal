@@ -332,10 +332,14 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
 
-	modelMatrix = translate(attributes.translateCoords[0] + translateCoords[0][0],
-		attributes.translateCoords[1] + translateCoords[0][1],
-		attributes.translateCoords[2] + translateCoords[0][2]);
-	rotateMatrix = rotate(90.0f + attributes.rotateCoords[0], 0.0f + attributes.rotateCoords[1], 0.0f + attributes.rotateCoords[2]);
+	modelMatrix = translate(
+		attributes.translateCoords[SCENE_AIRPORT][0] + translateCoords[0][0],
+		attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1],
+		attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
+	rotateMatrix = rotate(
+		90.0f + attributes.rotateCoords[SCENE_AIRPORT][0],
+		0.0f + attributes.rotateCoords[SCENE_AIRPORT][1],
+		0.0f + attributes.rotateCoords[SCENE_AIRPORT][2]);
 	modelMatrix = modelMatrix * rotateMatrix;
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
@@ -363,9 +367,10 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 			modelMatrix = mat4::identity();
 			viewMatrix = mat4::identity();
 			
-			modelMatrix = translate(attributes.translateCoords[0] + translateCoords[0][0],
-				attributes.translateCoords[1] + translateCoords[0][1] + y,
-				attributes.translateCoords[2] + translateCoords[0][2]);
+			modelMatrix = translate(
+				attributes.translateCoords[SCENE_AIRPORT][0] + translateCoords[0][0],
+				attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1] + y,
+				attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
 			modelMatrix = modelMatrix * rotateMatrix;
 
 			glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
@@ -384,9 +389,10 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 			modelMatrix = mat4::identity();
 			viewMatrix = mat4::identity();
 
-			modelMatrix = translate(attributes.translateCoords[0] + translateCoords[0][0] + x,
-				attributes.translateCoords[1] + translateCoords[0][1],
-				attributes.translateCoords[2] + translateCoords[0][2]);
+			modelMatrix = translate(
+				attributes.translateCoords[SCENE_AIRPORT][0] + translateCoords[0][0] + x,
+				attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1],
+				attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
 				rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 			modelMatrix = modelMatrix * rotateMatrix;
 

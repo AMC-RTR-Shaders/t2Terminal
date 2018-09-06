@@ -459,8 +459,11 @@ void Rushabh::TerrainMap::Render(HDC hdc, struct Attributes attributes)
 
 	mat4 modelViewMatrix = mat4::identity();
 	mat4 modelViewProjectionMatrix = mat4::identity();
-
-	modelViewMatrix = translate(attributes.translateCoords[0], attributes.translateCoords[1] - 4.0f, attributes.translateCoords[2]);
+	
+	modelViewMatrix = translate(
+		attributes.translateCoords[SCENE_AIRPORT][0] + attributes.translateCoords[SCENE_TERRAIN_MAP][0],
+		attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_TERRAIN_MAP][1],
+		attributes.translateCoords[SCENE_AIRPORT][2] + attributes.translateCoords[SCENE_TERRAIN_MAP][2]);
 
 	modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 
