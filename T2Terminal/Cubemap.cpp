@@ -179,32 +179,32 @@ void Priyanka::Cubemap::Initialize()
 	const GLfloat cubeVertices[] =
 	{
 		-SIZE,  SIZE, -SIZE, // back
-		-SIZE, -SIZE, -SIZE,
-		SIZE, -SIZE, -SIZE,
-		SIZE, -SIZE, -SIZE,
+		-SIZE, -0, -SIZE,
+		SIZE, -0, -SIZE,
+		SIZE, -0, -SIZE,
 		SIZE,  SIZE, -SIZE,
 		-SIZE,  SIZE, -SIZE,
 
-		-SIZE, -SIZE,  SIZE,  // left
-		-SIZE, -SIZE, -SIZE,
+		-SIZE, -0,  SIZE,  // left
+		-SIZE, -0, -SIZE,
 		-SIZE,  SIZE, -SIZE,
 		-SIZE,  SIZE, -SIZE,
 		-SIZE,  SIZE,  SIZE,
-		-SIZE, -SIZE,  SIZE,
+		-SIZE, -0,  SIZE,
 
-		SIZE, -SIZE, -SIZE, // right
-		SIZE, -SIZE,  SIZE,
+		SIZE, -0, -SIZE, // right
+		SIZE, -0,  SIZE,
 		SIZE,  SIZE,  SIZE,
 		SIZE,  SIZE,  SIZE,
 		SIZE,  SIZE, -SIZE,
 		SIZE, -SIZE, -SIZE,
 
-		-SIZE, -SIZE,  SIZE, // front
+		-SIZE, -0,  SIZE, // front
 		-SIZE,  SIZE,  SIZE,
 		SIZE,  SIZE,  SIZE,
 		SIZE,  SIZE,  SIZE,
-		SIZE, -SIZE,  SIZE,
-		-SIZE, -SIZE,  SIZE,
+		SIZE, -0,  SIZE,
+		-SIZE, -0,  SIZE,
 
 		-SIZE,  SIZE, -SIZE,  //top
 		SIZE,  SIZE, -SIZE,
@@ -213,12 +213,12 @@ void Priyanka::Cubemap::Initialize()
 		-SIZE,  SIZE,  SIZE,
 		-SIZE,  SIZE, -SIZE,
 
-		-SIZE, -SIZE, -SIZE, // bottom
-		-SIZE, -SIZE,  SIZE,
-		SIZE, -SIZE, -SIZE,
-		SIZE, -SIZE, -SIZE,
-		-SIZE, -SIZE,  SIZE,
-		SIZE, -SIZE, SIZE
+		-SIZE, -0, -SIZE, // bottom
+		-SIZE, -0,  SIZE,
+		SIZE, -0, -SIZE,
+		SIZE, -0, -SIZE,
+		-SIZE, -0,  SIZE,
+		SIZE, -0, SIZE
 	};
 
 	// FOR CUBE
@@ -285,9 +285,17 @@ void Priyanka::Cubemap::Render(HDC hdc, struct Attributes attributes)
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotateMatrix = mat4::identity();
 	mat4 translateMatrix = mat4::identity();
-
-	//translateMatrix = translate(attributes.translateCoords[0] + 0.0f, attributes.translateCoords[1] + 0.0f, attributes.translateCoords[2] - 30.0f);
-	rotateMatrix = rotate(attributes.rotateCoords[0], 0.0f + attributes.rotateCoords[1], 0.0f + attributes.rotateCoords[2]);
+//	if (attributes.currentScene == SCENE_AIRPORT || attributes.currentScene == SCENE_MASTER)
+	{
+		translateMatrix = translate(
+			attributes.translateCoords[SCENE_AIRPORT][0], 
+			attributes.translateCoords[SCENE_AIRPORT][1], 
+			attributes.translateCoords[SCENE_AIRPORT][2]);
+		rotateMatrix = rotate(
+			attributes.rotateCoords[SCENE_AIRPORT][0], 
+			attributes.rotateCoords[SCENE_AIRPORT][1], 
+			attributes.rotateCoords[SCENE_AIRPORT][2]);
+	}
 	modelMatrix = translateMatrix * rotateMatrix;
 
 	// NO NEED TO TRANSLATE CUBEMAP

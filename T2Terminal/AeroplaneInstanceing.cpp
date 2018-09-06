@@ -393,10 +393,16 @@ void Harsh::AeroplaneInstanceing::Render(HDC hdc, struct Attributes attributes)
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
 	//
+	modelMatrix = translate(
+		attributes.translateCoords[SCENE_AIRPORT][0], 
+		attributes.translateCoords[SCENE_AIRPORT][1], 
+		attributes.translateCoords[SCENE_AIRPORT][2]);
 
-	modelMatrix = translate(attributes.translateCoords[0], attributes.translateCoords[1], attributes.translateCoords[2]);
-	modelMatrix = modelMatrix *rotate(90.0f + attributes.rotateCoords[0], 0.0f + attributes.rotateCoords[1], 0.0f + attributes.rotateCoords[2]);
-	
+	modelMatrix = modelMatrix *rotate(
+		attributes.rotateCoords[SCENE_AIRPORT][0],
+		attributes.rotateCoords[SCENE_AIRPORT][1],
+		attributes.rotateCoords[SCENE_AIRPORT][2]);
+
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);

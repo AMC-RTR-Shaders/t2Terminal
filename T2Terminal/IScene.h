@@ -61,9 +61,19 @@ https://en.wikipedia.org/wiki/Include_guard
 
 #define SAFE_SCENE_DELETE(scene) {if (scene!=NULL){scene->UnInitialize(); /*delete scene*/;scene = NULL;}}
 
+#define SCENE_AIRPORT				0
 #define SCENE_TERRAIN_MAP			1
 #define SCENE_SINGLE_AEROPLANE		2
-#define SCENE_AIRPORT				3
+#define SCENE_TOP_VIEW				3
+#define SCENE_COUNT					SCENE_SINGLE_AEROPLANE + 1
+
+#define TRANSFORMATION_SINGLE_AEROPLANE_1	1
+#define TRANSFORMATION_SINGLE_AEROPLANE_2	2
+#define TRANSFORMATION_SINGLE_AEROPLANE_3	3
+#define TRANSFORMATION_TOP_VIEW_1			4
+#define TRANSFORMATION_TOP_VIEW_2			5
+#define TRANSFORMATION_TOP_VIEW_3			6
+
 
 namespace T2Terminal
 {
@@ -81,9 +91,10 @@ namespace T2Terminal
 	public:
 		struct Attributes
 		{
-			float translateCoords[3];
-			float rotateCoords[3];
+			float translateCoords[SCENE_COUNT][3];
+			float rotateCoords[SCENE_COUNT][3];
 			int currentScene;
+			int currentTransformation;
 		};
 
 		struct ResizeAttributes

@@ -22,7 +22,7 @@ namespace Priyanka
 	#define IDBITMAP_POSZ 106
 	#define IDBITMAP_NEGZ 107
 
-	#define SIZE 2000
+	#define SIZE 8000
 
 	class  Cubemap : virtual public T2Terminal::IScene
 	{
