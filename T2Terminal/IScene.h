@@ -84,6 +84,7 @@ namespace T2Terminal
 			float translateCoords[3];
 			float rotateCoords[3];
 			int currentScene;
+			int numSpotLight;
 		};
 
 		struct ResizeAttributes

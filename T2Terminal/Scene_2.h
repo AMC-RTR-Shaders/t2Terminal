@@ -10,6 +10,7 @@
 #define _SCENE_2_H
 
 #include "IScene.h"
+#include "SpotLight.h"
 
 namespace Scene_2
 {
@@ -20,7 +21,7 @@ namespace Scene_2
 		~Scene_2();
 
 	private:
-
+		Harsh::SpotLight *_spotLight;
 
 	public:
 

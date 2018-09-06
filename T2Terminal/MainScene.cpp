@@ -73,7 +73,17 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		switch (wparam)
 		{
 
+		case 0x31:
+			_attributes.numSpotLight = 1;
+			break;
 
+		case 0x32:
+			_attributes.numSpotLight = 2;
+			break;
+
+		case 0x33:
+			_attributes.numSpotLight = 3;
+			break;
 		case Event::KeyBoard::KEYS::T:
 			break;
 		case VK_UP:

@@ -162,6 +162,7 @@
     <ClCompile Include="Scene_3.cpp" />
     <ClCompile Include="CubeTemplate.cpp" />
     <ClCompile Include="SingleAeroplane.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="TerminalGlass.cpp" />
     <ClCompile Include="TerrainMap.cpp" />
     <ClCompile Include="Windowing.cpp" />
@@ -175,11 +176,13 @@
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="Quad.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene_1.h" />
     <ClInclude Include="Scene_2.h" />
     <ClInclude Include="Scene_3.h" />
     <ClInclude Include="CubeTemplate.h" />
     <ClInclude Include="SingleAeroplane.h" />
+    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="TerminalGlass.h" />
     <ClInclude Include="TerrainMap.h" />
     <ClInclude Include="vmath.h" />
@@ -195,6 +198,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cubemap.rc" />
+    <ResourceCompile Include="SpotLight.rc" />
     <ResourceCompile Include="TerrainMap.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

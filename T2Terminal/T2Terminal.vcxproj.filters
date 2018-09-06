@@ -183,6 +183,9 @@
     <ClCompile Include="Cubemap.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Priyanka</Filter>
     </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -236,6 +239,12 @@
     <ClInclude Include="Cubemap.h">
       <Filter>Header Files\T2Terminal\Scenes\Priyanka</Filter>
     </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Header Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\TerrainMap.bmp">
@@ -247,6 +256,9 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="Cubemap.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="SpotLight.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
