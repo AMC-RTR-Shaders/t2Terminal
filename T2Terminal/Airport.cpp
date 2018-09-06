@@ -302,9 +302,17 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
 	
-	translateMatrix = translate(attributes.translateCoords[0] + 0.0f, attributes.translateCoords[1] + 0.0f, attributes.translateCoords[2] + 0.0f);
-	
-	rotateMatrix = rotate(90.0f + attributes.rotateCoords[0], 0.0f + attributes.rotateCoords[1], 0.0f + attributes.rotateCoords[2]);
+//	if (attributes.currentScene == SCENE_AIRPORT || attributes.currentScene == SCENE_MASTER)
+	{
+		translateMatrix = translate(
+			attributes.translateCoords[SCENE_AIRPORT][0],
+			attributes.translateCoords[SCENE_AIRPORT][1], 
+			attributes.translateCoords[SCENE_AIRPORT][2]);
+		rotateMatrix = rotate(
+			attributes.rotateCoords[SCENE_AIRPORT][0],
+			attributes.rotateCoords[SCENE_AIRPORT][1],
+			attributes.rotateCoords[SCENE_AIRPORT][2]);
+	}
 	modelMatrix = translateMatrix * rotateMatrix;
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);

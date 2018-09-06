@@ -301,16 +301,25 @@ void Rushabh::SingleAeroplane::Render(HDC hdc, struct Attributes attributes)
 
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
-	//if (attributes.currentScene == SCENE_SINGLE_AEROPLANE)
+	//if (attributes.currentScene == SCENE_SINGLE_AEROPLANE || attributes.currentScene == SCENE_MASTER)
 	//{
 	//	translateMatrix = translate(attributes.translateCoords[0] + 0.0f, attributes.translateCoords[1] + 0.0f, attributes.translateCoords[2]);
+	//	rotateMatrix = rotate(attributes.rotateCoords[0], 0.0f + attributes.rotateCoords[1], 0.0f + attributes.rotateCoords[2]);
 	//}
 	//else
 	{
-		translateMatrix = translate(attributes.translateCoords[0] + 0.0f, attributes.translateCoords[1] + 0.0f, attributes.translateCoords[2] - 2500.0f);
+		translateMatrix = translate(
+			attributes.translateCoords[SCENE_AIRPORT][0] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][0],
+			attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][1],
+			attributes.translateCoords[SCENE_AIRPORT][2] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][2]);
+
+		rotateMatrix = rotate(
+			attributes.rotateCoords[SCENE_AIRPORT][0] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][0],
+			attributes.rotateCoords[SCENE_AIRPORT][1] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1],
+			attributes.rotateCoords[SCENE_AIRPORT][2] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2]);
 	}
-	rotateMatrix = rotate(attributes.rotateCoords[0], 0.0f + attributes.rotateCoords[1], 0.0f + attributes.rotateCoords[2]);
 	modelMatrix = translateMatrix * rotateMatrix;
+
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);

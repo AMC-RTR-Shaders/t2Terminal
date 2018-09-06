@@ -102,21 +102,27 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 {
 
 	//_terminalGlass->Render(hdc, attributes);
-	if (attributes.currentScene == SCENE_TERRAIN_MAP)
-	{
-		_terrainMap->Render(hdc, attributes);
-		_singleAeroplane->Render(hdc, attributes);
-	}
-
-	if (attributes.currentScene == SCENE_AIRPORT)
-	{
-		_airport->Render(hdc, attributes);
-		_aeroplaneInstancing->Render(hdc, attributes);
-	}
-
-	// render at last
 	_cubemap->Render(hdc, attributes);
+	_singleAeroplane->Render(hdc, attributes);
+	_airport->Render(hdc, attributes);
+	_terrainMap->Render(hdc, attributes);
 
+	//if (attributes.currentScene == SCENE_TERRAIN_MAP)
+	//{
+	//	_terrainMap->Render(hdc, attributes);
+	//}
+
+	//if (attributes.currentScene == SCENE_AIRPORT)
+	//{
+	//	_airport->Render(hdc, attributes);
+	//	_aeroplaneInstancing->Render(hdc, attributes);
+	//}
+
+	//if (attributes.currentScene == SCENE_SINGLE_AEROPLANE)
+	//{
+	//	_singleAeroplane->Render(hdc, attributes);
+	//}
+	// render at last
 }
 
 void Scene_1::Scene_1::SceneTransition()
