@@ -10,6 +10,9 @@
 #define _SCENE_2_H
 
 #include "IScene.h"
+#include "Particles.h"
+#include "RollingCylinder.h"
+#include "BluePrint.h"
 
 namespace Scene_2
 {
@@ -20,8 +23,9 @@ namespace Scene_2
 		~Scene_2();
 
 	private:
-
-
+		Rushabh::Particles *_particles;
+		Rushabh::RollingCylinder *_rollingCylinder;
+		Rushabh::BluePrint *_bluePrint;
 	public:
 
 		// Inherited via IScene
