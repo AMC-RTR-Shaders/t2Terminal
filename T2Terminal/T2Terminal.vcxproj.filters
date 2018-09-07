@@ -183,6 +183,15 @@
     <ClCompile Include="Cubemap.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Priyanka</Filter>
     </ClCompile>
+    <ClCompile Include="Particles.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClCompile>
+    <ClCompile Include="RollingCylinder.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClCompile>
+    <ClCompile Include="BluePrint.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -236,9 +245,21 @@
     <ClInclude Include="Cubemap.h">
       <Filter>Header Files\T2Terminal\Scenes\Priyanka</Filter>
     </ClInclude>
+    <ClInclude Include="Particles.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
+    <ClInclude Include="RollingCylinder.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
+    <ClInclude Include="BluePrint.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\TerrainMap.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Smiley.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -247,6 +268,9 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="Cubemap.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="RollingCylinder.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

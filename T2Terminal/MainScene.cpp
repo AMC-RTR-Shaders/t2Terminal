@@ -144,7 +144,7 @@ void T2Terminal::MainScene::Initialize()
 	if (_scene_3)
 		_scene_3->Initialize();
 
-	_scene = _scene_1;
+	_scene = _scene_2;
 
 }
 
@@ -200,8 +200,8 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 		}
 		else
 		{
-		_attributes.currentScene = SCENE_SINGLE_AEROPLANE;
-		_attributes.currentTransformation = TRANSFORMATION_SINGLE_AEROPLANE_1;
+			_attributes.currentScene = SCENE_SINGLE_AEROPLANE;
+			_attributes.currentTransformation = TRANSFORMATION_SINGLE_AEROPLANE_1;
 		}
 	}
 
@@ -236,8 +236,8 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			if (_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] > Z_END_ROTATE_SINGLE_AEROPLANE_3)
 			{
 				float offset = (
-					(Y_START_ROTATE_SINGLE_AEROPLANE - Y_END_ROTATE_SINGLE_AEROPLANE_3)/
-					(Z_END_ROTATE_SINGLE_AEROPLANE_2 - Z_END_ROTATE_SINGLE_AEROPLANE_3) );
+					(Y_START_ROTATE_SINGLE_AEROPLANE - Y_END_ROTATE_SINGLE_AEROPLANE_3) /
+					(Z_END_ROTATE_SINGLE_AEROPLANE_2 - Z_END_ROTATE_SINGLE_AEROPLANE_3));
 				_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] -= _cam_speed;
 				_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1] -= _cam_speed*offset;
 				offset = (
@@ -307,12 +307,21 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 				offset = ((X_END_ROTATE_3 - X_END_ROTATE_4) / (Z_END_AIRPORT_3 - Z_END_AIRPORT_4));
 				_attributes.rotateCoords[SCENE_AIRPORT][0] += _cam_speed * offset;
 
-//				_cam_speed *= 1.005f;
+				//				_cam_speed *= 1.005f;
 			}
 			else
 			{
 				_attributes.currentTransformation = TRANSFORMATION_TOP_VIEW_2;
 			}
+		}
+	}
+
+	if (_attributes.currentScene == SCENE_AIRPORT_MODEL)
+	{
+		if (_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] < 1.0f)
+		{
+			_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] += 0.0005f;
+			_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] += 0.00025f;
 		}
 	}
 }
@@ -339,6 +348,9 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][0] = 0.0f;
 	_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1] = 180.0f;
 	_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] = 0.0f;
+	
+	_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] = -1.0f;
+	_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] = 0.0f;
 
 	//_attributes.translateCoords[SCENE_AIRPORT][0] = 0.0f;
 	//_attributes.translateCoords[SCENE_AIRPORT][1] = Y_END_AIRPORT_3;
@@ -360,7 +372,7 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	//_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1] = Y_END_ROTATE_SINGLE_AEROPLANE_3;
 	//_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] = Z_END_ROTATE_SINGLE_AEROPLANE_3;
 
-	_attributes.currentScene = SCENE_TERRAIN_MAP;
+	_attributes.currentScene = SCENE_AIRPORT_MODEL;
 
 	_cam_speed = CAM_SPEED_TERRAIN * 2;
 
