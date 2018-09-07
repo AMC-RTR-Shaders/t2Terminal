@@ -183,6 +183,11 @@
     <ClCompile Include="Cubemap.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Priyanka</Filter>
     </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLightBox.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
     <ClCompile Include="Particles.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClCompile>
@@ -245,6 +250,14 @@
     <ClInclude Include="Cubemap.h">
       <Filter>Header Files\T2Terminal\Scenes\Priyanka</Filter>
     </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Header Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLightBox.h">
+      <Filter>Header Files\T2Terminal\Scenes\Harsh</Filter>
     <ClInclude Include="Particles.h">
       <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClInclude>
@@ -270,6 +283,7 @@
     <ResourceCompile Include="Cubemap.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
+    <ResourceCompile Include="SpotLight.rc">
     <ResourceCompile Include="RollingCylinder.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>

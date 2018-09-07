@@ -70,9 +70,19 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 
 	case WM_KEYDOWN:
 
-
 		switch (wparam)
-		{
+		{ 
+      case 0x31: //KEY 1
+			_attributes.numSpotLight = 1;
+			break;
+		  case 0x32: //KEY 2
+			_attributes.numSpotLight = 2;
+			break;
+      case 0x33: //KEY 3
+			_attributes.numSpotLight = 3;
+			break;
+		case Event::KeyBoard::KEYS::T:
+      break;
 		case Event::KeyBoard::KEYS::A:
 			++_attributes.currentScene;
 			_attributes.currentScene = _attributes.currentScene % 3;

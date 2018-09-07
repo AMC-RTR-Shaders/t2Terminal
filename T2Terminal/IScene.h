@@ -97,6 +97,7 @@ namespace T2Terminal
 			float translateCoords[SCENE_COUNT][3];
 			float rotateCoords[SCENE_COUNT][3];
 			int currentScene;
+			int numSpotLight;
 			int currentTransformation;
 		};
 

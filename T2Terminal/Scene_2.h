@@ -10,6 +10,8 @@
 #define _SCENE_2_H
 
 #include "IScene.h"
+#include "SpotLight.h"
+#include "SpotLightBox.h"
 #include "Particles.h"
 #include "RollingCylinder.h"
 #include "BluePrint.h"
@@ -23,6 +25,9 @@ namespace Scene_2
 		~Scene_2();
 
 	private:
+		Harsh::SpotLight *_spotLight;
+		Harsh::SpotLightBox *_spotLightBox;
+
 		Rushabh::Particles *_particles;
 		Rushabh::RollingCylinder *_rollingCylinder;
 		Rushabh::BluePrint *_bluePrint;
