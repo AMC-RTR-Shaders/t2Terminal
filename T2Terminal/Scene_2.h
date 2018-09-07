@@ -12,6 +12,10 @@
 #include "IScene.h"
 #include "SpotLight.h"
 #include "SpotLightBox.h"
+#include "Particles.h"
+#include "RollingCylinder.h"
+#include "BluePrint.h"
+
 namespace Scene_2
 {
 	class Scene_2 : public virtual  T2Terminal::IScene
@@ -24,6 +28,9 @@ namespace Scene_2
 		Harsh::SpotLight *_spotLight;
 		Harsh::SpotLightBox *_spotLightBox;
 
+		Rushabh::Particles *_particles;
+		Rushabh::RollingCylinder *_rollingCylinder;
+		Rushabh::BluePrint *_bluePrint;
 	public:
 
 		// Inherited via IScene

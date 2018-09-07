@@ -11,6 +11,9 @@ Scene_2::Scene_2::Scene_2()
 {
 	_spotLight = NULL;
 	_spotLightBox = NULL;
+	_particles = NULL;
+	_rollingCylinder = NULL;
+	_bluePrint = NULL;
 }
 
 Scene_2::Scene_2::~Scene_2()
@@ -25,6 +28,7 @@ BOOL Scene_2::Scene_2::SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPAR
 
 void Scene_2::Scene_2::Initialize()
 {
+
 	_spotLight = new Harsh::SpotLight;
 	CHECK_NEW(_spotLight);
 
@@ -33,6 +37,21 @@ void Scene_2::Scene_2::Initialize()
 
 	_spotLight->Initialize();
 	_spotLightBox->Initialize();
+
+  _particles = new Rushabh::Particles();
+	CHECK_NEW(_particles);
+
+	_rollingCylinder = new Rushabh::RollingCylinder();
+	CHECK_NEW(_rollingCylinder);
+
+	_bluePrint = new Rushabh::BluePrint();
+	CHECK_NEW(_bluePrint);
+
+	_particles->Initialize();
+
+	_rollingCylinder->Initialize();
+
+	_bluePrint->Initialize();
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -43,28 +62,44 @@ void Scene_2::Scene_2::Update()
 {
 	_spotLight->Update();
 	_spotLightBox->Update();
+  _particles->Update();
+	_rollingCylinder->Update();
+	_bluePrint->Update();
 }
 
 void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes attributes)
 {
 	_spotLight->ReSize(width, height, attributes);
 	_spotLightBox->ReSize(width, height,attributes);
+	_particles->ReSize(width, height, attributes);
+	_rollingCylinder->ReSize(width, height, attributes);
+	_bluePrint->ReSize(width, height, attributes);
 }
 
 void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 {
 	_spotLight->Render(hdc, attributes);
 	_spotLightBox->Render(hdc, attributes);
+	_particles->Render(hdc, attributes);
+//	_rollingCylinder->Render(hdc, attributes);
+//	_bluePrint->Render(hdc, attributes);
 }
 
 void Scene_2::Scene_2::SceneTransition()
 {
 	_spotLight->SceneTransition();
 	_spotLightBox->SceneTransition();
+	_rollingCylinder->SceneTransition();
+	_particles->SceneTransition();
+	_bluePrint->SceneTransition();
 }
 
 void Scene_2::Scene_2::UnInitialize()
 {
 	_spotLight->UnInitialize();
 	_spotLightBox->UnInitialize();
+
+	SAFE_SCENE_DELETE(_particles)
+	SAFE_SCENE_DELETE(_rollingCylinder)
+	SAFE_SCENE_DELETE(_bluePrint)
 }
