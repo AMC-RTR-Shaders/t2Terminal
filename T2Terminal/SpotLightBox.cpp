@@ -1,24 +1,24 @@
-#include "SpotLight.h"
+#include "SpotLightBox.h"
 
-Harsh::SpotLight::SpotLight()
+Harsh::SpotLightBox::SpotLightBox()
 {
 	return;
 
-	CLEAN_LOCAL_ALLOCATION_BELOW:
+CLEAN_LOCAL_ALLOCATION_BELOW:
 	UnInitialize();
 
 }
 
-Harsh::SpotLight::~SpotLight()
+Harsh::SpotLightBox::~SpotLightBox()
 {
 	UnInitialize();
 }
 
 
 
-void Harsh::SpotLight::Initialize()
+void Harsh::SpotLightBox::Initialize()
 {
-	SAFE_LOG("SpotLight shading language supported verison is : %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION))
+	SAFE_LOG("SpotLight Box shading language supported verison is : %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION))
 
 		//CREAT VERTEXT SHADER OBJECT
 		_vertexShaderObject = glCreateShader(GL_VERTEX_SHADER);
@@ -29,7 +29,6 @@ void Harsh::SpotLight::Initialize()
 		"\n" \
 		"in vec4 vPosition;" \
 		"in vec3 vNormal;" \
-		"in vec2 vTexture0_Coord;" \
 		"uniform mat4 u_model_matrix;" \
 		"uniform mat4 u_view_matrix;" \
 		"uniform mat4 u_projection_matrix;" \
@@ -38,7 +37,6 @@ void Harsh::SpotLight::Initialize()
 		"out vec3 transformed_normals;" \
 		"out vec3 light_direction;"\
 		"out vec3 viewer_vector;"\
-		"out vec2 out_texture0_coord;"\
 		"out vec3 FragPos;"\
 		"void main (void)" \
 		"{" \
@@ -50,7 +48,6 @@ void Harsh::SpotLight::Initialize()
 		"viewer_vector = -eyeCoordinates.xyz;" \
 		"FragPos = vec3(u_model_matrix * vPosition);"
 		"}" \
-		"out_texture0_coord = vTexture0_Coord;" \
 		"gl_Position = u_projection_matrix * u_view_matrix * u_model_matrix *vPosition;" \
 		"}";
 
@@ -101,13 +98,10 @@ void Harsh::SpotLight::Initialize()
 		"#version 430 core" \
 		"\n" \
 		"in vec3 diffuse_light;"
-		"in vec2 out_texture0_coord;"
 		"in vec3 transformed_normals;"\
 		"in vec3 light_direction;"\
 		"in vec3 viewer_vector;"\
 		"in vec3 FragPos;"\
-
-		"uniform sampler2D u_texture0_sampler;" \
 		"uniform vec3 u_La;" \
 		"uniform vec3 u_Ld;" \
 		"uniform vec3 u_Ls;" \
@@ -148,13 +142,13 @@ void Harsh::SpotLight::Initialize()
 		"{"\
 		"vec3 lightDir = normalize(light.u_light_position - FragPos);"\
 		"float tn_dot_ld = max(dot(normal, lightDir), 0.0);"\
-		"vec3 diffuse = light.u_Ld * tn_dot_ld * texture(u_texture0_sampler,out_texture0_coord).rgb;" \
+		"vec3 diffuse = light.u_Ld * tn_dot_ld * u_Kd;" \
 		"vec3 view_direction = normalize(u_viewPos - FragPos);" \
 
 		// material_Specularr shading
 		"vec3 reflectDir = reflect(-lightDir, normal);"\
 		"float spec = pow(max(dot(view_direction, reflectDir), 0.0), material.u_material_shininess);"\
-		"vec3 specular = light.u_Ls * spec * texture(u_texture0_sampler,out_texture0_coord).rgb;"\
+		"vec3 specular = light.u_Ls * spec * u_Ks;"\
 
 		// attenuation
 		"float distance = length(light.u_light_position - FragPos);"\
@@ -164,7 +158,7 @@ void Harsh::SpotLight::Initialize()
 		"float epsilon = light.cutOff - light.outerCutOff;"\
 		"float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);"\
 		// combine results
-		"vec3 ambient = light.u_La * texture(u_texture0_sampler,out_texture0_coord).rgb;"\
+		"vec3 ambient = light.u_La * u_Ka;"\
 		"ambient *= attenuation * intensity;"\
 		"diffuse *= attenuation * intensity;"\
 		"specular *= attenuation * intensity;"\
@@ -194,7 +188,7 @@ void Harsh::SpotLight::Initialize()
 		"{"\
 		"phong_ads_color = vec3(1.0,1.0,1.0);"\
 		"}"\
-		"FragColor = vec4(result + phong_ads_color,1.0) * texture(u_texture0_sampler,out_texture0_coord);" \
+		"FragColor = vec4(result + phong_ads_color,0.5);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -220,7 +214,7 @@ void Harsh::SpotLight::Initialize()
 			{
 				glGetShaderInfoLog(_fragmentShaderObject, infoLogLength, &written, szInfoLog);
 
-				SAFE_LOG("SpotLight Fragment Shader Compilation Log : %s\n", szInfoLog)
+				SAFE_LOG("SpotLight Box Fragment Shader Compilation Log : %s\n", szInfoLog)
 					SAFE_FREE(szInfoLog);
 				UnInitialize();
 				exit(0);
@@ -241,7 +235,6 @@ void Harsh::SpotLight::Initialize()
 	//PRE-LINK BINDING OF SHADER PROGRAM OBJECT WITH VERTEX SHADER POSITION ATTRIBUTE
 	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_POSITION, "vPosition");
 	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_NORMAL, "vNormal");
-	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_TEXTURE0, "vTexture0_Coord");
 
 	//LINK THE SHADER
 	glLinkProgram(_shaderProgramObject);
@@ -279,7 +272,7 @@ void Harsh::SpotLight::Initialize()
 	_modelMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_model_matrix");
 	_ViewMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_view_matrix");
 	_projectMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_projection_matrix");
-	
+
 	_Ka_Uniform = glGetUniformLocation(_shaderProgramObject, "u_Ka");
 	_Kd_Uniform = glGetUniformLocation(_shaderProgramObject, "u_Kd");
 	_Ks_Uniform = glGetUniformLocation(_shaderProgramObject, "u_Ks");
@@ -290,16 +283,15 @@ void Harsh::SpotLight::Initialize()
 	_La_uniform = glGetUniformLocation(_shaderProgramObject, "u_La");
 	_La_uniform = glGetUniformLocation(_shaderProgramObject, "u_Ls");
 	_LKeyPressedUniform = glGetUniformLocation(_shaderProgramObject, "u_LKeyPressed");
-	_numSpotLightUniform  = glGetUniformLocation(_shaderProgramObject, "u_numSpotLights");
-	
-	_Texture_smapler_uniform = glGetUniformLocation(_shaderProgramObject, "u_texture0_sampler");
+	_numSpotLightUniform = glGetUniformLocation(_shaderProgramObject, "u_numSpotLights");
+
 	_viewrPositionUniform = glGetUniformLocation(_shaderProgramObject, "u_viewPos");
 
 	_material_Kd = glGetUniformLocation(_shaderProgramObject, "material.u_Kd");
 	_material_Ka = glGetUniformLocation(_shaderProgramObject, "material.u_Ka");
 	_material_Ks = glGetUniformLocation(_shaderProgramObject, "material.u_Ks");
 	_material_shininess_uniform = glGetUniformLocation(_shaderProgramObject, "material.u_material_shininess");
-	
+
 	_SpotLightLaUniform[0] = glGetUniformLocation(_shaderProgramObject, "spotLight[0].u_La");
 	_SpotLightLdUniform[0] = glGetUniformLocation(_shaderProgramObject, "spotLight[0].u_Ld");
 	_SpotLightLsUniform[0] = glGetUniformLocation(_shaderProgramObject, "spotLight[0].u_Ls");
@@ -336,12 +328,37 @@ void Harsh::SpotLight::Initialize()
 	//
 
 	//cube
-	const GLfloat squareVertices[] = 
+	const GLfloat cubeVertices[] =
 	{
-		-3.0f, -1.5f, 2.0f,
-		3.0f, -1.5f, 2.0f,
-		3.0f, -1.5f, -3.0f,
-		-3.0f, -1.5f, -3.0f,	
+		1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f,
+
+		1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, -1.0f, 1.0f,
+		1.0f, -1.0f, -1.0f,
+
+		-1.0f, 1.0f, -1.0f,
+		1.0f, 1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+
+		-1.0f, 1.0f, 1.0f,
+		-1.0f, 1.0f, -1.0f,
+		-1.0f, -1.0f, -1.0f,
+		-1.0f, -1.0f, 1.0f,
+
+		-1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, 1.0f,
+		1.0f, 1.0f, -1.0f,
+		-1.0f, 1.0f, -1.0f,
+
+		1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, 1.0f,
+		-1.0f, -1.0f, -1.0f,
+		1.0f, -1.0f, -1.0f,
 	};
 
 	glGenVertexArrays(1, &Vao_cube);
@@ -349,61 +366,60 @@ void Harsh::SpotLight::Initialize()
 
 	glGenBuffers(1, &Vbo_cube_position);
 	glBindBuffer(GL_ARRAY_BUFFER, Vbo_cube_position);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(squareVertices), squareVertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(AMC_ATTRIBUTE_POSITION, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_POSITION);
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	
-	const GLfloat SquareNormals[] = 
-	
-	//cube normals
+
+	const GLfloat CubeNormals[] =
+
+		//cube normals
 	{
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+		0.0f,0.0f,1.0f,
+
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+		1.0f,0.0f,0.0f,
+
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+		0.0f,0.0f,-1.0f,
+
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+		-1.0f,0.0f,0.0f,
+
 		0.0f,1.0f,0.0f,
 		0.0f,1.0f,0.0f,
 		0.0f,1.0f,0.0f,
 		0.0f,1.0f,0.0f,
+
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
+		0.0f,-1.0f,0.0f,
 
 	};
 	glGenBuffers(1, &Vbo_cube_normal);
 	glBindBuffer(GL_ARRAY_BUFFER, Vbo_cube_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(SquareNormals), SquareNormals, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(CubeNormals), CubeNormals, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	const GLfloat squareTexCoords[] = 
-	//cube texture coordinates
-	{
-		0.0f,1.0f,
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-	};
-
-
-	glGenBuffers(1, &Vbo_cube_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, Vbo_cube_texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(squareTexCoords), squareTexCoords, GL_STATIC_DRAW);
-
-	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
 
 	glBindVertexArray(0);
-
-	LoadGLTextures(&Texture_Marble, MAKEINTRESOURCE(IDB_MARBLE));
-	LoadGLTextures(&Texture_Stone, MAKEINTRESOURCE(IDB_STONE));
-
-	glEnable(GL_TEXTURE_2D);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClearDepth(1.0f);
@@ -420,7 +436,7 @@ void Harsh::SpotLight::Initialize()
 
 	_perspectiveProjectionMatrix = mat4::identity();
 
-	gbAnimate =false;
+	gbAnimate = false;
 	gbLight = false;
 
 	angle_cube = 0.0f;
@@ -431,59 +447,22 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 	UnInitialize();
 }
 
-int Harsh::SpotLight::LoadGLTextures(GLuint *texture,TCHAR imageResourceId[])
-{
-	HBITMAP hBitmap;
-	BITMAP bmp;
-	int iStatus = FALSE;
-	HRESULT hr;
-	hBitmap = (HBITMAP)LoadImage(GetModuleHandle(NULL),
-		imageResourceId,
-		IMAGE_BITMAP,
-		0,
-		0,
-		LR_CREATEDIBSECTION);
 
-	hr = HRESULT_FROM_WIN32(GetLastError());
-
-	
-	if(hBitmap)
-	{
-
-		iStatus = TRUE;
-		GetObject(hBitmap,sizeof(bmp),&bmp);
-
-		glGenTextures(1,texture);
-		glPixelStorei(GL_UNPACK_ALIGNMENT,4);
-
-		glBindTexture(GL_TEXTURE_2D,*texture);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
-		glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,bmp.bmWidth,bmp.bmHeight,0,GL_BGR,GL_UNSIGNED_BYTE,bmp.bmBits);
-		glGenerateMipmap(GL_TEXTURE_2D);	
-		DeleteObject(hBitmap);
-	}
-	
-	return iStatus;
-}
-
-
-
-BOOL Harsh::SpotLight::SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
+BOOL Harsh::SpotLightBox::SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 	return 0;
 }
 
 
 
-void Harsh::SpotLight::Update()
+void Harsh::SpotLightBox::Update()
 {
 	angle_cube = angle_cube + 0.01f;
 	if (angle_cube >= 360.0f)
 		angle_cube -= 360.0f;
 }
 
-void Harsh::SpotLight::ReSize(int width, int height, struct ResizeAttributes attributes)
+void Harsh::SpotLightBox::ReSize(int width, int height, struct ResizeAttributes attributes)
 {
 	if (height == 0)
 		height = 1;
@@ -492,25 +471,25 @@ void Harsh::SpotLight::ReSize(int width, int height, struct ResizeAttributes att
 	_perspectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)width / (GLfloat)height, attributes.nearValue, attributes.farValue);
 }
 
-void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
+void Harsh::SpotLightBox::Render(HDC hdc, struct Attributes attributes)
 {
 
 	glUseProgram(_shaderProgramObject);
 	gbLight = true;
-	if(gbLight == true)
+	if (gbLight == true)
 	{
-		glUniform1i(_LKeyPressedUniform,1);
+		glUniform1i(_LKeyPressedUniform, 1);
 
 		//light properties
-		glUniform3fv(_La_uniform,1,lightAmbient);
-		glUniform3fv(_Ld_Uniform,1,lightDiffuse);
-		glUniform3fv(_Ls_Uniform,1,lightSpecular);
-		glUniform4fv(_LightPositionUniform,1,lightPosition);
+		glUniform3fv(_La_uniform, 1, lightAmbient);
+		glUniform3fv(_Ld_Uniform, 1, lightDiffuse);
+		glUniform3fv(_Ls_Uniform, 1, lightSpecular);
+		glUniform4fv(_LightPositionUniform, 1, lightPosition);
 
-		glUniform3fv(_Ka_Uniform,1,material_Ambient);
-		glUniform3fv(_Kd_Uniform,1,material_Diffuse);
-		glUniform3fv(_Ks_Uniform,1,material_Specular);
-		glUniform1f(_Material_shininess_uniform,material_shininess);
+		glUniform3fv(_Ka_Uniform, 1, material_Ambient);
+		glUniform3fv(_Kd_Uniform, 1, material_Diffuse);
+		glUniform3fv(_Ks_Uniform, 1, material_Specular);
+		glUniform1f(_Material_shininess_uniform, material_shininess);
 
 		glUniform3fv(_material_Kd, 1, mAmbient);
 		glUniform3fv(_material_Ka, 1, mDiffuse);
@@ -529,7 +508,7 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform1f(_SpotLightCutOffUniform[0], cos(radians(12.5f)));
 		glUniform1f(_SpotLightOuterCutOffUniform[0], cos(radians(17.0f)));
 		lightPositionS1[0] = attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f;
-		lightPositionS1[1] = attributes.translateCoords[SCENE_AIRPORT][1] +3.0f;
+		lightPositionS1[1] = attributes.translateCoords[SCENE_AIRPORT][1] + 3.0f;
 		lightPositionS1[2] = attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f;
 		glUniform3fv(_SpotLightLightPositionUniform[0], 1, lightPositionS1);
 		glUniform3fv(_SpotLightLightDirectionUniform[0], 1, lightDirectionS1);
@@ -565,33 +544,36 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 	}
 	else
 	{
-		glUniform1i(_LKeyPressedUniform,0);
+		glUniform1i(_LKeyPressedUniform, 0);
 	}
 
 	mat4 modelMatrix = mat4::identity();
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotationMatrix = mat4::identity();
+	mat4 scaleMatrix = mat4::identity();
 	mat4 translateMatrix = mat4::identity();
 
-	
-	translateMatrix = translate(attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f, attributes.translateCoords[SCENE_AIRPORT][1] + 0.0f, attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f);
+	//square block
+	scaleMatrix = scale(1.5f, 0.35f, 1.5f);
+	translateMatrix = translate(attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f, attributes.translateCoords[SCENE_AIRPORT][1] + -1.5f, attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f);
+	modelMatrix = translateMatrix*scaleMatrix;
 
-	modelMatrix = translateMatrix * scale(1.5f,1.5f,1.5f);
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE,_perspectiveProjectionMatrix);
+	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D,Texture_Marble);
-	glUniform1i(_Texture_smapler_uniform,0);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBindVertexArray(Vao_cube);
-
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-
+	glDrawArrays(GL_TRIANGLE_FAN, 4, 4);
+	glDrawArrays(GL_TRIANGLE_FAN, 8, 4);
+	glDrawArrays(GL_TRIANGLE_FAN, 12, 4);
+	glDrawArrays(GL_TRIANGLE_FAN, 16, 4);
+	glDrawArrays(GL_TRIANGLE_FAN, 20, 4);
 	glBindVertexArray(0);
-
-
+	glDisable(GL_BLEND);
 	glUseProgram(0);
 
 	return;
@@ -601,11 +583,11 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 	UnInitialize();
 }
 
-void Harsh::SpotLight::SceneTransition()
+void Harsh::SpotLightBox::SceneTransition()
 {
 }
 
-void Harsh::SpotLight::UnInitialize()
+void Harsh::SpotLightBox::UnInitialize()
 {
 	if (Vao_cube)
 	{

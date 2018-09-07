@@ -186,6 +186,9 @@
     <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
     </ClCompile>
+    <ClCompile Include="SpotLightBox.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -244,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLightBox.h">
+      <Filter>Header Files\T2Terminal\Scenes\Harsh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

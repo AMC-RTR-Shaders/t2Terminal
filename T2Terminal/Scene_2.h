@@ -11,7 +11,7 @@
 
 #include "IScene.h"
 #include "SpotLight.h"
-
+#include "SpotLightBox.h"
 namespace Scene_2
 {
 	class Scene_2 : public virtual  T2Terminal::IScene
@@ -22,6 +22,7 @@ namespace Scene_2
 
 	private:
 		Harsh::SpotLight *_spotLight;
+		Harsh::SpotLightBox *_spotLightBox;
 
 	public:
 

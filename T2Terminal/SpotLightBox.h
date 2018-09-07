@@ -1,16 +1,12 @@
 #pragma once
-#ifndef _SPOTLIGHT_H_
-#define _SPOTLIGHT_H_
+#ifndef _SPOTLIGHTBOX_H_
+#define _SPOTLIGHTBOX_H_
 #include"IScene.h"
 
 
 namespace Harsh
 {
-	#define IDB_MARBLE 501
-	#define IDB_STONE 502
-
-	
-	class SpotLight : virtual public T2Terminal::IScene
+	class SpotLightBox : virtual public T2Terminal::IScene
 	{
 	private:
 		GLuint _vertexShaderObject;
@@ -45,26 +41,27 @@ namespace Harsh
 		GLuint _viewrPositionUniform;
 		GLuint _numSpotLightUniform;
 
-		GLfloat lightAmbient[4] = {0.25f,0.25f,0.25f,1.0f};
-		GLfloat lightDiffuse[4]= {1.0f,1.0f,1.0f,1.0f};
-		GLfloat lightSpecular[4] = {1.0f,1.0f,1.0f,1.0f};
-		GLfloat lightPosition[4] = {0.0f,100.0f,100.0f,1.0f};
+		GLfloat lightAmbient[4] = { 0.25f,0.25f,0.25f,1.0f };
+		GLfloat lightDiffuse[4] = { 1.0f,1.0f,1.0f,1.0f };
+		GLfloat lightSpecular[4] = { 1.0f,1.0f,1.0f,1.0f };
+		GLfloat lightPosition[4] = { 0.0f,100.0f,100.0f,1.0f };
 
-		GLfloat material_Ambient[4] = {0.0f,0.0f,0.0f,1.0f};
-		GLfloat material_Diffuse[4]= {1.0f,1.0f,1.0f,1.0f};
-		GLfloat material_Specular[4] = {1.0f,1.0f,1.0f,1.0f};
+		GLfloat material_Ambient[4] = { 0.0f,0.0f,0.0f,1.0f };
+		GLfloat material_Diffuse[4] = { 1.0f,1.0f,1.0f,1.0f };
+		GLfloat material_Specular[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat material_shininess = 128.0f;
 
 		GLfloat mAmbient[4] = { 0.0f,0.0f,0.0f,1.0f };
 		GLfloat mDiffuse[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat mSpecular[4] = { 1.0f,1.0f,1.0f,1.0f };
+
 		GLfloat lightAmbientS1[4] = { 0.1f,0.1f,0.1f,1.0f };
 		GLfloat lightDiffuseS1[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightSpecularS1[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightPositionS1[4] = { 0.0f,3.0f,-11.0f,1.0f };
 		GLfloat lightDirectionS1[4] = { 0.0f,-1.0f,0.0f,1.0f };
 
-		GLfloat lightAmbientS2[4] ={ 0.1f,0.1f,0.1f,1.0f };
+		GLfloat lightAmbientS2[4] = { 0.1f,0.1f,0.1f,1.0f };
 		GLfloat lightDiffuseS2[4] = { 1.0f,1.0f,0.0f,1.0f };
 		GLfloat lightSpecularS2[4] = { 1.0f,1.0f,0.0f,1.0f };
 		GLfloat lightPositionS2[4] = { 2.0f,3.0f,-11.0f,1.0f };
@@ -100,8 +97,8 @@ namespace Harsh
 		float angle_cube;
 
 	public:
-		SpotLight();
-		~SpotLight();
+		SpotLightBox();
+		~SpotLightBox();
 
 		virtual BOOL SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) override;
 
@@ -117,7 +114,6 @@ namespace Harsh
 
 		virtual void UnInitialize() override;
 
-		int LoadGLTextures(GLuint *,TCHAR[]);
 
 	};
 }

@@ -163,6 +163,7 @@
     <ClCompile Include="CubeTemplate.cpp" />
     <ClCompile Include="SingleAeroplane.cpp" />
     <ClCompile Include="SpotLight.cpp" />
+    <ClCompile Include="SpotLightBox.cpp" />
     <ClCompile Include="TerminalGlass.cpp" />
     <ClCompile Include="TerrainMap.cpp" />
     <ClCompile Include="Windowing.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="CubeTemplate.h" />
     <ClInclude Include="SingleAeroplane.h" />
     <ClInclude Include="SpotLight.h" />
+    <ClInclude Include="SpotLightBox.h" />
     <ClInclude Include="TerminalGlass.h" />
     <ClInclude Include="TerrainMap.h" />
     <ClInclude Include="vmath.h" />
