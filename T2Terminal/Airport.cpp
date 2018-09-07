@@ -12,7 +12,7 @@ Rushabh::Airport::Airport()
 {
 	_angle = 0.0f;
 
-	_modelParser = new ModelParser("3DModels\\Scene_1\\TopView\\ter3.obj");
+	_modelParser = new ModelParser("3DModels\\Scene_1\\TopView\\T2TerminalWithTexture.obj");
 	CHECK_NULL(_modelParser);
 
 	return;
@@ -43,6 +43,7 @@ void Rushabh::Airport::Initialize()
 		"\n" \
 		"in vec4 vPosition;" \
 		"in vec3 vNormal;" \
+		"in vec2 vTexture0_Coord;" \
 		"uniform mat4 u_model_matrix;" \
 		"uniform mat4 u_view_matrix;" \
 		"uniform mat4 u_projection_matrix;" \
@@ -55,6 +56,7 @@ void Rushabh::Airport::Initialize()
 		"uniform vec3 u_Ks;" \
 		"uniform float u_material_shininess;" \
 		"out vec3 phong_ads_color;" \
+		"out vec2 out_vTexture0_Coord;" \
 
 		"void main(void)" \
 		"{" \
@@ -77,6 +79,7 @@ void Rushabh::Airport::Initialize()
 		"}" \
 
 		"gl_Position=u_projection_matrix * u_view_matrix * u_model_matrix * vPosition;" \
+		"out_vTexture0_Coord = vTexture0_Coord;" \
 		"}";
 
 	//BIND vertexShaderSourcecode CODE TO gVertexShaderObject
@@ -122,11 +125,13 @@ void Rushabh::Airport::Initialize()
 	const GLchar *fragmentShaderSourceCode =
 		"#version 430"\
 		"\n" \
+		"uniform sampler2D u_texture0_sampler;"
 		"in vec3 phong_ads_color;" \
+		"in vec2 out_vTexture0_Coord;" \
 		"out vec4 FragColor;" \
 		"void main(void)" \
 		"{" \
-		"FragColor = vec4(phong_ads_color, 1.0);" \
+		"FragColor = texture(u_texture0_sampler, out_vTexture0_Coord) * vec4(phong_ads_color, 1.0);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -174,6 +179,8 @@ void Rushabh::Airport::Initialize()
 	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_VERTEX, "vPosition");
 	//PRE-LINK BINDING OF SHADER PROGRAM OBJECT WITTH TEXTURE SHADER ATTRIBUTE
 	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_NORMAL, "vNormal");
+	//PRE-LINK BINDING OF SHADER PROGRAM OBJECT WITTH TEXTURE SHADER ATTRIBUTE
+	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_TEXTURE0, "vTexture0_Coord");
 
 	//LINK THE SHADER
 	glLinkProgram(_shaderProgramObject);
