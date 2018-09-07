@@ -188,6 +188,7 @@
     </ClCompile>
     <ClCompile Include="SpotLightBox.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClCompile>
     <ClCompile Include="Particles.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClCompile>
@@ -258,6 +259,7 @@
     </ClInclude>
     <ClInclude Include="SpotLightBox.h">
       <Filter>Header Files\T2Terminal\Scenes\Harsh</Filter>
+    </ClInclude>
     <ClInclude Include="Particles.h">
       <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClInclude>
@@ -284,6 +286,8 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="SpotLight.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
     <ResourceCompile Include="RollingCylinder.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
