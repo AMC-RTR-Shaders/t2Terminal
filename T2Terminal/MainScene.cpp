@@ -414,7 +414,7 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	//_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1] = Y_END_ROTATE_SINGLE_AEROPLANE_3;
 	//_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] = Z_END_ROTATE_SINGLE_AEROPLANE_3;
 
-	_attributes.currentScene = SCENE_AIRPORT_MODEL;
+	_attributes.currentScene = SCENE_TERRAIN_MAP;
 
 	_cam_speed = CAM_SPEED_TERRAIN * 2;
 
