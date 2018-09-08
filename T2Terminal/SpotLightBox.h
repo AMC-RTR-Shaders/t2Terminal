@@ -3,6 +3,7 @@
 #define _SPOTLIGHTBOX_H_
 #include"IScene.h"
 
+#define TRANS_Y_BOX -1.0f/2
 
 namespace Harsh
 {

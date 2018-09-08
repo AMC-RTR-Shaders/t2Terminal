@@ -20,8 +20,8 @@
 #pragma warning(disable:4005)
 
 #define CHECK_NULL(obj){if(obj==NULL){ goto CLEAN_LOCAL_ALLOCATION_BELOW;}} 
-#define SAFE_DELETE(obj){if(obj){delete obj;obj=NULL;}}
-#define SAFE_FREE(mem){if(mem){free(mem);mem=NULL;}}
+//#define SAFE_DELETE(obj){if(obj){delete obj;obj=NULL;}}
+//#define SAFE_FREE(mem){if(mem){free(mem);mem=NULL;}}
 
 
 //#define CHECK_CALL(obj){if (obj){}else { CLEAN_LOCAL_ALLOCATION_BELOW;}}
@@ -50,7 +50,7 @@ namespace ThreeDModelLoader
 	public:
 		ModelParser(char *filenfullpathname);
 
-		void parse(GLuint shaderProgramObject,PROCESS_TYPE processtype, DRAW_TYPE drawtype, GLOBJECT_INSTANCEING *instancing);
+		void parse(GLuint shaderProgramObject,PROCESS_TYPE processtype, DRAW_TYPE drawtype, GLOBJECT_INSTANCEING *instancing , GLOBJECT_WIREFRAME_BUILDING *wireFrame);
 
 		void draw();
 
@@ -71,6 +71,9 @@ namespace ThreeDModelLoader
 
 		GLfloat *_pftexturesCoords;
 		int _texcord_cnt;
+
+		GLfloat *_pfColors;
+		int _color_cnt;
 
 
 		unsigned short *_psPositionIndex;

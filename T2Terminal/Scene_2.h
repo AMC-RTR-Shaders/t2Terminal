@@ -15,6 +15,8 @@
 #include "Particles.h"
 #include "RollingCylinder.h"
 #include "BluePrint.h"
+#include "Scene2Tile.h"
+#include "WireFrameEffect.h"
 
 namespace Scene_2
 {
@@ -31,6 +33,10 @@ namespace Scene_2
 		Rushabh::Particles *_particles;
 		Rushabh::RollingCylinder *_rollingCylinder;
 		Rushabh::BluePrint *_bluePrint;
+		Rushabh::Scene2Tile *_scene2Tile;
+
+		Praveen::WireFrameEffect *_wireFrameEffect;
+
 	public:
 
 		// Inherited via IScene

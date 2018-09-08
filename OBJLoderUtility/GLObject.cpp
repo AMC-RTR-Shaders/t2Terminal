@@ -8,12 +8,14 @@
 
 GLObject::GLObject()
 {
+	_instancing = NULL;
+	_wireFrameBuiding = NULL;
 }
 
-void GLObject::initialize_for_draw_array_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat * vertices_data, int tex_cord_size, GLfloat * tex_cords_data, int normal_size, GLfloat * normals_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing)
+void GLObject::initialize_for_draw_array_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat * vertices_data, int tex_cord_size, GLfloat * tex_cords_data, int normal_size, GLfloat * normals_data, int colors_size, GLfloat *colors_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing, GLOBJECT_WIREFRAME_BUILDING *wireFrame)
 {
 	_instancing = instancing;
-
+	_wireFrameBuiding = wireFrame;
 	initializeMaterials(materialTable, shaderProgramObject);
 	initializeTextures(materialTable, shaderProgramObject);
 	
@@ -36,10 +38,25 @@ void GLObject::initialize_for_draw_array_from_cpu(GLuint shaderProgramObject,int
 	}
 	/**/
 
+	/*color*/
+	if (colors_size > 0)
+	{
+		glGenBuffers(1, &_vbo_object_colors);
+		glBindBuffer(GL_ARRAY_BUFFER, _vbo_object_colors);
+
+		glBufferData(GL_ARRAY_BUFFER,  /**/colors_size/**/ * sizeof(GL_FLOAT), colors_data, GL_STATIC_DRAW);
+		glVertexAttribPointer(AMC_ATTRIBUTE_COLOR, 3/*s,t*/, GL_FLOAT, GL_FALSE, 0, NULL);
+		glEnableVertexAttribArray(AMC_ATTRIBUTE_COLOR);
+
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	/*color*/
+
 
 	/*texture*/
 	if (tex_cord_size > 0)
 	{
+		
 		glGenBuffers(1, &_vbo_object_tex_cords);
 		glBindBuffer(GL_ARRAY_BUFFER, _vbo_object_tex_cords);
 
@@ -48,6 +65,7 @@ void GLObject::initialize_for_draw_array_from_cpu(GLuint shaderProgramObject,int
 		glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	
 	}
 	/**/
 
@@ -82,9 +100,6 @@ void GLObject::initialize_for_draw_array_from_cpu(GLuint shaderProgramObject,int
 
 			glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-
-
-
 		}
 
 		if (instancing != NULL && instancing->isRotation)
@@ -116,6 +131,25 @@ void GLObject::draw_using_draw_array(int count,std::vector<ThreeDModelLoader::MO
 
 	glBindVertexArray(_vao_object);
 
+	if (_wireFrameBuiding !=NULL &&_wireFrameBuiding->wireFrameQuery == WIREFRAME_QUERY::WIREFRAME_YES)
+	{
+		
+
+
+		//DRAW WIREFRAME
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		glDrawArrays(GL_TRIANGLES, 0, (int)(_wireFrameBuiding->totalWireFaces * 3 * 3) / 3);
+		//
+
+		//DRAW SOLID
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		glDrawArrays(GL_TRIANGLES, 0,(int)(_wireFrameBuiding->totalSolidFaces * 3 * 3) / 3);
+		//
+
+		return;
+	}
+
+
 	if (modelIndicesMatrialMapTable->size() > 0)
 	{
 		for (size_t i = 0; i < modelIndicesMatrialMapTable->size(); i++)
@@ -130,8 +164,7 @@ void GLObject::draw_using_draw_array(int count,std::vector<ThreeDModelLoader::MO
 			start_offset = modelIndicesMatrialMapTable->at(i)->start_index;
 			end_offset = modelIndicesMatrialMapTable->at(i)->end_index;
 
-
-
+			
 			if (_instancing->instancingQuery == INSTANCING_QUERY::YES)
 			{
 				glDrawArraysInstanced(GL_TRIANGLES, start_offset * 3, end_offset * 3, _instancing->numberOfInstance);
@@ -159,9 +192,10 @@ void GLObject::draw_using_draw_array(int count,std::vector<ThreeDModelLoader::MO
 	glActiveTexture(0);
 }
 
-void GLObject::initialize_for_draw_elements_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat * vertices_data, int tex_cord_size, GLfloat * tex_cords_data, int normal_size, GLfloat * normals_data, int elements_size, unsigned short * elements_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing)
+void GLObject::initialize_for_draw_elements_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat * vertices_data, int tex_cord_size, GLfloat * tex_cords_data, int normal_size, GLfloat * normals_data, int elements_size, unsigned short * elements_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing , GLOBJECT_WIREFRAME_BUILDING *wireFrame)
 {
 	_instancing = instancing;
+	_wireFrameBuiding = wireFrame;
 
 	initializeMaterials(materialTable, shaderProgramObject);
 	initializeTextures(materialTable, shaderProgramObject);
@@ -404,6 +438,9 @@ void GLObject::LoadGLTexture(GLuint *texture, char *path)
 void GLObject::initializeMaterials(std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLuint shaderProgramObject)
 {
 	//Get uniform locations for material
+	if (materialTable == NULL)
+		return;
+
 	for (size_t i = 0; i < materialTable->size(); i++)
 	{
 		MATERIAL *material = materialTable->at(i);
@@ -452,6 +489,9 @@ void GLObject::initializeTextures(std::vector<ThreeDModelLoader::MATERIAL*>* mat
 {
 	
 	/*laod textures*/
+	if (materialTable == NULL)
+		return;
+
 	for (int i = 0; i < (int)materialTable->size(); i++)
 	{
 

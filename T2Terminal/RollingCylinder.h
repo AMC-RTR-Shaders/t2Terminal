@@ -13,6 +13,8 @@
 
 #define VDG_PI  3.14159265358979323846f
 #define ID_BITMAP_SMILEY 100
+#define TRANS_Y_ROLLINGCYLINDER -0.9f
+#define SPEED_ROLLING_CYLINDER 0.1f
 
 namespace Rushabh
 {
@@ -90,6 +92,10 @@ namespace Rushabh
 		int numVertices = 0;
 		int numIndices;
 		int iNumIndices;
+
+		float _radius;
+		float _height; 
+		float _angle;
 
 		GLuint vbo_position = 0;
 		GLuint vbo_normal = 0;

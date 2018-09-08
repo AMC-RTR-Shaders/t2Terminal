@@ -85,7 +85,7 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
       break;
 		case Event::KeyBoard::KEYS::A:
 			++_attributes.currentScene;
-			_attributes.currentScene = _attributes.currentScene % 3;
+			_attributes.currentScene = _attributes.currentScene % 4;
 			break;
 
 		case VK_UP:
@@ -176,6 +176,7 @@ void T2Terminal::MainScene::ReSize(int width, int height, struct ResizeAttribute
 void T2Terminal::MainScene::Render(HDC hdc, struct Attributes attributes)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glDisable(GL_CULL_FACE);
 
 	if (_scene)
 	{
@@ -351,6 +352,10 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.translateCoords[SCENE_SINGLE_AEROPLANE][1] = 4580.0f;
 	_attributes.translateCoords[SCENE_SINGLE_AEROPLANE][2] = 5400.0f;
 
+	_attributes.translateCoords[SCENE_AIRPORT_MODEL][0] = 0.0f;
+	_attributes.translateCoords[SCENE_AIRPORT_MODEL][1] = 0.0f;
+	_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] = -8.0f;
+
 	_attributes.rotateCoords[SCENE_AIRPORT][0] = -11.0f;
 	_attributes.rotateCoords[SCENE_AIRPORT][1] = 0.0f;
 	_attributes.rotateCoords[SCENE_AIRPORT][2] = 0.0f;
@@ -361,6 +366,10 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	
 	_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] = -1.0f;
 	_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] = 0.0f;
+
+	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][0] = 10.0f;
+	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][1] = 0.0f;
+	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][2] = 0.0f;
 
 	//_attributes.translateCoords[SCENE_AIRPORT][0] = 0.0f;
 	//_attributes.translateCoords[SCENE_AIRPORT][1] = Y_END_AIRPORT_3;

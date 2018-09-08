@@ -319,8 +319,17 @@ void Rushabh::BluePrint::Render(HDC hdc, struct Attributes attributes)
 	glUseProgram(_shaderProgramObject);
 
 
-	modelMatrix = translate(0.0f, 0.0f, -10.0f);
-	rotateMatrix = rotate(0.0f, 1.0f, 0.0f, 0.0f);
+	modelMatrix = translate(
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][1]+TRANS_Y_BLUE_PRINT,
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+	
+	//rotateMatrix = rotate(45.0f, 0.0f, 0.0f);
+
+	rotateMatrix = rotate(
+		90.0f+attributes.rotateCoords[SCENE_AIRPORT_MODEL][0], 
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1], 
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
 
 	modelMatrix = modelMatrix * rotateMatrix;
 
