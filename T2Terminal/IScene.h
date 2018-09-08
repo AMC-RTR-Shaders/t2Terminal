@@ -68,7 +68,11 @@ https://en.wikipedia.org/wiki/Include_guard
 #define SCENE_AIRPORT_MODEL			4
 #define SCENE_CYLINDER_TRANS		5
 #define SCENE_CYLINDER_TEXCOORD		6
-#define SCENE_COUNT					SCENE_CYLINDER_TEXCOORD + 1
+#define SCENE_LIGHT_POS_1			7
+#define SCENE_LIGHT_POS_2			8
+#define SCENE_LIGHT_POS_3			9
+
+#define SCENE_COUNT					SCENE_LIGHT_POS_3 + 1
 
 #define TRANSFORMATION_SINGLE_AEROPLANE_1	1
 #define TRANSFORMATION_SINGLE_AEROPLANE_2	2
@@ -99,6 +103,7 @@ namespace T2Terminal
 			int currentScene;
 			int numSpotLight;
 			int currentTransformation;
+			float lightRadius;
 		};
 
 		struct ResizeAttributes
