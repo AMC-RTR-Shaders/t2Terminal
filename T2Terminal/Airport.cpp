@@ -360,7 +360,7 @@ void Rushabh::Airport::Initialize()
 	GLOBJECT_INSTANCEING instancing;
 	instancing.instancingQuery = INSTANCING_QUERY::NO;
 	CHECK_NULL(_modelParser);
-	_modelParser->parse(_shaderProgramObject, ThreeDModelLoader::PROCESS_TYPE::CPU, ThreeDModelLoader::DRAW_TYPE::DRAW_USING_ARRAYS, &instancing);
+	_modelParser->parse(_shaderProgramObject, ThreeDModelLoader::PROCESS_TYPE::CPU, ThreeDModelLoader::DRAW_TYPE::DRAW_USING_ARRAYS, &instancing, NULL);
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	glClearDepth(1.0f);

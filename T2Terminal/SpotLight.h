@@ -8,7 +8,8 @@ namespace Harsh
 {
 	#define IDB_MARBLE 501
 	#define IDB_STONE 502
-
+	#define SIDE_LENGTH 2.0f
+	#define TRANS_Y_SPOTLIGHT -1.0f
 	
 	class SpotLight : virtual public T2Terminal::IScene
 	{
@@ -61,19 +62,19 @@ namespace Harsh
 		GLfloat lightAmbientS1[4] = { 0.1f,0.1f,0.1f,1.0f };
 		GLfloat lightDiffuseS1[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightSpecularS1[4] = { 1.0f,1.0f,1.0f,1.0f };
-		GLfloat lightPositionS1[4] = { 0.0f,3.0f,-11.0f,1.0f };
+		GLfloat lightPositionS1[4] = { 0.0f,3.0f,0.0f,1.0f };
 		GLfloat lightDirectionS1[4] = { 0.0f,-1.0f,0.0f,1.0f };
 
 		GLfloat lightAmbientS2[4] ={ 0.1f,0.1f,0.1f,1.0f };
 		GLfloat lightDiffuseS2[4] = { 1.0f,1.0f,0.0f,1.0f };
 		GLfloat lightSpecularS2[4] = { 1.0f,1.0f,0.0f,1.0f };
-		GLfloat lightPositionS2[4] = { 2.0f,3.0f,-11.0f,1.0f };
+		GLfloat lightPositionS2[4] = { 2.0f,3.0f,0.0f,1.0f };
 		GLfloat lightDirectionS2[4] = { -0.09f,-1.0f,0.0f,1.0f };
 
 		GLfloat lightAmbientS3[4] = { 0.1f,0.1f,0.1f,1.0f };
 		GLfloat lightDiffuseS3[4] = { 1.0f,1.0f,0.0f,1.0f };
 		GLfloat lightSpecularS3[4] = { 1.0f,1.0f,0.0f,1.0f };
-		GLfloat lightPositionS3[4] = { -2.0f,3.0f,-11.0f,1.0f };
+		GLfloat lightPositionS3[4] = { -2.0f,3.0f,0.0f,1.0f };
 		GLfloat lightDirectionS3[4] = { 0.09f,-1.0f,0.0f,1.0f };
 
 		mat4 _perspectiveProjectionMatrix;

@@ -2,10 +2,6 @@
 
 Harsh::SpotLight::SpotLight()
 {
-	return;
-
-	CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 
 }
 
@@ -338,10 +334,10 @@ void Harsh::SpotLight::Initialize()
 	//cube
 	const GLfloat squareVertices[] = 
 	{
-		-3.0f, -1.5f, 2.0f,
-		3.0f, -1.5f, 2.0f,
-		3.0f, -1.5f, -3.0f,
-		-3.0f, -1.5f, -3.0f,	
+		-SIDE_LENGTH, 0.0f, SIDE_LENGTH,
+		SIDE_LENGTH, -0.0f, SIDE_LENGTH,
+		SIDE_LENGTH, -0.0f, -SIDE_LENGTH,
+		-SIDE_LENGTH, -0.0f, -SIDE_LENGTH,
 	};
 
 	glGenVertexArrays(1, &Vao_cube);
@@ -427,8 +423,6 @@ void Harsh::SpotLight::Initialize()
 
 	return;
 
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 }
 
 int Harsh::SpotLight::LoadGLTextures(GLuint *texture,TCHAR imageResourceId[])
@@ -519,6 +513,7 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform3fv(_viewrPositionUniform, 1, vec3(0.0f, 0.0f, 3.0f));
 
 		glUniform1i(_numSpotLightUniform, attributes.numSpotLight);
+		glUniform1i(_numSpotLightUniform, 3);
 
 		glUniform3fv(_SpotLightLaUniform[0], 1, lightAmbientS1);
 		glUniform3fv(_SpotLightLdUniform[0], 1, lightDiffuseS1);
@@ -528,9 +523,10 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform1f(_SpotLightQuadraticUniform[0], 0.032f);
 		glUniform1f(_SpotLightCutOffUniform[0], cos(radians(12.5f)));
 		glUniform1f(_SpotLightOuterCutOffUniform[0], cos(radians(17.0f)));
-		lightPositionS1[0] = attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f;
-		lightPositionS1[1] = attributes.translateCoords[SCENE_AIRPORT][1] +3.0f;
-		lightPositionS1[2] = attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f;
+		lightPositionS1[0] = attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
+		lightPositionS1[1] = attributes.translateCoords[SCENE_AIRPORT_MODEL][1] +3.0f;
+		lightPositionS1[2] = attributes.translateCoords[SCENE_AIRPORT_MODEL][2];
+
 		glUniform3fv(_SpotLightLightPositionUniform[0], 1, lightPositionS1);
 		glUniform3fv(_SpotLightLightDirectionUniform[0], 1, lightDirectionS1);
 
@@ -542,9 +538,10 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform1f(_SpotLightQuadraticUniform[1], 0.032f);
 		glUniform1f(_SpotLightCutOffUniform[1], cos(radians(12.5f)));
 		glUniform1f(_SpotLightOuterCutOffUniform[1], cos(radians(17.0f)));
-		lightPositionS2[0] = attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f;
-		lightPositionS2[1] = attributes.translateCoords[SCENE_AIRPORT][1] + 3.0f;
-		lightPositionS2[2] = attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f;
+		lightPositionS2[0] = attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
+		lightPositionS2[1] = attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + 3.0f;
+		lightPositionS2[2] = attributes.translateCoords[SCENE_AIRPORT_MODEL][2];
+
 		glUniform3fv(_SpotLightLightPositionUniform[1], 1, lightPositionS2);
 		glUniform3fv(_SpotLightLightDirectionUniform[1], 1, lightDirectionS2);
 
@@ -556,9 +553,10 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform1f(_SpotLightQuadraticUniform[2], 0.032f);
 		glUniform1f(_SpotLightCutOffUniform[2], cos(radians(12.5f)));
 		glUniform1f(_SpotLightOuterCutOffUniform[2], cos(radians(17.0f)));
-		lightPositionS3[0] = attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f;
-		lightPositionS3[1] = attributes.translateCoords[SCENE_AIRPORT][1] + 3.0f;
-		lightPositionS3[2] = attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f;
+		lightPositionS3[0] = attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
+		lightPositionS3[1] = attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + 3.0f;
+		lightPositionS3[2] = attributes.translateCoords[SCENE_AIRPORT_MODEL][2];
+
 		glUniform3fv(_SpotLightLightPositionUniform[2], 1, lightPositionS3);
 		glUniform3fv(_SpotLightLightDirectionUniform[2], 1, lightDirectionS3);
 
@@ -574,9 +572,17 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 	mat4 translateMatrix = mat4::identity();
 
 	
-	translateMatrix = translate(attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f, attributes.translateCoords[SCENE_AIRPORT][1] + 0.0f, attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f);
+	translateMatrix = translate(
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + TRANS_Y_SPOTLIGHT,
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
 
-	modelMatrix = translateMatrix * scale(1.5f,1.5f,1.5f);
+	rotationMatrix = rotate(
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
+
+	modelMatrix = translateMatrix * rotationMatrix;
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
@@ -596,9 +602,6 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 
 	return;
 
-
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 }
 
 void Harsh::SpotLight::SceneTransition()

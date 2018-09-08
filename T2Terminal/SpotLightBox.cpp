@@ -2,10 +2,6 @@
 
 Harsh::SpotLightBox::SpotLightBox()
 {
-	return;
-
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 
 }
 
@@ -442,9 +438,6 @@ void Harsh::SpotLightBox::Initialize()
 	angle_cube = 0.0f;
 
 	return;
-
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 }
 
 
@@ -552,11 +545,22 @@ void Harsh::SpotLightBox::Render(HDC hdc, struct Attributes attributes)
 	mat4 rotationMatrix = mat4::identity();
 	mat4 scaleMatrix = mat4::identity();
 	mat4 translateMatrix = mat4::identity();
+	mat4 rotateMatrix = mat4::identity();
 
 	//square block
 	scaleMatrix = scale(1.5f, 0.35f, 1.5f);
-	translateMatrix = translate(attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f, attributes.translateCoords[SCENE_AIRPORT][1] + -1.5f, attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f);
-	modelMatrix = translateMatrix*scaleMatrix;
+
+	translateMatrix = translate(
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + TRANS_Y_BOX,
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+
+	rotateMatrix = rotate(
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
+
+	modelMatrix = translateMatrix*rotateMatrix * scaleMatrix;
 
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
@@ -577,10 +581,6 @@ void Harsh::SpotLightBox::Render(HDC hdc, struct Attributes attributes)
 	glUseProgram(0);
 
 	return;
-
-
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 }
 
 void Harsh::SpotLightBox::SceneTransition()

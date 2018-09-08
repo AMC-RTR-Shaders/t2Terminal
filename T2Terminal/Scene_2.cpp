@@ -14,6 +14,8 @@ Scene_2::Scene_2::Scene_2()
 	_particles = NULL;
 	_rollingCylinder = NULL;
 	_bluePrint = NULL;
+	_scene2Tile = NULL;
+	_wireFrameEffect = NULL;
 }
 
 Scene_2::Scene_2::~Scene_2()
@@ -35,10 +37,7 @@ void Scene_2::Scene_2::Initialize()
 	_spotLightBox = new Harsh::SpotLightBox;
 	CHECK_NEW(_spotLightBox);
 
-	_spotLight->Initialize();
-	_spotLightBox->Initialize();
-
-  _particles = new Rushabh::Particles();
+	  _particles = new Rushabh::Particles();
 	CHECK_NEW(_particles);
 
 	_rollingCylinder = new Rushabh::RollingCylinder();
@@ -47,11 +46,21 @@ void Scene_2::Scene_2::Initialize()
 	_bluePrint = new Rushabh::BluePrint();
 	CHECK_NEW(_bluePrint);
 
+	_scene2Tile = new Rushabh::Scene2Tile();
+	CHECK_NEW(_scene2Tile);
+	
+	_wireFrameEffect = new Praveen::WireFrameEffect();
+	CHECK_NEW(_wireFrameEffect);
+
+
+	_spotLight->Initialize();
+	_spotLightBox->Initialize();
+
 	_particles->Initialize();
-
 	_rollingCylinder->Initialize();
-
 	_bluePrint->Initialize();
+	_scene2Tile->Initialize();
+	_wireFrameEffect->Initialize();
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -62,9 +71,11 @@ void Scene_2::Scene_2::Update()
 {
 	_spotLight->Update();
 	_spotLightBox->Update();
-  _particles->Update();
+    _particles->Update();
 	_rollingCylinder->Update();
 	_bluePrint->Update();
+	_wireFrameEffect->Update();
+
 }
 
 void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -74,15 +85,20 @@ void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes att
 	_particles->ReSize(width, height, attributes);
 	_rollingCylinder->ReSize(width, height, attributes);
 	_bluePrint->ReSize(width, height, attributes);
+	_scene2Tile->ReSize(width, height, attributes);
+	_wireFrameEffect->ReSize(width, height, attributes);
+
 }
 
 void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 {
 	_spotLight->Render(hdc, attributes);
-	_spotLightBox->Render(hdc, attributes);
 	_particles->Render(hdc, attributes);
-//	_rollingCylinder->Render(hdc, attributes);
-//	_bluePrint->Render(hdc, attributes);
+	_scene2Tile->Render(hdc, attributes);
+	_rollingCylinder->Render(hdc, attributes);
+	_bluePrint->Render(hdc, attributes);
+	_spotLightBox->Render(hdc, attributes);
+	_wireFrameEffect->Render(hdc, attributes);
 }
 
 void Scene_2::Scene_2::SceneTransition()
@@ -92,14 +108,18 @@ void Scene_2::Scene_2::SceneTransition()
 	_rollingCylinder->SceneTransition();
 	_particles->SceneTransition();
 	_bluePrint->SceneTransition();
+	_wireFrameEffect->SceneTransition();
 }
 
 void Scene_2::Scene_2::UnInitialize()
 {
-	_spotLight->UnInitialize();
-	_spotLightBox->UnInitialize();
+	SAFE_SCENE_DELETE(_spotLight)
+	SAFE_SCENE_DELETE(_spotLightBox)
 
 	SAFE_SCENE_DELETE(_particles)
 	SAFE_SCENE_DELETE(_rollingCylinder)
 	SAFE_SCENE_DELETE(_bluePrint)
+
+	SAFE_SCENE_DELETE(_scene2Tile)
+	SAFE_SCENE_DELETE(_wireFrameEffect)
 }

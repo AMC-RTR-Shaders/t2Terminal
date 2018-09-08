@@ -43,9 +43,10 @@ enum
 
 	AMC_ATTRIBUTE_POSITION,
 	AMC_ATTRIBUTE_ROTATION,
-	AMC_ATTRIBUTE_VELOCITY_ARRAY,
-	AMC_ATTRIBUTE_START_TIME_ARRAY,
 	AMC_ATTRIBUTE_RADIUS,
+	AMC_ATTRIBUTE_START_TIME_ARRAY,
+	AMC_ATTRIBUTE_VELOCITY_ARRAY,
+
 };
 
 
@@ -55,6 +56,7 @@ typedef enum _instanceing_query_
 {
 	NO,
 	YES
+
 }INSTANCING_QUERY;
 
 typedef struct _instance_
@@ -76,6 +78,42 @@ typedef struct _instance_
 }GLOBJECT_INSTANCEING;
 
 
+typedef enum _wireFrame_query_
+{
+	WIRERFAME_NO,
+	WIREFRAME_YES
+
+}WIREFRAME_QUERY;
+
+
+typedef struct _wireFrame_
+{
+	WIREFRAME_QUERY wireFrameQuery;
+
+	float speedValueToIncrementWireFaces;
+	float speedValueToIncrementSolidFaces;
+
+	float triangle_poin1_color[3];
+	float triangle_poin2_color[3];
+	float triangle_poin3_color[3];
+
+	bool isModelSolidFacesDone;
+	bool isModelWireFacesDone;
+
+	//private:
+	int	*faceVertexMapIndex;
+	float	*faceVertexMapMinimum;
+	int lengthOfVertexMap;
+	
+	float totalSolidFaces;
+	float incrementSolidFaces;
+
+	float totalWireFaces;
+	float incrementWireFaces;
+
+}GLOBJECT_WIREFRAME_BUILDING;
+
+
 #define GL_SAFE_DELETE_BUFFERS(buffer)if(buffer){glDeleteBuffers(1, &buffer);buffer=0;}
 #define GL_SAFE_DELETE_ARRAYS(arrays)if(arrays){glDeleteVertexArrays(1, &arrays);arrays=0;}
 
@@ -88,10 +126,10 @@ public:
 
 	GLObject();
 
-	void initialize_for_draw_array_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat *vertices_data,int tex_cord_size , GLfloat *tex_cords_data, int normal_size, GLfloat *normals_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing);
+	void initialize_for_draw_array_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat *vertices_data,int tex_cord_size , GLfloat *tex_cords_data, int normal_size, GLfloat *normals_data, int color_size, GLfloat *colors_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing , GLOBJECT_WIREFRAME_BUILDING *wireFrame);
 	void draw_using_draw_array(int count, std::vector<ThreeDModelLoader::MODEL_INDICES_MAP_TABLE*>  *modelIndicesMatrialMapTable, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable);
 
-	void initialize_for_draw_elements_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat *vertices_data, int tex_cord_size, GLfloat *tex_cords_data, int normal_size, GLfloat *normals_data, int elements_size, unsigned short *elements_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing);
+	void initialize_for_draw_elements_from_cpu(GLuint shaderProgramObject,int vertices_size, GLfloat *vertices_data, int tex_cord_size, GLfloat *tex_cords_data, int normal_size, GLfloat *normals_data, int elements_size, unsigned short *elements_data, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable, GLOBJECT_INSTANCEING *instancing , GLOBJECT_WIREFRAME_BUILDING *wireFarme);
 	void draw_using_draw_elements(int count,std::vector<ThreeDModelLoader::MODEL_INDICES_MAP_TABLE*>  *modelIndicesMatrialMapTable, std::vector<ThreeDModelLoader::MATERIAL*>* materialTable);
 
 	GLuint get_vao_object();
@@ -121,6 +159,8 @@ private:
 
 	GLOBJECT_INSTANCEING *_instancing;
 
+	GLOBJECT_WIREFRAME_BUILDING *_wireFrameBuiding;
+
 	GLuint _vao_object;
 	
 	GLuint _vbo_object_positions;
@@ -128,7 +168,7 @@ private:
 	GLuint _vbo_object_colors;
 
 	GLuint _vbo_object_tex_cords;
-	
+
 	GLuint _vbo_object_normals;
 	
 	GLuint _vbo_object_elements_index;
@@ -136,6 +176,7 @@ private:
 	GLuint _vbo_instancing_position;
 
 	GLuint _vao_instancing_rotation;
+
 
 };
 

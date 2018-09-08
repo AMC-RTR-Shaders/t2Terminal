@@ -55,7 +55,7 @@ https://en.wikipedia.org/wiki/Include_guard
 
 
 #define CHECK_NULL(obj){if(obj==NULL){ goto CLEAN_LOCAL_ALLOCATION_BELOW;}} 
-#define SAFE_DELETE(obj){if(obj){delete obj;obj=NULL;}}
+//#define SAFE_DELETE(obj){if(obj){delete obj;obj=NULL;}}
 
 #define SAFE_LOG(FMT,TEXT){FILE *fp = NULL;fopen_s(&fp, "GL_LOG.txt", "a+");if(fp){fprintf(fp,FMT,TEXT);fclose(fp);fp=NULL;}}
 
@@ -80,7 +80,6 @@ https://en.wikipedia.org/wiki/Include_guard
 #define TRANSFORMATION_TOP_VIEW_1			4
 #define TRANSFORMATION_TOP_VIEW_2			5
 #define TRANSFORMATION_TOP_VIEW_3			6
-
 
 namespace T2Terminal
 {

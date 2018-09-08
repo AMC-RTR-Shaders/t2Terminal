@@ -20,7 +20,6 @@ ThreeDModelLoader::OBJLoader::OBJLoader(char * szfileFullPath)
 	_pvNormals = NULL;
 	_pvFaces= NULL;
 	_model = NULL;
-	_subModel = NULL;
 
 	CHECK_MALLOC(szfileFullPath)
 
@@ -29,10 +28,6 @@ ThreeDModelLoader::OBJLoader::OBJLoader(char * szfileFullPath)
 
 	_pvModelIndicesMapTable = new std::vector<MODEL_INDICES_MAP_TABLE*>();
 	CHECK_NEW(_pvModelIndicesMapTable)
-
-	_pvModelSubObjectMaptTable = new std::vector<MODEL_SUB_OBJECT_MAPT_TABLE*>();
-	CHECK_NEW(_pvModelSubObjectMaptTable)
-		
 
 	_pvVertices = new std::vector<VERTEX>();
 	CHECK_NEW(_pvVertices)
@@ -67,8 +62,16 @@ void ThreeDModelLoader::OBJLoader::parse()
 
 
 	fopen_s(&fpMeshFile, _szfileFullPath, "r");
-	CHECK_MALLOC(fpMeshFile)
+	if (fpMeshFile == NULL)
+	{
+		TCHAR msg[256];
+		wsprintf(msg, L"file not found %S exiting now.", _szfileFullPath);
+		MessageBox(NULL, msg, TEXT("error"), MB_OK | MB_ICONERROR);
+		exit(0);
+	}
 
+	CHECK_MALLOC(fpMeshFile)
+	
 	while (true)
 	{
 		memset((void*)line, (int)'\0', line_size);
@@ -110,9 +113,6 @@ void ThreeDModelLoader::OBJLoader::parse()
 	SAFE_CLOSE(fpMeshFile);
 	onEndUseMtl();
 
-	if(_subModel)
-		_subModel->end_index =(int) _pvVertices->size();
-	
 	MapMaterialsTObject();
 
 	return;
@@ -157,7 +157,6 @@ void ThreeDModelLoader::OBJLoader::onVertex()
 	v.X3 = (GLfloat)atof(strtok(NULL, separater_space));
 
 	_pvVertices->push_back(v);
-	_subModel->end_index = (int)_pvVertices->size();
 }
 
 bool ThreeDModelLoader::OBJLoader::isSubObject(char * token)
@@ -167,14 +166,6 @@ bool ThreeDModelLoader::OBJLoader::isSubObject(char * token)
 
 void ThreeDModelLoader::OBJLoader::onSubObject()
 {
-	char *filename = NULL;
-	filename = strtok(NULL, separater_space);
-
-	_subModel = (MODEL_SUB_OBJECT_MAPT_TABLE*)malloc(sizeof(MODEL_SUB_OBJECT_MAPT_TABLE));
-	strcpy(_subModel->subObjectName, filename);
-	_subModel->start_index = (int)_pvVertices->size();
-
-	_pvModelSubObjectMaptTable->push_back(_subModel);
 
 }
 
@@ -484,7 +475,6 @@ void ThreeDModelLoader::OBJLoader::cleanUpMemory()
 ThreeDModelLoader::OBJLoader::~OBJLoader()
 {
 
-	SAFE_CLEAR_VECTOR_AND_FREE(_pvModelSubObjectMaptTable)
 	SAFE_CLEAR_VECTOR_AND_FREE(_pvVertices)
 	SAFE_CLEAR_VECTOR_AND_FREE(_pvModelIndicesMapTable)
 	SAFE_CLEAR_VECTOR_AND_FREE(_pvTexturesCoords)
