@@ -18,8 +18,8 @@
 
 #define CAM_SPEED_AIRPORT 5.0f
 #define CAM_SPEED_TERRAIN 0.005f
-#define Y_AIRPORT_START				0.0f
-#define Z_AIRPORT_START				0.0f
+#define Y_AIRPORT_START				-4500.0f
+#define Z_AIRPORT_START				-6500.0f
 
 #define Y_END_AIRPORT_1				-4600.0f
 #define Z_END_AIRPORT_1				-5600.0f
