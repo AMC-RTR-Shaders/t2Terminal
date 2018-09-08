@@ -198,6 +198,12 @@
     <ClCompile Include="BluePrint.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClCompile>
+    <ClCompile Include="Scene2Tile.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClCompile>
+    <ClCompile Include="WireFrameEffect.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Praveen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -269,12 +275,21 @@
     <ClInclude Include="BluePrint.h">
       <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClInclude>
+    <ClInclude Include="Scene2Tile.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
+    <ClInclude Include="WireFrameEffect.h">
+      <Filter>Header Files\T2Terminal\Scenes\Praveen</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\TerrainMap.bmp">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Smiley.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Floor.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

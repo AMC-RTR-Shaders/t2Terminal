@@ -15,14 +15,21 @@
 #pragma warning(disable:4996)
 #pragma warning(disable:4005)
 
+#ifndef CHECK_MALLOC
 #define CHECK_MALLOC(mem){ if(mem == NULL) {goto CLEAN_LOCAL_ALLOCATION_BELOW;}}
+#endif
+
+#ifndef SAFE_FREE 
 #define SAFE_FREE(mem) { if (mem) { free(mem); mem = NULL; } }
+#endif
 #define SAFE_CLOSE(fp) { if(fp){fclose(fp); fp=NULL;}}
 
 #define CHECK_NEW(obj){if(obj == NULL){ goto CLEAN_LOCAL_ALLOCATION_BELOW;}}
 #define SAFE_CLEAR_VECTOR_AND_FREE(obj){if(obj){obj->clear();delete obj;obj=NULL;}}
-#define SAFE_DELETE(obj) { if (obj) { delete obj; obj = NULL; } }
 
+#ifndef SAFE_DELETE 
+#define SAFE_DELETE(obj) { if (obj) { delete obj; obj = NULL; } }
+#endif
 
 
 namespace ThreeDModelLoader
@@ -116,13 +123,6 @@ namespace ThreeDModelLoader
 
 	}MODEL_INDICES_MAP_TABLE;
 
-	typedef struct _model_sub_object_map_table_
-	{
-		char subObjectName[256];
-		int start_index;
-		int end_index;
-
-	}MODEL_SUB_OBJECT_MAPT_TABLE;
 
 
 	class OBJLoader
@@ -202,10 +202,7 @@ namespace ThreeDModelLoader
 
 		std::vector<MODEL_INDICES_MAP_TABLE*>  *_pvModelIndicesMapTable; 
 		
-		std::vector<MODEL_SUB_OBJECT_MAPT_TABLE*>  *_pvModelSubObjectMaptTable;
-
 		int _nTexCordCount;
-
 
 		char *_szfileFullPath;
 
@@ -213,7 +210,6 @@ namespace ThreeDModelLoader
 
 		MODEL_INDICES_MAP_TABLE *_model;
 
-		MODEL_SUB_OBJECT_MAPT_TABLE *_subModel;
 
 	};
 

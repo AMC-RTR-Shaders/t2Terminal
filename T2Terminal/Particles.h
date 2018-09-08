@@ -14,7 +14,9 @@
 #define PARTICLE_WIDTH 100
 #define PARTICLE_HEIGHT 100
 #define SPEED 0.0001f
-
+#define TRANS_Y_PARTICLES 3.8f
+#define TRANS_X_PARTICLES 4.0f
+#define ROTATE_Z_PARTICLES 30.0f
 
 namespace Rushabh
 {

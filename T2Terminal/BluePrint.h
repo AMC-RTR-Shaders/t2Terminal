@@ -12,6 +12,7 @@
 #include"IScene.h"
 
 #define ID_BITMAP_SMILEY 100
+#define TRANS_Y_BLUE_PRINT -0.9f
 
 namespace Rushabh
 {

@@ -324,7 +324,7 @@ void Harsh::AeroplaneInstanceing::Initialize()
 	instancing->numberOfInstance = 26;
 	
 
-	_modelParser->parse(_shaderProgramObject, ThreeDModelLoader::PROCESS_TYPE::CPU, ThreeDModelLoader::DRAW_TYPE::DRAW_USING_ARRAYS, instancing);
+	_modelParser->parse(_shaderProgramObject, ThreeDModelLoader::PROCESS_TYPE::CPU, ThreeDModelLoader::DRAW_TYPE::DRAW_USING_ARRAYS, instancing, NULL);
 
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

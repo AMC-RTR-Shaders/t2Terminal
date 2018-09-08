@@ -87,7 +87,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_USE_WINAPI_FAMILY_DESKTOP_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -154,6 +154,7 @@
     <ClCompile Include="AeroplaneInstanceing.cpp" />
     <ClCompile Include="BluePrint.cpp" />
     <ClCompile Include="Cubemap.cpp" />
+    <ClCompile Include="Scene2Tile.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Cube.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="TerminalGlass.cpp" />
     <ClCompile Include="TerrainMap.cpp" />
     <ClCompile Include="Windowing.cpp" />
+    <ClCompile Include="WireFrameEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Airport.h" />
@@ -184,6 +186,7 @@
     <ClInclude Include="Quad.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RollingCylinder.h" />
+    <ClInclude Include="Scene2Tile.h" />
     <ClInclude Include="Scene_1.h" />
     <ClInclude Include="Scene_2.h" />
     <ClInclude Include="Scene_3.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="TerrainMap.h" />
     <ClInclude Include="vmath.h" />
     <ClInclude Include="Windowing.h" />
+    <ClInclude Include="WireFrameEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OBJLoderUtility\OBJLoderUtility.vcxproj">
@@ -203,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\TerrainMap.bmp" />
+    <Image Include="Floor.bmp" />
     <Image Include="Smiley.bmp" />
   </ItemGroup>
   <ItemGroup>

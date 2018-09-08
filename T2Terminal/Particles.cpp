@@ -9,7 +9,7 @@
 
 Rushabh::Particles::Particles()
 {
-	_particleTime = 0.04f;
+	_particleTime = 0.01f;
 }
 
 Rushabh::Particles::~Particles()
@@ -300,7 +300,7 @@ void Rushabh::Particles::createPoints(GLint w, GLint h)
 	float xCurrent = -xLength;
 	float yCurrent = 0.0f;
 	float XINC = xLength * 2 / 100;
-	float YINC = 0.09f;
+	float YINC = 0.05f;
 	float VELOCITY_INC = 1.0f;
 
 	for (i = 0; i < PARTICLE_WIDTH * PARTICLE_HEIGHT; i++)
@@ -354,7 +354,7 @@ void Rushabh::Particles::createPoints(GLint w, GLint h)
 		if ((i + 1) % 100 == 0)
 		{
 			yCurrent -= YINC;
-			xLength = xLength + 0.02f;
+			xLength = xLength + 0.01f;
 			xCurrent = -xLength;
 			XINC = xLength * 2 / 100;
 			VELOCITY_INC += 0.5f;
@@ -367,7 +367,7 @@ void Rushabh::Particles::createPoints(GLint w, GLint h)
 
 void Rushabh::Particles::Update()
 {
-	_particleTime = _particleTime + SPEED / 50;
+	_particleTime = _particleTime + SPEED / 100;
 }
 
 void Rushabh::Particles::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -392,12 +392,15 @@ void Rushabh::Particles::Render(HDC hdc, struct Attributes attributes)
 
 	mat4 modelViewMatrix = mat4::identity();
 	mat4 modelViewProjectionMatrix = mat4::identity();
-	float yTrans = 3.0f;
-	modelViewMatrix = translate(0.0f, yTrans, -8.0f);
+
+	modelViewMatrix = translate(
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
 
 	modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 
-	//modelViewMatrix = rotate(90.0f, 0.0f, 0.0f);
+	modelViewMatrix = rotate(ROTATE_Z_PARTICLES, 0.0f, 0.0f);
 
 	modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
 
@@ -412,11 +415,14 @@ void Rushabh::Particles::Render(HDC hdc, struct Attributes attributes)
 	modelViewMatrix = mat4::identity();
 	modelViewProjectionMatrix = mat4::identity();
 
-	modelViewMatrix = translate(4.0f, yTrans, -8.0f);
+	modelViewMatrix = translate(
+		TRANS_X_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1] ,
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
 
 	modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 
-	modelViewMatrix = rotate(0.0f, 0.0f, -30.0f);
+	modelViewMatrix = rotate(0.0f, 0.0f, -ROTATE_Z_PARTICLES);
 
 	modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
 
@@ -431,11 +437,14 @@ void Rushabh::Particles::Render(HDC hdc, struct Attributes attributes)
 	modelViewMatrix = mat4::identity();
 	modelViewProjectionMatrix = mat4::identity();
 
-	modelViewMatrix = translate(-4.0f, yTrans, -8.0f);
+	modelViewMatrix = translate(
+		-TRANS_X_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
 
 	modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 
-	modelViewMatrix = rotate(0.0f, 0.0f, 30.0f);
+	modelViewMatrix = rotate(0.0f, 0.0f, ROTATE_Z_PARTICLES);
 
 	modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
 

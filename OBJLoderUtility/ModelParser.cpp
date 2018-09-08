@@ -17,6 +17,9 @@ ThreeDModelLoader::ModelParser::ModelParser(char * filenfullpathname)
 	_pfnormals = NULL;
 	_normals_cnt = 0;;
 
+	_pfColors = NULL;
+	_color_cnt = 0;
+
 	_pftexturesCoords = NULL;
 	_texcord_cnt = 0;
 
@@ -41,7 +44,7 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 	return;
 }
 
-void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_TYPE processtype, DRAW_TYPE drawtype, GLOBJECT_INSTANCEING *instancing)
+void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_TYPE processtype, DRAW_TYPE drawtype, GLOBJECT_INSTANCEING *instancing, GLOBJECT_WIREFRAME_BUILDING *wireFrame)
 {
 	int i = 0;
 	_process_type = processtype;
@@ -64,6 +67,7 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 			CHECK_NULL(_pfvertices)
 				ZeroMemory(_pfvertices, (sizeof(GLfloat)*(_objLoader->getFaces()->size()) * 3 * 3));
 		}
+
 
 	if (_objLoader->getTextureCoordinates()->size()>0)
 	{
@@ -104,6 +108,154 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 	}
 
 
+
+	if (wireFrame != NULL && wireFrame->wireFrameQuery == WIREFRAME_QUERY::WIREFRAME_YES)
+	{
+		SAFE_FREE(_pfColors)
+			_pfColors = (GLfloat*)malloc(sizeof(GLfloat)*(_objLoader->getFaces()->size()) * 3 * 3);
+
+		wireFrame->lengthOfVertexMap = (int)_objLoader->getFaces()->size();
+
+		wireFrame->faceVertexMapIndex = (int *)malloc(wireFrame->lengthOfVertexMap * sizeof(int));
+		wireFrame->faceVertexMapMinimum = (float *)malloc(wireFrame->lengthOfVertexMap * sizeof(float));
+
+
+		int tempIndex = 0;
+		float tempValue = 0;
+		float minimum = 999;
+		int i = 0;
+		int j = 0;
+
+		for (i = 0; i != (int)wireFrame->lengthOfVertexMap; ++i)
+		{
+			OGLTRIANGLE triangle = { 0 };
+			getTriangle(i, &triangle);
+
+
+			if (minimum > triangle.first_point_vertices.X2) //X2 means y cordinate;
+			{
+				minimum = triangle.first_point_vertices.X2;
+			}
+
+			if (minimum > triangle.second_point_vertices.X2)
+			{
+				minimum = triangle.second_point_vertices.X2;
+			}
+
+			if (minimum > triangle.third_point_vertices.X2)
+			{
+				minimum = triangle.third_point_vertices.X2;
+			}
+
+
+			wireFrame->faceVertexMapIndex[i] = i;
+			wireFrame->faceVertexMapMinimum[i] = minimum;
+			minimum = 999;
+		}
+
+		//sorting 
+		for (i = 0; i <(int)wireFrame->lengthOfVertexMap - 1; ++i)
+		{
+			for (j = 0; j < (int)wireFrame->lengthOfVertexMap; ++j)
+			{
+				if (wireFrame->faceVertexMapMinimum[j] > wireFrame->faceVertexMapMinimum[j + 1])
+				{
+
+					tempIndex = wireFrame->faceVertexMapIndex[j];
+					wireFrame->faceVertexMapIndex[j] = wireFrame->faceVertexMapIndex[j + 1];
+					wireFrame->faceVertexMapIndex[j + 1] = tempIndex;
+
+					tempValue = wireFrame->faceVertexMapMinimum[j];
+					wireFrame->faceVertexMapMinimum[j] = wireFrame->faceVertexMapMinimum[j + 1];
+					wireFrame->faceVertexMapMinimum[j + 1] = tempValue;
+				}
+			}
+		}
+		//
+
+		for (i = 0; i < (int)(_objLoader->getFaces()->size()); i++)
+		{
+
+			OGLTRIANGLE triangle;
+			int currentFace = (int)wireFrame->faceVertexMapIndex[i];
+
+
+			if (currentFace < 0)
+				continue;
+
+			getTriangle(currentFace, &triangle);
+
+			/*filling vertices*/
+			if (_pfvertices != NULL && _objLoader->getVertices()->size() > 0)
+			{
+				_pfvertices[_vertices_cnt++] = triangle.first_point_vertices.X1;
+				_pfvertices[_vertices_cnt++] = triangle.first_point_vertices.X2;
+				_pfvertices[_vertices_cnt++] = triangle.first_point_vertices.X3;
+
+				_pfvertices[_vertices_cnt++] = triangle.second_point_vertices.X1;
+				_pfvertices[_vertices_cnt++] = triangle.second_point_vertices.X2;
+				_pfvertices[_vertices_cnt++] = triangle.second_point_vertices.X3;
+
+				_pfvertices[_vertices_cnt++] = triangle.third_point_vertices.X1;
+				_pfvertices[_vertices_cnt++] = triangle.third_point_vertices.X2;
+				_pfvertices[_vertices_cnt++] = triangle.third_point_vertices.X3;
+			}
+			/**/
+
+
+
+			/*filling color*/
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin1_color[0]; //255.0f/255.0f;
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin1_color[1];//128.0f/255.0f;
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin1_color[2];//0.0f/255.0f;
+
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin2_color[0];//1.0f;
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin2_color[1];//1.0f;
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin2_color[2];//1.0f;
+
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin3_color[0];//0.0f/255.0f;
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin3_color[1];//128.0f/255.0f;
+			_pfColors[_color_cnt++] = wireFrame->triangle_poin3_color[2];//0.0f/255.0f;
+																		 /**/
+
+																		 /*filling textcords*/
+			if (_pftexturesCoords != NULL && _objLoader->getTextureCoordinates()->size() > 0)
+			{
+				_pftexturesCoords[_texcord_cnt++] = triangle.first_point_texture_coord.S;
+				_pftexturesCoords[_texcord_cnt++] = triangle.first_point_texture_coord.T;
+
+				_pftexturesCoords[_texcord_cnt++] = triangle.second_point_texture_coord.S;
+				_pftexturesCoords[_texcord_cnt++] = triangle.second_point_texture_coord.T;
+
+				_pftexturesCoords[_texcord_cnt++] = triangle.third_point_texture_coord.S;
+				_pftexturesCoords[_texcord_cnt++] = triangle.third_point_texture_coord.T;
+			}
+			/**/
+
+
+			/*filling normals*/
+			if (_pfnormals != NULL && _objLoader->getNormals()->size() > 0)
+			{
+				_pfnormals[_normals_cnt++] = triangle.first_point_normals.N1;
+				_pfnormals[_normals_cnt++] = triangle.first_point_normals.N2;
+				_pfnormals[_normals_cnt++] = triangle.first_point_normals.N3;
+
+				_pfnormals[_normals_cnt++] = triangle.second_point_normals.N1;
+				_pfnormals[_normals_cnt++] = triangle.second_point_normals.N2;
+				_pfnormals[_normals_cnt++] = triangle.second_point_normals.N3;
+
+				_pfnormals[_normals_cnt++] = triangle.third_point_normals.N1;
+				_pfnormals[_normals_cnt++] = triangle.third_point_normals.N2;
+				_pfnormals[_normals_cnt++] = triangle.third_point_normals.N3;
+			}
+			/**/
+
+		}
+
+
+		goto JMP_TO_INITIALIZE_WIREFRAME_USING_ARRAY;
+
+	}
 
 	if (_draw_type == DRAW_TYPE::DRAW_USING_ARRAYS)
 	{
@@ -201,7 +353,9 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 
 		}
 
-		_gl_object->initialize_for_draw_array_from_cpu(shaderProgramObject, _vertices_cnt, _pfvertices, _texcord_cnt, _pftexturesCoords, _normals_cnt, _pfnormals, _objLoader->getMaterialTable(), instancing);
+	JMP_TO_INITIALIZE_WIREFRAME_USING_ARRAY:
+
+		_gl_object->initialize_for_draw_array_from_cpu(shaderProgramObject, _vertices_cnt, _pfvertices, _texcord_cnt, _pftexturesCoords, _normals_cnt, _pfnormals, _color_cnt, _pfColors, _objLoader->getMaterialTable(), instancing, wireFrame);
 		goto CLEAN_UP_MEMORY_AFTER_PUSHING_TO_GPU;
 
 	}
@@ -215,13 +369,13 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 			_psPositionIndex[_position_index_cnt++] = _objLoader->getFaces()->at(i).V1;
 			_psPositionIndex[_position_index_cnt++] = _objLoader->getFaces()->at(i).V2;
 			_psPositionIndex[_position_index_cnt++] = _objLoader->getFaces()->at(i).V3;
-		
-		
+
+
 			//point 1
 			int vindex = _objLoader->getFaces()->at(i).V1;
 			int cnt = 0;
-			
-			if (_pfvertices!= NULL && _objLoader->getVertices()->size() > 0)
+
+			if (_pfvertices != NULL && _objLoader->getVertices()->size() > 0)
 			{
 				cnt = vindex * 3;
 				_pfvertices[cnt++] = _objLoader->getVertices()->at(vindex).X1;
@@ -229,15 +383,15 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 				_pfvertices[cnt++] = _objLoader->getVertices()->at(vindex).X3;
 				_vertices_cnt += 3;
 			}
-			if (_pftexturesCoords!=NULL && _objLoader->getTextureCoordinates()->size() > 0)
+			if (_pftexturesCoords != NULL && _objLoader->getTextureCoordinates()->size() > 0)
 			{
 				cnt = vindex * 2;
 				_pftexturesCoords[cnt++] = _objLoader->getTextureCoordinates()->at(_objLoader->getFaces()->at(i).T1).S;
 				_pftexturesCoords[cnt++] = _objLoader->getTextureCoordinates()->at(_objLoader->getFaces()->at(i).T1).T;
 				_texcord_cnt += 2;
 			}
-			
-			if (_pfnormals!=NULL && _objLoader->getNormals()->size() > 0)
+
+			if (_pfnormals != NULL && _objLoader->getNormals()->size() > 0)
 			{
 				cnt = vindex * 3;
 				_pfnormals[cnt++] = _objLoader->getNormals()->at(_objLoader->getFaces()->at(i).N1).N1;
@@ -245,14 +399,12 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 				_pfnormals[cnt++] = _objLoader->getNormals()->at(_objLoader->getFaces()->at(i).N1).N3;
 				_normals_cnt += 3;
 			}
-			
-			
-			
+
 
 			//point 2
 			vindex = _objLoader->getFaces()->at(i).V2;
-			
-			if (_pfvertices!=NULL && _objLoader->getVertices()->size() > 0)
+
+			if (_pfvertices != NULL && _objLoader->getVertices()->size() > 0)
 			{
 				cnt = vindex * 3;
 				_pfvertices[cnt++] = _objLoader->getVertices()->at(vindex).X1;
@@ -260,26 +412,26 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 				_pfvertices[cnt++] = _objLoader->getVertices()->at(vindex).X3;
 				_vertices_cnt += 3;
 			}
-			if (_pftexturesCoords!=NULL && _objLoader->getTextureCoordinates()->size() > 0)
+			if (_pftexturesCoords != NULL && _objLoader->getTextureCoordinates()->size() > 0)
 			{
 				cnt = vindex * 2;
 				_pftexturesCoords[cnt++] = _objLoader->getTextureCoordinates()->at(_objLoader->getFaces()->at(i).T2).S;
 				_pftexturesCoords[cnt++] = _objLoader->getTextureCoordinates()->at(_objLoader->getFaces()->at(i).T2).T;
 				_texcord_cnt += 2;
 			}
-			if (_pfnormals!=NULL && _objLoader->getNormals()->size() > 0)
+			if (_pfnormals != NULL && _objLoader->getNormals()->size() > 0)
 			{
 				cnt = vindex * 3;
 				_pfnormals[cnt++] = _objLoader->getNormals()->at(_objLoader->getFaces()->at(i).N2).N1;
 				_pfnormals[cnt++] = _objLoader->getNormals()->at(_objLoader->getFaces()->at(i).N2).N2;
 				_pfnormals[cnt++] = _objLoader->getNormals()->at(_objLoader->getFaces()->at(i).N2).N3;
 				_normals_cnt += 3;
-			}			
-			
+			}
+
 			//point 3
 			vindex = _objLoader->getFaces()->at(i).V3;
-			
-			if (_pfvertices!=NULL && _objLoader->getVertices()->size() > 0)
+
+			if (_pfvertices != NULL && _objLoader->getVertices()->size() > 0)
 			{
 				cnt = vindex * 3;
 				_pfvertices[cnt++] = _objLoader->getVertices()->at(vindex).X1;
@@ -287,7 +439,7 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 				_pfvertices[cnt++] = _objLoader->getVertices()->at(vindex).X3;
 				_vertices_cnt += 3;
 			}
-			if (_pftexturesCoords!=NULL && _objLoader->getTextureCoordinates()->size() > 0)
+			if (_pftexturesCoords != NULL && _objLoader->getTextureCoordinates()->size() > 0)
 			{
 				cnt = vindex * 2;
 				_pftexturesCoords[cnt++] = _objLoader->getTextureCoordinates()->at(_objLoader->getFaces()->at(i).T3).S;
@@ -295,22 +447,23 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 				_texcord_cnt += 2;
 			}
 
-			if (_pfnormals!=NULL && _objLoader->getNormals()->size() > 0)
+			if (_pfnormals != NULL && _objLoader->getNormals()->size() > 0)
 			{
 				cnt = vindex * 3;
 				_pfnormals[cnt++] = _objLoader->getNormals()->at(_objLoader->getFaces()->at(i).N3).N1;
 				_pfnormals[cnt++] = _objLoader->getNormals()->at(_objLoader->getFaces()->at(i).N3).N2;
 				_pfnormals[cnt++] = _objLoader->getNormals()->at(_objLoader->getFaces()->at(i).N3).N3;
 				_normals_cnt += 3;
-			}			
+			}
 
 		}
 		//end of copying
-		_gl_object->initialize_for_draw_elements_from_cpu(shaderProgramObject,_vertices_cnt, _pfvertices, _texcord_cnt, _pftexturesCoords, _normals_cnt, _pfnormals, _position_index_cnt, _psPositionIndex, _objLoader->getMaterialTable(), instancing);
+		_gl_object->initialize_for_draw_elements_from_cpu(shaderProgramObject, _vertices_cnt, _pfvertices, _texcord_cnt, _pftexturesCoords, _normals_cnt, _pfnormals, _position_index_cnt, _psPositionIndex, _objLoader->getMaterialTable(), instancing, wireFrame);
 		goto CLEAN_UP_MEMORY_AFTER_PUSHING_TO_GPU;
 	}
 
 CLEAN_UP_MEMORY_AFTER_PUSHING_TO_GPU:
+	SAFE_FREE(_pfColors)
 		SAFE_FREE(_pfvertices)
 		SAFE_FREE(_pftexturesCoords)
 		SAFE_FREE(_pfnormals)
@@ -347,6 +500,7 @@ void ThreeDModelLoader::ModelParser::draw()
 void ThreeDModelLoader::ModelParser::clean_up()
 {
 	SAFE_DELETE(_objLoader)
+		SAFE_FREE(_pfColors)
 		SAFE_FREE(_pfvertices)
 		SAFE_FREE(_pftexturesCoords)
 		SAFE_FREE(_pfnormals)
@@ -357,6 +511,7 @@ void ThreeDModelLoader::ModelParser::clean_up()
 void ThreeDModelLoader::ModelParser::getTriangle(int positionArray, OGLTRIANGLE * triangle)
 {
 
+
 	//point 1
 	if (_objLoader->getVertices()->size() > 0)
 	{
@@ -366,7 +521,7 @@ void ThreeDModelLoader::ModelParser::getTriangle(int positionArray, OGLTRIANGLE 
 		triangle->first_point_vertices.X2 = _objLoader->getVertices()->at(triangle->vertex_positions.v1).X2;
 		triangle->first_point_vertices.X3 = _objLoader->getVertices()->at(triangle->vertex_positions.v1).X3;
 	}
-	if (_objLoader->getTextureCoordinates()->size() > 0 && _objLoader->getFaces()->at(positionArray).T1 >=0)
+	if (_objLoader->getTextureCoordinates()->size() > 0 && _objLoader->getFaces()->at(positionArray).T1 >= 0)
 	{
 		triangle->first_point_texture_coord.S = _objLoader->getTextureCoordinates()->at(_objLoader->getFaces()->at(positionArray).T1).S;
 		triangle->first_point_texture_coord.T = _objLoader->getTextureCoordinates()->at(_objLoader->getFaces()->at(positionArray).T1).T;
@@ -439,4 +594,3 @@ ThreeDModelLoader::ModelParser::~ModelParser()
 {
 	clean_up();
 }
-

@@ -259,9 +259,6 @@ void Priyanka::Cubemap::Initialize()
 
 	return;
 
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
-
 }
 
 void Priyanka::Cubemap::Update()
@@ -325,9 +322,6 @@ void Priyanka::Cubemap::Render(HDC hdc, struct Attributes attributes)
 
 	return;
 
-
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 }
 
 void Priyanka::Cubemap::SceneTransition()

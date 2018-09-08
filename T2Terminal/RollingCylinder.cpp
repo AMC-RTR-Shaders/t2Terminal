@@ -9,9 +9,11 @@
 
 Rushabh::RollingCylinder::RollingCylinder()
 {
-	gAngle = 0.0f;
+	_angle = 0.0f;
 	gVertexX = -1.0f;
 	gTexCoordX = 0.0f;
+	_radius = 0.25f;
+	_height = 2.0f;
 }
 
 Rushabh::RollingCylinder::~RollingCylinder()
@@ -213,7 +215,7 @@ void Rushabh::RollingCylinder::Initialize()
 	Ks_uniform = glGetUniformLocation(_shaderProgramObject_cylinder, "u_Ks");
 	material_shininess_uniform = glGetUniformLocation(_shaderProgramObject_cylinder, "u_material_shininess");
 
-	makeSphere(0.25, 2.0, 10, 10);
+	makeSphere(_radius, _height, 10, 10);
 
 
 	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
@@ -236,6 +238,9 @@ void Rushabh::RollingCylinder::Initialize()
 
 void Rushabh::RollingCylinder::Update()
 {
+	_angle += SPEED_ROLLING_CYLINDER;
+	if (_angle > 360.0f)
+		_angle = 0.0f;
 }
 
 void Rushabh::RollingCylinder::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -251,6 +256,8 @@ void Rushabh::RollingCylinder::ReSize(int width, int height, struct ResizeAttrib
 void Rushabh::RollingCylinder::Render(HDC hdc, struct Attributes attributes)
 {
 	//START USING SHADER OBJECT	
+	glDisable(GL_CULL_FACE); /*Turning oFF cull , as we are doing animation , and so need to paint the back of object when rotating*/
+
 	glUseProgram(_shaderProgramObject_cylinder);
 
 
@@ -276,9 +283,20 @@ void Rushabh::RollingCylinder::Render(HDC hdc, struct Attributes attributes)
 	mat4 modelMatrix = mat4::identity();
 	mat4 viewMatrix = mat4::identity();
 
-	modelMatrix = translate(attributes.translateCoords[SCENE_CYLINDER_TRANS][0], 1.0f, -10.0f + 0.25f);
-	modelMatrix = modelMatrix * rotate(90.0f, 1.0f, 0.0f, 0.0f);
-	modelMatrix = modelMatrix * rotate(gAngle, 0.0f, 0.0f, 1.0f);
+	modelMatrix = translate(
+		attributes.translateCoords[SCENE_CYLINDER_TRANS][0] + attributes.translateCoords[SCENE_AIRPORT_MODEL][0] + _radius, 
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + TRANS_Y_ROLLINGCYLINDER + _radius + 0.1f,
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2] - _height/2);
+	//modelMatrix = modelMatrix * rotate(
+	//	90.0f, 
+	//	0.0f, 
+	//	0.0f);
+
+	modelMatrix = modelMatrix * rotate(
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
+	modelMatrix = modelMatrix * rotate(_angle, 0.0f, 0.0f, -1.0f);
 
 	glUniformMatrix4fv(model_matrix_uniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(view_matrix_uniform, 1, GL_FALSE, viewMatrix);
