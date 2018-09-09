@@ -35,9 +35,10 @@
 #define Z_END_AIRPORT_3				-2110.0f
 #define X_END_ROTATE_3				51.0f
 
-#define Y_END_AIRPORT_4				68.0f
-#define Z_END_AIRPORT_4				-291.0f
-#define X_END_ROTATE_4				19.0f
+#define X_END_AIRPORT_4				-9.565f
+#define Y_END_AIRPORT_4				57.84f
+#define Z_END_AIRPORT_4				-279.6f
+#define X_END_ROTATE_4				18.36f
 
 #define X_END_SINGLE_PLANE			0.0f;
 

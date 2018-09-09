@@ -65,6 +65,7 @@ void Scene_1::Scene_1::Initialize()
 
 
 	//Initializ.
+
 	//_cubeTemplate->Initialize();
 	//_quad->Initialize();
 	_terminalGlass->Initialize();
@@ -133,9 +134,9 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 
 void Scene_1::Scene_1::SceneTransition()
 {
-	//_terminalGlass->SceneTransition();
+	_terminalGlass->SceneTransition();
 	_aeroplaneInstancing->SceneTransition();
-	//_terrainMap->SceneTransition();
+	_terrainMap->SceneTransition();
 	_airport->SceneTransition();
 	_singleAeroplane->SceneTransition();
 	_cubemap->SceneTransition();
