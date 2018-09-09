@@ -296,6 +296,7 @@ void Rushabh::TerminalGlass::ReSize(int width, int height, struct ResizeAttribut
 
 void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 {
+	glDisable(GL_CULL_FACE);
 	mat4 modelMatrix = mat4::identity();
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotateMatrix = mat4::identity();
@@ -313,6 +314,7 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 	static GLfloat materialFrameSpecular[] = { 0.0f,1.0f,0.0f,1.0f };
 	static GLfloat glassColor[] = { 0.92f,0.76f,0.65f,1.0f };
 	static GLfloat lineColor[] = { 0.21f,0.09f,0.01f,1.0f };
+	// GLfloat lineColor[] = { 1.0f,0.09f,0.01f,1.0f };
 
 	static GLfloat material_shininess = 50.0f;
 
@@ -332,46 +334,23 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
 
-	modelMatrix = translate(
-		attributes.translateCoords[SCENE_AIRPORT][0] + translateCoords[0][0],
-		attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1],
-		attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
-	rotateMatrix = rotate(
-		0.0f + attributes.rotateCoords[SCENE_AIRPORT][0],
-		0.0f + attributes.rotateCoords[SCENE_AIRPORT][1],
-		0.0f + attributes.rotateCoords[SCENE_AIRPORT][2]);
-	modelMatrix = modelMatrix * rotateMatrix;
-
-	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	glBindVertexArray(vao[0]);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	glDrawArrays(GL_TRIANGLE_FAN, 4, 4);
-	glDrawArrays(GL_TRIANGLE_FAN, 8, 4);
-	glBindVertexArray(0);
-	glLineWidth(2.0f);
-	glDisable(GL_BLEND);
-
 	glUniform3fv(_KaUniform, 1, materialFrameAmbient);
 	glUniform3fv(_KdUniform, 1, materialFrameDiffuse);
 	glUniform3fv(_KsUniform, 1, materialFrameSpecular);
+	glLineWidth(1.5f);
 	for(int i = 0 ;i<2 ;i++)
 	{
 		float increment = quadHeight[i] / 5;
-		for (float y = quadHeight[i]; y > 0.0f; y -= increment)
+		for (float y = quadHeight[i]; y >0.0f ; y -= increment)
 		{
 			modelMatrix = mat4::identity();
 			viewMatrix = mat4::identity();
 			
 			modelMatrix = translate(
 				attributes.translateCoords[SCENE_AIRPORT][0] + translateCoords[0][0],
-				attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1] + y,
+				attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1] + y - quadHeight[i] + 3.0f,
 				attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
-			modelMatrix = modelMatrix * rotateMatrix;
+		modelMatrix = modelMatrix  * rotateMatrix;
 
 			glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 			glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
@@ -391,7 +370,7 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 
 			modelMatrix = translate(
 				attributes.translateCoords[SCENE_AIRPORT][0] + translateCoords[0][0] + x,
-				attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1],
+				attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1] - quadHeight[i] + 3.0f,
 				attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
 				//rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 			modelMatrix = modelMatrix * rotateMatrix;
@@ -406,7 +385,34 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 			glDrawArrays(GL_LINES, 1, 2);
 			glBindVertexArray(0);
 		}
+		
+		modelMatrix = mat4::identity();
+		viewMatrix = mat4::identity();
+		rotateMatrix = mat4::identity();
 
+		modelMatrix = translate(
+			attributes.translateCoords[SCENE_AIRPORT][0] + translateCoords[0][0],
+			attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1],
+			attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
+		rotateMatrix = rotate(
+			0.0f + attributes.rotateCoords[SCENE_AIRPORT][0],
+			0.0f + attributes.rotateCoords[SCENE_AIRPORT][1],
+			0.0f + attributes.rotateCoords[SCENE_AIRPORT][2]);
+		modelMatrix = modelMatrix * rotateMatrix;
+
+		glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
+		glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+		glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glBindVertexArray(vao[0]);
+		glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+		glDrawArrays(GL_TRIANGLE_FAN, 4, 4);
+		glDrawArrays(GL_TRIANGLE_FAN, 8, 4);
+		glBindVertexArray(0);
+		
+		glDisable(GL_BLEND);
 
 		//STOP USING SHADER
 		glUseProgram(0);

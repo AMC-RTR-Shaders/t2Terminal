@@ -57,16 +57,15 @@ void Scene_2::Scene_2::Initialize()
 	CHECK_NEW(_wireFrameEffect);
 
 
-
 	_spotLight->Initialize();
 	_spotLightBox->Initialize();
-
 	_particles->Initialize();
 	_rollingCylinder->Initialize();
 	_bluePrint->Initialize();
 	_scene2Tile->Initialize();
 	_wireFrameEffect->Initialize();
 	_airportTop->Initialize();
+
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:

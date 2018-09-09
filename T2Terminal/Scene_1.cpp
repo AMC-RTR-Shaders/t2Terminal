@@ -114,6 +114,7 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 	_terminalGlass->Render(hdc, attributes);
 	_perlinCloud->Render(hdc, attributes);
 
+
 	//if (attributes.currentScene == SCENE_TERRAIN_MAP)
 	//{
 	//	_terrainMap->Render(hdc, attributes);

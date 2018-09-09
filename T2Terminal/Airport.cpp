@@ -544,8 +544,7 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
-	mat4 scaleMatrix ;
-
+	
 	CHECK_NULL(_modelParser);
 	_modelParser->draw();
 
