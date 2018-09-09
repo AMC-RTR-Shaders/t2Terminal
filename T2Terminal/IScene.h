@@ -68,7 +68,9 @@ https://en.wikipedia.org/wiki/Include_guard
 #define SCENE_AIRPORT_MODEL			4
 #define SCENE_CYLINDER_TRANS		5
 #define SCENE_CYLINDER_TEXCOORD		6
-#define SCENE_COUNT					SCENE_CYLINDER_TEXCOORD + 1
+#define SCENE_BLUE_PRINT			7
+#define SCENE_WIRE_FRAME			8
+#define SCENE_COUNT					SCENE_WIRE_FRAME + 1
 
 #define TRANSFORMATION_SINGLE_AEROPLANE_1	1
 #define TRANSFORMATION_SINGLE_AEROPLANE_2	2
@@ -76,6 +78,15 @@ https://en.wikipedia.org/wiki/Include_guard
 #define TRANSFORMATION_TOP_VIEW_1			4
 #define TRANSFORMATION_TOP_VIEW_2			5
 #define TRANSFORMATION_TOP_VIEW_3			6
+
+#define TRANSFORMATION_START_WIRE_FRAME		7
+
+#define TRANS_X_BLUE_PRINT					4.8f
+#define SCENE_2_SEQUNCRE_COUNTER			0.0f
+#define PARTICLE_LIGHT_1_ON					5.0f
+#define PARTICLE_LIGHT_2_ON					10.0f
+#define PARTICLE_LIGHT_3_ON					12.5f
+
 
 namespace T2Terminal
 {
@@ -98,6 +109,8 @@ namespace T2Terminal
 			int currentScene;
 			int numSpotLight;
 			int currentTransformation;
+			float currentSequenceCounter;
+			float blendValue;
 		};
 
 		struct ResizeAttributes

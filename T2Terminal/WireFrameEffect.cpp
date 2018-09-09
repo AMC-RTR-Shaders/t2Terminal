@@ -21,8 +21,8 @@ Praveen::WireFrameEffect::WireFrameEffect()
 	_modelParserAllPillar = NULL;
 	
 
-	_modelParserThreePillar = new ModelParser("3DModels\\Scene_2\\ModelGrowingAirport\\ModelGrowingThreePillar.obj");
-	_modelParserAllPillar = new ModelParser("3DModels\\Scene_2\\ModelGrowingAirport\\ModelGrowingAllPillar.obj");
+	_modelParserThreePillar = new ModelParser("3DModels\\Scene_2\\ModelGrowingAirport\\scaledThreePiller.obj");
+	_modelParserAllPillar = new ModelParser("3DModels\\Scene_2\\ModelGrowingAirport\\scaledPillerAll.obj");
 	CHECK_NULL(_modelParserThreePillar);
 
 	return;
@@ -244,8 +244,8 @@ void Praveen::WireFrameEffect::Initialize()
 	_wireFrameThreePillar = (GLOBJECT_WIREFRAME_BUILDING*)malloc(sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	ZeroMemory(_wireFrameThreePillar, sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	_wireFrameThreePillar->wireFrameQuery = WIREFRAME_QUERY::WIREFRAME_YES;
-	_wireFrameThreePillar->speedValueToIncrementSolidFaces = 0.5f;
-	_wireFrameThreePillar->speedValueToIncrementWireFaces =  3.0f;
+	_wireFrameThreePillar->speedValueToIncrementSolidFaces = 0.3f;
+	_wireFrameThreePillar->speedValueToIncrementWireFaces =  0.3f;
 	
 	_wireFrameThreePillar->triangle_poin1_color[0] = 240.0f / 255.0f;
 	_wireFrameThreePillar->triangle_poin1_color[1] = 240.0f / 255.0f;
@@ -270,8 +270,8 @@ void Praveen::WireFrameEffect::Initialize()
 	_wireFrameAllPillar = (GLOBJECT_WIREFRAME_BUILDING*)malloc(sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	ZeroMemory(_wireFrameAllPillar, sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	_wireFrameAllPillar->wireFrameQuery = WIREFRAME_QUERY::WIREFRAME_YES;
-	_wireFrameAllPillar->speedValueToIncrementSolidFaces = 1.5f;
-	_wireFrameAllPillar->speedValueToIncrementWireFaces = 3.0f;
+	_wireFrameAllPillar->speedValueToIncrementSolidFaces = 0.5f;
+	_wireFrameAllPillar->speedValueToIncrementWireFaces = 1.0f;
 
 	_wireFrameAllPillar->triangle_poin1_color[0] = 240.0f / 255.0f;
 	_wireFrameAllPillar->triangle_poin1_color[1] = 240.0f / 255.0f;
@@ -314,6 +314,7 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 
 void Praveen::WireFrameEffect::Update()
 {
+	
 	_wireFrameEffect_angle = _wireFrameEffect_angle + 0.3f;
 
 	if (_wireFrameEffect_angle >= 360.0f)
@@ -321,20 +322,23 @@ void Praveen::WireFrameEffect::Update()
 
 
 	//update Code
-	if (_wireFrameThreePillar->totalSolidFaces < _wireFrameThreePillar->lengthOfVertexMap)
+	
+	if (_wireFrameThreePillar->isModelWireFacesDone == true)
 	{
-		_wireFrameThreePillar->incrementSolidFaces += _wireFrameThreePillar->speedValueToIncrementSolidFaces;
-		if (_wireFrameThreePillar->incrementSolidFaces > 1.0f)
+		if (_wireFrameThreePillar->totalSolidFaces < _wireFrameThreePillar->lengthOfVertexMap)
 		{
-			_wireFrameThreePillar->totalSolidFaces += _wireFrameThreePillar->incrementSolidFaces;
-			_wireFrameThreePillar->incrementSolidFaces = 0.0f;
+			_wireFrameThreePillar->incrementSolidFaces += _wireFrameThreePillar->speedValueToIncrementSolidFaces;
+			if (_wireFrameThreePillar->incrementSolidFaces > 1.0f)
+			{
+				_wireFrameThreePillar->totalSolidFaces += _wireFrameThreePillar->incrementSolidFaces;
+				_wireFrameThreePillar->incrementSolidFaces = 0.0f;
+			}
+		}
+		if ((int)_wireFrameThreePillar->totalSolidFaces == _wireFrameThreePillar->lengthOfVertexMap)
+		{
+			_wireFrameThreePillar->isModelSolidFacesDone = true;
 		}
 	}
-	if (_wireFrameThreePillar->totalSolidFaces == _wireFrameThreePillar->lengthOfVertexMap)
-	{
-		_wireFrameThreePillar->isModelSolidFacesDone = true;
-	}
-
 
 	if (_wireFrameThreePillar->totalWireFaces <_wireFrameThreePillar->lengthOfVertexMap)
 	{
@@ -345,33 +349,35 @@ void Praveen::WireFrameEffect::Update()
 			_wireFrameThreePillar->incrementWireFaces = 0.0f;
 		}
 	}
-	if (_wireFrameThreePillar->totalWireFaces == _wireFrameThreePillar->lengthOfVertexMap)
+	if ((int)_wireFrameThreePillar->totalWireFaces == _wireFrameThreePillar->lengthOfVertexMap)
 	{
 		_wireFrameThreePillar->isModelWireFacesDone = true;
 	}
 	//
 
 
-
+	
 
 
 	//update Code
-	if (_wireFrameThreePillar->isModelSolidFacesDone)
+	if (_wireFrameThreePillar->isModelSolidFacesDone )
 	{
-		if (_wireFrameAllPillar->totalSolidFaces < _wireFrameAllPillar->lengthOfVertexMap)
+		if (_wireFrameAllPillar->isModelWireFacesDone == true)
 		{
-			_wireFrameAllPillar->incrementSolidFaces += _wireFrameAllPillar->speedValueToIncrementSolidFaces;
-			if (_wireFrameAllPillar->incrementSolidFaces > 1.0f)
+			if (_wireFrameAllPillar->totalSolidFaces < _wireFrameAllPillar->lengthOfVertexMap)
 			{
-				_wireFrameAllPillar->totalSolidFaces += _wireFrameAllPillar->incrementSolidFaces;
-				_wireFrameAllPillar->incrementSolidFaces = 0.0f;
+				_wireFrameAllPillar->incrementSolidFaces += _wireFrameAllPillar->speedValueToIncrementSolidFaces;
+				if (_wireFrameAllPillar->incrementSolidFaces > 1.0f)
+				{
+					_wireFrameAllPillar->totalSolidFaces += _wireFrameAllPillar->incrementSolidFaces;
+					_wireFrameAllPillar->incrementSolidFaces = 0.0f;
+				}
+			}
+			if ((int)_wireFrameAllPillar->totalSolidFaces == _wireFrameAllPillar->lengthOfVertexMap)
+			{
+				_wireFrameAllPillar->isModelSolidFacesDone = true;
 			}
 		}
-		if (_wireFrameAllPillar->totalSolidFaces == _wireFrameAllPillar->lengthOfVertexMap)
-		{
-			_wireFrameAllPillar->isModelSolidFacesDone = true;
-		}
-
 
 		if (_wireFrameAllPillar->totalWireFaces < _wireFrameAllPillar->lengthOfVertexMap)
 		{
@@ -382,13 +388,13 @@ void Praveen::WireFrameEffect::Update()
 				_wireFrameAllPillar->incrementWireFaces = 0.0f;
 			}
 		}
-		if (_wireFrameAllPillar->totalWireFaces == _wireFrameAllPillar->lengthOfVertexMap)
+		if ((int)_wireFrameAllPillar->totalWireFaces == _wireFrameAllPillar->lengthOfVertexMap)
 		{
 			_wireFrameAllPillar->isModelWireFacesDone = true;
 		}
 	}
 	//
-
+	
 	// translateZ -= 0.1f;
 }
 
@@ -432,12 +438,20 @@ void Praveen::WireFrameEffect::Render(HDC hdc, struct Attributes attributes)
 	///rotateMatrix = vmath::rotate<GLfloat>(90.0f, 1.0f, 0.0f, 0.0f);
 	//modelMatrix = modelMatrix * rotateMatrix;
 	//modelMatrix = translate(-400.0f, -5.0f, -1950.0f);
-	modelMatrix =translate(0.0f,0.0f, translateZ);
+	modelMatrix =translate(
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][0] + TRANS_X_WIREFRAME, 
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][1]+ TRANS_Y_WIREFRAME,
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2] + TRANS_Z_WIREFRAME);
+
+	rotateMatrix = rotate(
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
+
+	modelMatrix = modelMatrix * scale(0.45f, 0.5f, 0.5f) * rotateMatrix;
 
 	rotateMatrix = vmath::rotate<GLfloat>(_wireFrameEffect_angle, _wireFrameEffect_angle, _wireFrameEffect_angle);
 	//rotateMatrix = vmath::rotate<GLfloat>(287.971619f, 287.971619f, 287.971619f);
-
-	//modelMatrix = modelMatrix * scale(1.0f, 1.5f, 1.0f);
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
@@ -453,6 +467,7 @@ void Praveen::WireFrameEffect::Render(HDC hdc, struct Attributes attributes)
 	//STOP USING SHADER
 	glUseProgram(0);
 
+	Update();
 	return;
 
 

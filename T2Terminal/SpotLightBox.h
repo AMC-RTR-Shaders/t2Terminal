@@ -4,7 +4,8 @@
 #include"IScene.h"
 
 #define TRANS_Y_BOX -1.0f/2
-
+#define TRANS_Z_BOX -1.0f
+ 
 namespace Harsh
 {
 	class SpotLightBox : virtual public T2Terminal::IScene
@@ -39,6 +40,8 @@ namespace Harsh
 		GLuint _Kd_Uniform;
 		GLuint _Ks_Uniform;
 		GLuint _Material_shininess_uniform;
+		GLuint _Blend_Value_uniform;
+		
 		GLuint _viewrPositionUniform;
 		GLuint _numSpotLightUniform;
 
