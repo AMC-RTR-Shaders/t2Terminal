@@ -17,6 +17,7 @@ Scene_1::Scene_1::Scene_1()
 	_terrainMap = NULL;
 	_singleAeroplane = NULL;
 	_cubemap = NULL;
+	_perlinCloud = NULL;
 }
 
 Scene_1::Scene_1::~Scene_1()
@@ -59,17 +60,20 @@ void Scene_1::Scene_1::Initialize()
 	_cubemap = new Priyanka::Cubemap();
 	CHECK_NEW(_cubemap);
 
+	_perlinCloud = new Abhijeet::PerlinCloud();
+	CHECK_NEW(_perlinCloud);
 
 
 	//Initializ.
 	//_cubeTemplate->Initialize();
 	//_quad->Initialize();
-	//_terminalGlass->Initialize();
+	_terminalGlass->Initialize();
 	_aeroplaneInstancing->Initialize();
 	_airport->Initialize();
-	//_terrainMap->Initialize();
+	_terrainMap->Initialize();
 	_singleAeroplane->Initialize();
 	_cubemap->Initialize();
+	_perlinCloud->Initialize();
 
 
 	return;
@@ -79,36 +83,35 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 
 void Scene_1::Scene_1::Update()
 {
-	//_terrainMap->Update();
-	//_terminalGlass->Update();
+	_terrainMap->Update();
+	_terminalGlass->Update();
 	_aeroplaneInstancing->Update();
 	_airport->Update();
 	_singleAeroplane->Update();
 	_cubemap->Update();
+	_perlinCloud->Update();
 
 }
 
 void Scene_1::Scene_1::ReSize(int width, int height, struct ResizeAttributes attributes)
 {
-	//_terrainMap->ReSize(width, height, attributes);
-	//_terminalGlass->ReSize(width, height, attributes);
+	_terrainMap->ReSize(width, height, attributes);
+	_terminalGlass->ReSize(width, height, attributes);
 	_aeroplaneInstancing->ReSize(width, height, attributes);
 	_airport->ReSize(width, height, attributes);
 	_singleAeroplane->ReSize(width, height, attributes);
 	_cubemap->ReSize(width, height, attributes);
+	_perlinCloud->ReSize(width, height, attributes);
 }
 
 void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 {
-
-	//_terminalGlass->Render(hdc, attributes);
-	
 	_singleAeroplane->Render(hdc, attributes);
 	_airport->Render(hdc, attributes);
-
 	_terrainMap->Render(hdc, attributes);
-
 	_cubemap->Render(hdc, attributes);
+	_terminalGlass->Render(hdc, attributes);
+	_perlinCloud->Render(hdc, attributes);
 
 	//if (attributes.currentScene == SCENE_TERRAIN_MAP)
 	//{
@@ -136,6 +139,7 @@ void Scene_1::Scene_1::SceneTransition()
 	_airport->SceneTransition();
 	_singleAeroplane->SceneTransition();
 	_cubemap->SceneTransition();
+	_perlinCloud->SceneTransition();
 }
 
 void Scene_1::Scene_1::UnInitialize()
@@ -149,4 +153,5 @@ void Scene_1::Scene_1::UnInitialize()
 	SAFE_SCENE_DELETE(_terrainMap)
 	SAFE_SCENE_DELETE(_singleAeroplane)
 	SAFE_SCENE_DELETE(_cubemap)
+	SAFE_SCENE_DELETE(_perlinCloud);
 }
