@@ -176,7 +176,7 @@ void Rushabh::Airport::Initialize()
 		"float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);"\
 		// combine results
 		"vec3 ambient = light.u_La * texture(u_texture0_sampler,out_texture0_coord).rgb;"\
-		"ambient *=  intensity;"\
+		"ambient *= intensity;"\
 		"diffuse *=  intensity;"\
 		"specular *=  intensity;"\
 		"return (ambient + diffuse + specular);"\
@@ -427,20 +427,20 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	GLfloat mDiffuse[4] = { 1.0f,1.0f,1.0f,1.0f };
 	GLfloat mSpecular[4] = { 1.0f,1.0f,1.0f,1.0f };
 	GLfloat lightAmbientS1[4] = { 0.1f,0.1f,0.1f,1.0f };
-	GLfloat lightDiffuseS1[4] = { 1.0f,0.0f,0.0f,1.0f };
-	GLfloat lightSpecularS1[4] = { 1.0f,0.0f,0.0f,1.0f };
+	GLfloat lightDiffuseS1[4] = { 1.0f,0.6f,0.2f,1.0f };
+	GLfloat lightSpecularS1[4] = { 1.0f,0.6f,0.2f,1.0f };
 	GLfloat lightPositionS1[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat lightDirectionS1[4] = { 0.0f,0.0f,-1.0f,1.0f };
 	//saffron
 	GLfloat lightAmbientS2[4] = { 0.1f,0.1f,0.1f,1.0f };
-	GLfloat lightDiffuseS2[4] = { 0.0f,1.0f,0.0f,1.0f };
-	GLfloat lightSpecularS2[4] = { 1.0f,1.0f,0.0f,1.0f };
+	GLfloat lightDiffuseS2[4] = { 1.0f,1.0f,1.0f,1.0f };
+	GLfloat lightSpecularS2[4] = { 1.0f,1.0f,1.0f,1.0f };
 	GLfloat lightPositionS2[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat lightDirectionS2[4] = { 0.0f,0.0f,-1.0f,1.0f };
 	//green
 	GLfloat lightAmbientS3[4] = { 0.1f,0.1f,0.1f,1.0f };
-	GLfloat lightDiffuseS3[4] = { 0.0f,0.0f,1.0f,1.0f };
-	GLfloat lightSpecularS3[4] = { 0.0f,0.0f,1.0f,1.0f };
+	GLfloat lightDiffuseS3[4] = { 0.07f,0.53f,0.03f,1.0f };
+	GLfloat lightSpecularS3[4] = { 0.07f,0.53f,0.03f,1.0f };
 	GLfloat lightPositionS3[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat lightDirectionS3[4] = { 0.0f,0.0f,-1.0f,1.0f };
 	//START USING SHADER OBJECT	
@@ -463,7 +463,7 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	glUniform1f(_material_shininess_uniform, 50.0f);
 	glUniform3fv(_viewrPositionUniform, 1, vec3(0.0f, 0.0f, 3.0f));
 
-	glUniform1i(_numSpotLightUniform, 3);
+	glUniform1i(_numSpotLightUniform, attributes.numSpotLight);
 
 	glUniform3fv(_SpotLightLaUniform[0], 1, lightAmbientS1);
 	glUniform3fv(_SpotLightLdUniform[0], 1, lightDiffuseS1);
@@ -473,13 +473,17 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	glUniform1f(_SpotLightQuadraticUniform[0], 0.032f);
 	glUniform1f(_SpotLightCutOffUniform[0], cos(radians(attributes.lightRadius)));
 	glUniform1f(_SpotLightOuterCutOffUniform[0], cos(radians(attributes.lightRadius + 3.0f)));
-	lightPositionS1[0] = attributes.translateCoords[SCENE_LIGHT_POS_1][0];
-	lightPositionS1[1] = attributes.translateCoords[SCENE_LIGHT_POS_1][1];
-	lightPositionS1[2] = attributes.translateCoords[SCENE_LIGHT_POS_1][2];
+	//lightPositionS1[0] = attributes.translateCoords[SCENE_LIGHT_POS_1][0];
+	//lightPositionS1[1] = attributes.translateCoords[SCENE_LIGHT_POS_1][1];
+	//lightPositionS1[2] = attributes.translateCoords[SCENE_LIGHT_POS_1][2];
+	lightPositionS1[0] = attributes.translateCoords[SCENE_AIRPORT][0]  + attributes.translateCoords[SCENE_LIGHT_POS_1][0];
+	lightPositionS1[1] = attributes.translateCoords[SCENE_AIRPORT][1]  + attributes.translateCoords[SCENE_LIGHT_POS_1][1];
+	lightPositionS1[2] = attributes.translateCoords[SCENE_AIRPORT][2]  + attributes.translateCoords[SCENE_LIGHT_POS_1][2];
+
 	glUniform3fv(_SpotLightLightPositionUniform[0], 1, lightPositionS1);
-	lightDirectionS1[0] = attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f ;
-	lightDirectionS1[1] = attributes.translateCoords[SCENE_AIRPORT][1] + 0.0f ;
-	lightDirectionS1[2] = attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f ;
+	lightDirectionS1[0] = attributes.lightDirection[0];
+	lightDirectionS1[1] = attributes.lightDirection[1];
+	lightDirectionS1[2] = attributes.lightDirection[2];
 
 	glUniform3fv(_SpotLightLightDirectionUniform[0], 1, lightDirectionS1);
 
@@ -494,13 +498,13 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	//lightPositionS1[0] = attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f + attributes.lTanslateX;
 	//lightPositionS1[1] = attributes.translateCoords[SCENE_AIRPORT][1] + 3.0f + attributes.lTanslateY;
 	//lightPositionS1[2] = attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f + attributes.lTanslateZ;
-	lightPositionS2[0] = attributes.translateCoords[SCENE_LIGHT_POS_2][0];
-	lightPositionS2[1] = attributes.translateCoords[SCENE_LIGHT_POS_2][1];
-	lightPositionS2[2] = attributes.translateCoords[SCENE_LIGHT_POS_2][2];
+	lightPositionS2[0] = attributes.translateCoords[SCENE_AIRPORT][0] + attributes.translateCoords[SCENE_LIGHT_POS_2][0];
+	lightPositionS2[1] = attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_LIGHT_POS_2][1];
+	lightPositionS2[2] = attributes.translateCoords[SCENE_AIRPORT][2] + attributes.translateCoords[SCENE_LIGHT_POS_2][2];
 	glUniform3fv(_SpotLightLightPositionUniform[1], 1, lightPositionS2);
-	lightDirectionS2[0] = attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f;
-	lightDirectionS2[1] = attributes.translateCoords[SCENE_AIRPORT][1] + 0.0f;
-	lightDirectionS2[2] = attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f;
+	lightDirectionS2[0] = attributes.lightDirection[0];
+	lightDirectionS2[1] = attributes.lightDirection[1];
+	lightDirectionS2[2] = attributes.lightDirection[2];
 
 	glUniform3fv(_SpotLightLightDirectionUniform[1], 1, lightDirectionS2);
 
@@ -512,14 +516,14 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	glUniform1f(_SpotLightQuadraticUniform[2], 0.032f);
 	glUniform1f(_SpotLightCutOffUniform[2], cos(radians(attributes.lightRadius)));
 	glUniform1f(_SpotLightOuterCutOffUniform[2], cos(radians(attributes.lightRadius + 3.0f)));
-	lightPositionS3[0] = attributes.translateCoords[SCENE_LIGHT_POS_3][0];
-	lightPositionS3[1] = attributes.translateCoords[SCENE_LIGHT_POS_3][1];
-	lightPositionS3[2] = attributes.translateCoords[SCENE_LIGHT_POS_3][2];
+	lightPositionS3[0] = attributes.translateCoords[SCENE_AIRPORT][0] + attributes.translateCoords[SCENE_LIGHT_POS_3][0];
+	lightPositionS3[1] = attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_LIGHT_POS_3][1];
+	lightPositionS3[2] = attributes.translateCoords[SCENE_AIRPORT][2] + attributes.translateCoords[SCENE_LIGHT_POS_3][2];
 
 	glUniform3fv(_SpotLightLightPositionUniform[2], 1, lightPositionS3);
-	lightDirectionS3[0] = attributes.translateCoords[SCENE_AIRPORT][0] + 0.0f;
-	lightDirectionS3[1] = attributes.translateCoords[SCENE_AIRPORT][1] + 0.0f;
-	lightDirectionS3[2] = attributes.translateCoords[SCENE_AIRPORT][2] + 0.0f;
+	lightDirectionS3[0] = attributes.lightDirection[0];
+	lightDirectionS3[1] = attributes.lightDirection[1];
+	lightDirectionS3[2] = attributes.lightDirection[2];
 
 	glUniform3fv(_SpotLightLightDirectionUniform[2], 1, lightDirectionS3);
 

@@ -116,6 +116,7 @@ namespace T2Terminal
 			float currentSequenceCounter;
 			float blendValue;
 			float lightRadius;
+			float lightDirection[3];
 		};
 
 		struct ResizeAttributes
