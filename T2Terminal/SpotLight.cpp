@@ -161,9 +161,9 @@ void Harsh::SpotLight::Initialize()
 		"float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0, 1.0);"\
 		// combine results
 		"vec3 ambient = light.u_La * texture(u_texture0_sampler,out_texture0_coord).rgb;"\
-		"ambient *= attenuation * intensity;"\
-		"diffuse *= attenuation * intensity;"\
-		"specular *= attenuation * intensity;"\
+		"ambient *=  intensity;"\
+		"diffuse *=  intensity;"\
+		"specular *= intensity;"\
 		"return (ambient + diffuse + specular);"\
 		"}"\
 
@@ -488,6 +488,7 @@ void Harsh::SpotLight::ReSize(int width, int height, struct ResizeAttributes att
 
 void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 {
+	float radius = 15.0f;
 
 	glUseProgram(_shaderProgramObject);
 	gbLight = true;
@@ -513,7 +514,7 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform3fv(_viewrPositionUniform, 1, vec3(0.0f, 0.0f, 3.0f));
 
 		glUniform1i(_numSpotLightUniform, attributes.numSpotLight);
-		glUniform1i(_numSpotLightUniform, 3);
+//		glUniform1i(_numSpotLightUniform, 3);
 
 		glUniform3fv(_SpotLightLaUniform[0], 1, lightAmbientS1);
 		glUniform3fv(_SpotLightLdUniform[0], 1, lightDiffuseS1);
@@ -521,9 +522,9 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform1f(_SpotLightConstantUniform[0], 1.0f);
 		glUniform1f(_SpotLightLinearUniform[0], 0.09f);
 		glUniform1f(_SpotLightQuadraticUniform[0], 0.032f);
-		glUniform1f(_SpotLightCutOffUniform[0], cos(radians(12.5f)));
-		glUniform1f(_SpotLightOuterCutOffUniform[0], cos(radians(17.0f)));
-		lightPositionS1[0] = attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
+		glUniform1f(_SpotLightCutOffUniform[0], cos(radians(radius)));
+		glUniform1f(_SpotLightOuterCutOffUniform[0], cos(radians(radius + 3)));
+		lightPositionS1[0] =  attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
 		lightPositionS1[1] = attributes.translateCoords[SCENE_AIRPORT_MODEL][1] +3.0f;
 		lightPositionS1[2] = attributes.translateCoords[SCENE_AIRPORT_MODEL][2];
 
@@ -536,9 +537,9 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform1f(_SpotLightConstantUniform[1], 1.0f);
 		glUniform1f(_SpotLightLinearUniform[1], 0.09f);
 		glUniform1f(_SpotLightQuadraticUniform[1], 0.032f);
-		glUniform1f(_SpotLightCutOffUniform[1], cos(radians(12.5f)));
-		glUniform1f(_SpotLightOuterCutOffUniform[1], cos(radians(17.0f)));
-		lightPositionS2[0] = attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
+		glUniform1f(_SpotLightCutOffUniform[1], cos(radians(radius)));
+		glUniform1f(_SpotLightOuterCutOffUniform[1], cos(radians(radius + 3)));
+		lightPositionS2[0] = TRASLATE_X_SPOTLIGHT + attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
 		lightPositionS2[1] = attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + 3.0f;
 		lightPositionS2[2] = attributes.translateCoords[SCENE_AIRPORT_MODEL][2];
 
@@ -551,9 +552,9 @@ void Harsh::SpotLight::Render(HDC hdc, struct Attributes attributes)
 		glUniform1f(_SpotLightConstantUniform[2], 1.0f);
 		glUniform1f(_SpotLightLinearUniform[2], 0.09f);
 		glUniform1f(_SpotLightQuadraticUniform[2], 0.032f);
-		glUniform1f(_SpotLightCutOffUniform[2], cos(radians(12.5f)));
-		glUniform1f(_SpotLightOuterCutOffUniform[2], cos(radians(17.0f)));
-		lightPositionS3[0] = attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
+		glUniform1f(_SpotLightCutOffUniform[2], cos(radians(radius)));
+		glUniform1f(_SpotLightOuterCutOffUniform[2], cos(radians(radius+3)));
+		lightPositionS3[0] = -TRASLATE_X_SPOTLIGHT + attributes.translateCoords[SCENE_AIRPORT_MODEL][0];
 		lightPositionS3[1] = attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + 3.0f;
 		lightPositionS3[2] = attributes.translateCoords[SCENE_AIRPORT_MODEL][2];
 

@@ -134,17 +134,22 @@ void GLObject::draw_using_draw_array(int count,std::vector<ThreeDModelLoader::MO
 	if (_wireFrameBuiding !=NULL &&_wireFrameBuiding->wireFrameQuery == WIREFRAME_QUERY::WIREFRAME_YES)
 	{
 		
-
-
 		//DRAW WIREFRAME
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glDrawArrays(GL_TRIANGLES, 0, (int)(_wireFrameBuiding->totalWireFaces * 3 * 3) / 3);
+		if (_wireFrameBuiding->totalWireFaces != 0)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+			glDrawArrays(GL_TRIANGLES, 0, (int)(_wireFrameBuiding->totalWireFaces * 3 * 3) / 3);
+		}
 		//
 
 		//DRAW SOLID
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		glDrawArrays(GL_TRIANGLES, 0,(int)(_wireFrameBuiding->totalSolidFaces * 3 * 3) / 3);
+		if (_wireFrameBuiding->totalSolidFaces != 0)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+			glDrawArrays(GL_TRIANGLES, 0, (int)(_wireFrameBuiding->totalSolidFaces * 3 * 3) / 3);
+		}
 		//
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		return;
 	}
