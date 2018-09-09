@@ -186,9 +186,6 @@
     <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
     </ClCompile>
-    <ClCompile Include="SpotLightBox.cpp">
-      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
-    </ClCompile>
     <ClCompile Include="Particles.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClCompile>
@@ -209,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="Fonts.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLightBox.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

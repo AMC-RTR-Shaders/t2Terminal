@@ -13,7 +13,7 @@ Rushabh::RollingCylinder::RollingCylinder()
 	gVertexX = -1.0f;
 	gTexCoordX = 0.0f;
 	_radius = 0.25f;
-	_height = 2.0f;
+	_height = 4.5f;
 }
 
 Rushabh::RollingCylinder::~RollingCylinder()
@@ -238,9 +238,6 @@ void Rushabh::RollingCylinder::Initialize()
 
 void Rushabh::RollingCylinder::Update()
 {
-	_angle += SPEED_ROLLING_CYLINDER;
-	if (_angle > 360.0f)
-		_angle = 0.0f;
 }
 
 void Rushabh::RollingCylinder::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -282,27 +279,33 @@ void Rushabh::RollingCylinder::Render(HDC hdc, struct Attributes attributes)
 
 	mat4 modelMatrix = mat4::identity();
 	mat4 viewMatrix = mat4::identity();
+	mat4 rotateMatrix = mat4::identity();
+	mat4 translateMatrix = mat4::identity();
 
-	modelMatrix = translate(
-		attributes.translateCoords[SCENE_CYLINDER_TRANS][0] + attributes.translateCoords[SCENE_AIRPORT_MODEL][0] + _radius, 
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + TRANS_Y_ROLLINGCYLINDER + _radius + 0.1f,
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][2] - _height/2);
-	//modelMatrix = modelMatrix * rotate(
-	//	90.0f, 
-	//	0.0f, 
-	//	0.0f);
+	translateMatrix = translate(
+		attributes.translateCoords[SCENE_CYLINDER_TRANS][0] + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],// + _radius, 
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + TRANS_Y_ROLLINGCYLINDER + 2*_radius,
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2] - _height/2 + TRANS_Z_CYLINDER);
 
-	modelMatrix = modelMatrix * rotate(
+	rotateMatrix = rotate(
 		attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
 		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
 		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
-	modelMatrix = modelMatrix * rotate(_angle, 0.0f, 0.0f, -1.0f);
+	rotateMatrix = rotateMatrix * rotate(_angle, 0.0f, 0.0f, -1.0f);
+
+	modelMatrix = translateMatrix * rotateMatrix;
 
 	glUniformMatrix4fv(model_matrix_uniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(view_matrix_uniform, 1, GL_FALSE, viewMatrix);
 	glUniformMatrix4fv(projection_matrix_uniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
 	draw();
+
+	if(attributes.translateCoords[SCENE_CYLINDER_TRANS][0] < TRANS_X_BLUE_PRINT && attributes.currentScene == SCENE_BLUE_PRINT)
+		_angle += SPEED_ROLLING_CYLINDER;
+
+	if (_angle > 360.0f)
+		_angle = 0.0f;
 
 	//STOP USING SHADER
 	glUseProgram(0);

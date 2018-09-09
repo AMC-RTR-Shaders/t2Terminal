@@ -105,6 +105,7 @@ void Harsh::SpotLightBox::Initialize()
 		"uniform vec3 u_Kd;" \
 		"uniform vec3 u_Ks;" \
 		"uniform float u_material_shininess;" \
+		"uniform float u_blend_value;" \
 		"uniform int u_LKeyPressed;"
 		"uniform int u_numSpotLights;"\
 		"uniform vec3 u_viewPos;" \
@@ -184,7 +185,7 @@ void Harsh::SpotLightBox::Initialize()
 		"{"\
 		"phong_ads_color = vec3(1.0,1.0,1.0);"\
 		"}"\
-		"FragColor = vec4(result + phong_ads_color,0.5);" \
+		"FragColor = vec4(result + phong_ads_color,u_blend_value);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -273,6 +274,7 @@ void Harsh::SpotLightBox::Initialize()
 	_Kd_Uniform = glGetUniformLocation(_shaderProgramObject, "u_Kd");
 	_Ks_Uniform = glGetUniformLocation(_shaderProgramObject, "u_Ks");
 	_Material_shininess_uniform = glGetUniformLocation(_shaderProgramObject, "u_material_shininess");
+	_Blend_Value_uniform = glGetUniformLocation(_shaderProgramObject, "u_blend_value");
 
 	_LightPositionUniform = glGetUniformLocation(_shaderProgramObject, "u_light_position");
 	_Ld_Uniform = glGetUniformLocation(_shaderProgramObject, "u_Ld");
@@ -488,6 +490,8 @@ void Harsh::SpotLightBox::Render(HDC hdc, struct Attributes attributes)
 		glUniform3fv(_material_Ka, 1, mDiffuse);
 		glUniform3fv(_material_Ks, 1, mSpecular);
 		glUniform1f(_material_shininess_uniform, 50.0f);
+		glUniform1f(_Blend_Value_uniform, attributes.blendValue);
+
 		glUniform3fv(_viewrPositionUniform, 1, vec3(0.0f, 0.0f, 3.0f));
 
 		glUniform1i(_numSpotLightUniform, attributes.numSpotLight);
@@ -548,12 +552,12 @@ void Harsh::SpotLightBox::Render(HDC hdc, struct Attributes attributes)
 	mat4 rotateMatrix = mat4::identity();
 
 	//square block
-	scaleMatrix = scale(1.5f, 0.35f, 1.5f);
+	scaleMatrix = scale(5.5f, 0.35f, 2.5f);
 
 	translateMatrix = translate(
 		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
 		attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + TRANS_Y_BOX,
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2] + TRANS_Z_BOX);
 
 	rotateMatrix = rotate(
 		attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],

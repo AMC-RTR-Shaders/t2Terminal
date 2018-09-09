@@ -63,7 +63,7 @@ void Rushabh::Particles::Initialize()
 		"}"													\
 		"else"												\
 		"{"													\
-		"out_color = vec4(0.0f, 1.0f, 0.0f, 1.0f);"			\
+		"out_color = vColor;"			\
 		"}"													\
 
 		"gl_Position = u_mvp_matrix * vertice;"				\
@@ -300,7 +300,7 @@ void Rushabh::Particles::createPoints(GLint w, GLint h)
 	float xCurrent = -xLength;
 	float yCurrent = 0.0f;
 	float XINC = xLength * 2 / 100;
-	float YINC = 0.05f;
+	float YINC = 0.11f;
 	float VELOCITY_INC = 1.0f;
 
 	for (i = 0; i < PARTICLE_WIDTH * PARTICLE_HEIGHT; i++)
@@ -322,9 +322,9 @@ void Rushabh::Particles::createPoints(GLint w, GLint h)
 		//theta += SPEED * 200;
 		//r += SPEED*2;
 
-		*cptr = ((float)rand() / RAND_MAX) *  0.9f + 0.1f;
-		*(cptr + 1) = ((float)rand() / RAND_MAX) *  0.9f + 0.1f;
-		*(cptr + 2) = ((float)rand() / RAND_MAX) *  0.9f + 0.1f;
+		*cptr = 1.0f;
+		*(cptr + 1) = 1.0f;
+		*(cptr + 2) = 0.5f;
 		cptr += 3;
 
 		*velptr = ((float)rand() / RAND_MAX)*VELOCITY_INC;
@@ -354,7 +354,7 @@ void Rushabh::Particles::createPoints(GLint w, GLint h)
 		if ((i + 1) % 100 == 0)
 		{
 			yCurrent -= YINC;
-			xLength = xLength + 0.01f;
+			xLength = xLength + 0.015f;
 			xCurrent = -xLength;
 			XINC = xLength * 2 / 100;
 			VELOCITY_INC += 0.5f;
@@ -367,7 +367,7 @@ void Rushabh::Particles::createPoints(GLint w, GLint h)
 
 void Rushabh::Particles::Update()
 {
-	_particleTime = _particleTime + SPEED / 100;
+	_particleTime = _particleTime + SPEED / 50;
 }
 
 void Rushabh::Particles::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -389,73 +389,81 @@ void Rushabh::Particles::Render(HDC hdc, struct Attributes attributes)
 	glUniform4fv(_backgroundUniform, 1, _backgroundColor);
 	glPointSize(1.0f);
 
-
 	mat4 modelViewMatrix = mat4::identity();
 	mat4 modelViewProjectionMatrix = mat4::identity();
 
-	modelViewMatrix = translate(
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
-		TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+	if (attributes.currentSequenceCounter > PARTICLE_LIGHT_1_ON)
+	{
+		modelViewMatrix = translate(
+			attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+			TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
+			attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
 
-	modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
+		modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 
-	modelViewMatrix = rotate(ROTATE_Z_PARTICLES, 0.0f, 0.0f);
+		modelViewMatrix = rotate(ROTATE_Z_PARTICLES, 0.0f, 0.0f);
 
-	modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
+		modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
 
-	glUniformMatrix4fv(_mVPUniform, 1, GL_FALSE, modelViewProjectionMatrix);
+		glUniformMatrix4fv(_mVPUniform, 1, GL_FALSE, modelViewProjectionMatrix);
 
-	glBindVertexArray(vao);
+		glBindVertexArray(vao);
 
-	glDrawArrays(GL_POINTS, 0, PARTICLE_WIDTH * PARTICLE_HEIGHT);
+		glDrawArrays(GL_POINTS, 0, PARTICLE_WIDTH * PARTICLE_HEIGHT);
 
-	glBindVertexArray(0);
+		glBindVertexArray(0);
+	}
 
-	modelViewMatrix = mat4::identity();
-	modelViewProjectionMatrix = mat4::identity();
+	if (attributes.currentSequenceCounter > PARTICLE_LIGHT_2_ON)
+	{
+		modelViewMatrix = mat4::identity();
+		modelViewProjectionMatrix = mat4::identity();
 
-	modelViewMatrix = translate(
-		TRANS_X_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
-		TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1] ,
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+		modelViewMatrix = translate(
+			-TRANS_X_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+			TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
+			attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
 
-	modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
+		modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 
-	modelViewMatrix = rotate(0.0f, 0.0f, -ROTATE_Z_PARTICLES);
+		modelViewMatrix = rotate(0.0f, 0.0f, ROTATE_Z_PARTICLES);
 
-	modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
+		modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
 
-	glUniformMatrix4fv(_mVPUniform, 1, GL_FALSE, modelViewProjectionMatrix);
+		glUniformMatrix4fv(_mVPUniform, 1, GL_FALSE, modelViewProjectionMatrix);
 
-	glBindVertexArray(vao);
+		glBindVertexArray(vao);
 
-	glDrawArrays(GL_POINTS, 0, PARTICLE_WIDTH * PARTICLE_HEIGHT);
+		glDrawArrays(GL_POINTS, 0, PARTICLE_WIDTH * PARTICLE_HEIGHT);
 
-	glBindVertexArray(0);
+		glBindVertexArray(0);
+	}
 
-	modelViewMatrix = mat4::identity();
-	modelViewProjectionMatrix = mat4::identity();
+	if (attributes.currentSequenceCounter >= PARTICLE_LIGHT_3_ON)
+	{
 
-	modelViewMatrix = translate(
-		-TRANS_X_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
-		TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+		modelViewMatrix = mat4::identity();
+		modelViewProjectionMatrix = mat4::identity();
 
-	modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
+		modelViewMatrix = translate(
+			TRANS_X_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+			TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
+			attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
 
-	modelViewMatrix = rotate(0.0f, 0.0f, ROTATE_Z_PARTICLES);
+		modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 
-	modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
+		modelViewMatrix = rotate(0.0f, 0.0f, -ROTATE_Z_PARTICLES);
 
-	glUniformMatrix4fv(_mVPUniform, 1, GL_FALSE, modelViewProjectionMatrix);
+		modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
 
-	glBindVertexArray(vao);
+		glUniformMatrix4fv(_mVPUniform, 1, GL_FALSE, modelViewProjectionMatrix);
 
-	glDrawArrays(GL_POINTS, 0, PARTICLE_WIDTH * PARTICLE_HEIGHT);
+		glBindVertexArray(vao);
 
-	glBindVertexArray(0);
+		glDrawArrays(GL_POINTS, 0, PARTICLE_WIDTH * PARTICLE_HEIGHT);
 
+		glBindVertexArray(0);
+	}
 
 
 	//STOP USING SHADER

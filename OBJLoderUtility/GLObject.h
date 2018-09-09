@@ -105,10 +105,10 @@ typedef struct _wireFrame_
 	float	*faceVertexMapMinimum;
 	int lengthOfVertexMap;
 	
-	float totalSolidFaces;
+	int totalSolidFaces;
 	float incrementSolidFaces;
 
-	float totalWireFaces;
+	int totalWireFaces;
 	float incrementWireFaces;
 
 }GLOBJECT_WIREFRAME_BUILDING;
