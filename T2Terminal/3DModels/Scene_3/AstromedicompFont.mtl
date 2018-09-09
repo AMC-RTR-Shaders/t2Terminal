@@ -1,0 +1,12 @@
+# Blender MTL File: 'AstromedicompFont.blend'
+# Material Count: 1
+
+newmtl Material.001
+Ns 103.921569
+Ka 1.000000 1.000000 1.000000
+Kd 0.021474 0.720000 0.008369
+Ks 0.024481 0.500000 0.132387
+Ke 0.019088 0.640000 0.007439
+Ni 1.000000
+d 1.000000
+illum 2
