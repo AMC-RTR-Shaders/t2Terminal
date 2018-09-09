@@ -73,8 +73,8 @@ https://en.wikipedia.org/wiki/Include_guard
 #define SCENE_LIGHT_POS_1			9
 #define SCENE_LIGHT_POS_2			10
 #define SCENE_LIGHT_POS_3			11
-
-#define SCENE_COUNT					SCENE_LIGHT_POS_3 + 1
+#define SCENE_AIRPORT_TOP			12
+#define SCENE_COUNT					SCENE_AIRPORT_TOP + 1
 
 #define TRANSFORMATION_SINGLE_AEROPLANE_1	1
 #define TRANSFORMATION_SINGLE_AEROPLANE_2	2
@@ -116,6 +116,11 @@ namespace T2Terminal
 			float currentSequenceCounter;
 			float blendValue;
 			float lightRadius;
+			float lightDirection[3];
+			float PerlinCloudAngle;
+			float PerlinCloudALpha;
+			float PerlinCloudSpeed;	
+			int PerlinCloudDirection;
 		};
 
 		struct ResizeAttributes

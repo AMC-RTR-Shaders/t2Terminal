@@ -16,6 +16,7 @@ Scene_2::Scene_2::Scene_2()
 	_bluePrint = NULL;
 	_scene2Tile = NULL;
 	_wireFrameEffect = NULL;
+	_airportTop = NULL;
 }
 
 Scene_2::Scene_2::~Scene_2()
@@ -48,19 +49,23 @@ void Scene_2::Scene_2::Initialize()
 
 	_scene2Tile = new Rushabh::Scene2Tile();
 	CHECK_NEW(_scene2Tile);
-	
+
+	_airportTop = new Rushabh::AirportTop();
+	CHECK_NEW(_airportTop);
+
 	_wireFrameEffect = new Praveen::WireFrameEffect();
 	CHECK_NEW(_wireFrameEffect);
 
 
 	_spotLight->Initialize();
 	_spotLightBox->Initialize();
-
 	_particles->Initialize();
 	_rollingCylinder->Initialize();
 	_bluePrint->Initialize();
 	_scene2Tile->Initialize();
 	_wireFrameEffect->Initialize();
+	_airportTop->Initialize();
+
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -75,6 +80,8 @@ void Scene_2::Scene_2::Update()
     _particles->Update();
 	_rollingCylinder->Update();
 	_bluePrint->Update();
+	_airportTop->Update();
+
 	//_wireFrameEffect->Update();
 }
 
@@ -87,12 +94,17 @@ void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes att
 	_bluePrint->ReSize(width, height, attributes);
 	_scene2Tile->ReSize(width, height, attributes);
 	_wireFrameEffect->ReSize(width, height, attributes);
+	_airportTop->ReSize(width, height, attributes);
 
 }
 
 void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 {
+//	_wireFrameEffect->Render(hdc, attributes);
+
 	_spotLight->Render(hdc, attributes);
+	_airportTop->Render(hdc, attributes);
+
 	_scene2Tile->Render(hdc, attributes);
 	_rollingCylinder->Render(hdc, attributes);
 	_bluePrint->Render(hdc, attributes);
@@ -115,6 +127,8 @@ void Scene_2::Scene_2::SceneTransition()
 	_particles->SceneTransition();
 	_bluePrint->SceneTransition();
 	_wireFrameEffect->SceneTransition();
+	_airportTop->SceneTransition();
+
 }
 
 void Scene_2::Scene_2::UnInitialize()
@@ -125,6 +139,7 @@ void Scene_2::Scene_2::UnInitialize()
 	SAFE_SCENE_DELETE(_particles)
 	SAFE_SCENE_DELETE(_rollingCylinder)
 	SAFE_SCENE_DELETE(_bluePrint)
+	SAFE_SCENE_DELETE(_airportTop)
 
 	SAFE_SCENE_DELETE(_scene2Tile)
 	SAFE_SCENE_DELETE(_wireFrameEffect)

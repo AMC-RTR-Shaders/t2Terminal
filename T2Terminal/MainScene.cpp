@@ -94,11 +94,30 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 	  case 0x35: //KEY 5
 		  _attributes.lightRadius -= _cam_speed;
 		  break;
+	  case 0x36: //key 6
+		  _attributes.lightDirection[0] -= _cam_speed;
+		  break;
+	  case 0x37: //key 7
+		  _attributes.lightDirection[0] += _cam_speed;
+		  break;
+	  case 0x38: //key 8
+		  _attributes.lightDirection[1] += _cam_speed;
+		  break;
+	  case 0x39: //key 9
+		  _attributes.lightDirection[1] -= _cam_speed;
+		  break;
+	  case Event::KeyBoard::KEYS::I:
+		  _attributes.lightDirection[2] += _cam_speed;
+		  break;
+	case Event::KeyBoard::KEYS::R:
+		_attributes.lightDirection[2] -= _cam_speed;
+		break;
 		case Event::KeyBoard::KEYS::T:
-      break;
+			_attributes.currentScene = SCENE_AIRPORT_TOP;
+	   break;
 		case Event::KeyBoard::KEYS::A:
-			++_attributes.currentScene;
-			_attributes.currentScene = _attributes.currentScene % 4;
+			_attributes.currentScene = SCENE_AIRPORT_MODEL;
+			//_attributes.currentScene = _attributes.currentScene % 4;
 			break;
 
 		case VK_UP:
@@ -227,6 +246,22 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			_attributes.currentScene = SCENE_SINGLE_AEROPLANE;
 			_attributes.currentTransformation = TRANSFORMATION_SINGLE_AEROPLANE_1;
 		}
+
+		if (_attributes.translateCoords[SCENE_AIRPORT][2] > Z_BLEND_AIRPORT_START_1 &&
+			_attributes.translateCoords[SCENE_AIRPORT][2] < Z_BLEND_AIRPORT_START_2)
+		{
+			float offset = 8/(Z_BLEND_AIRPORT_START_1 - Z_BLEND_AIRPORT_START_2);
+
+			_attributes.PerlinCloudALpha -= _cam_speed *offset;
+
+			if (_attributes.PerlinCloudALpha > 1.0f)
+				_attributes.PerlinCloudALpha = 1.0f;
+
+		}
+		else
+		{
+			float offset = 0.0f;
+		}
 	}
 
 	if (_attributes.currentScene == SCENE_SINGLE_AEROPLANE)
@@ -236,6 +271,10 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			if (_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] > Z_END_ROTATE_SINGLE_AEROPLANE_1)
 			{
 				_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] -= _cam_speed;
+				float offset = (
+					(START_CLOUD_SPEED - END_CLOUD_SPEED_1) /
+					(Z_END_ROTATE_SINGLE_AEROPLANE_1));
+				_attributes.PerlinCloudSpeed += _cam_speed*offset;
 				//_cam_speed *= 1.005f;
 			}
 			else
@@ -248,6 +287,11 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			if (_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] < Z_END_ROTATE_SINGLE_AEROPLANE_2)
 			{
 				_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] += _cam_speed;
+				float offset = (
+					(END_CLOUD_SPEED_1 - END_CLOUD_SPEED_2) /
+					(Z_END_ROTATE_SINGLE_AEROPLANE_1 - Z_END_ROTATE_SINGLE_AEROPLANE_2));
+				_attributes.PerlinCloudSpeed += _cam_speed*offset;
+
 				//_cam_speed *= 1.005f;
 			}
 			else
@@ -268,6 +312,12 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 					(0.0f - X_END_ROTATE_SINGLE_AEROPLANE_3) /
 					(Z_END_ROTATE_SINGLE_AEROPLANE_2 - Z_END_ROTATE_SINGLE_AEROPLANE_3));
 				_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][0] -= _cam_speed*offset;
+
+				offset = (
+					(END_CLOUD_SPEED_2 - END_CLOUD_SPEED_3) /
+					(Z_END_ROTATE_SINGLE_AEROPLANE_2 - Z_END_ROTATE_SINGLE_AEROPLANE_3));
+				_attributes.PerlinCloudSpeed -= _cam_speed*offset;
+
 			}
 			else
 			{
@@ -282,6 +332,13 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 	{
 		if (_attributes.currentTransformation == TRANSFORMATION_TOP_VIEW_1)
 		{
+			if (_attributes.translateCoords[SCENE_AIRPORT][2] > Z_BLEND_AIRPORT_END_1 &&
+				_attributes.translateCoords[SCENE_AIRPORT][2] < Z_BLEND_AIRPORT_END_2)
+			{
+				float offset = 2 / (Z_BLEND_AIRPORT_END_1 - Z_BLEND_AIRPORT_END_2);
+				_attributes.PerlinCloudALpha += _cam_speed *offset;
+			}
+
 			if (_attributes.translateCoords[SCENE_AIRPORT][2] < Z_END_AIRPORT_2)
 			{
 				float offset = ((Y_END_AIRPORT_1 - Y_END_AIRPORT_2) / (Z_END_AIRPORT_1 - Z_END_AIRPORT_2));
@@ -330,12 +387,17 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 				_attributes.translateCoords[SCENE_AIRPORT][2] += _cam_speed;
 				offset = ((X_END_ROTATE_3 - X_END_ROTATE_4) / (Z_END_AIRPORT_3 - Z_END_AIRPORT_4));
 				_attributes.rotateCoords[SCENE_AIRPORT][0] += _cam_speed * offset;
-
+				offset = ((X_END_AIRPORT_4) / (Z_END_AIRPORT_3 - Z_END_AIRPORT_4));
+				_attributes.translateCoords[SCENE_AIRPORT][0] -= _cam_speed * offset;
+				
 				//				_cam_speed *= 1.005f;
 			}
 			else
 			{
+				_attributes.translateCoords[SCENE_AIRPORT][1] = Y_END_AIRPORT_4;
+				_attributes.translateCoords[SCENE_AIRPORT][2] = Z_END_AIRPORT_4;
 				_attributes.currentTransformation = TRANSFORMATION_TOP_VIEW_2;
+				_attributes.numSpotLight = 3;
 			}
 		}
 	}
@@ -394,6 +456,14 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] > Z_END_AIRPORT_MODEL_3)
 			{
 				_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] -= _cam_speed/25;
+				float offset = ((Y_END_AIRPORT_MODEL_2 - Y_END_AIRPORT_MODEL_3) / (Z_END_AIRPORT_MODEL_2 - Z_END_AIRPORT_MODEL_3));
+				_attributes.translateCoords[SCENE_AIRPORT_MODEL][1] -= (_cam_speed/25) * offset;
+
+			}
+
+			if (_attributes.translateCoords[SCENE_AIRPORT_TOP][1] > Y_AIRPORT_TOP_END)
+			{
+				_attributes.translateCoords[SCENE_AIRPORT_TOP][1] -= (_cam_speed / 10);
 			}
 		}
 		else if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] < Z_END_AIRPORT_MODEL_2)
@@ -442,23 +512,32 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] = 0.0f;
 
 	_attributes.translateCoords[SCENE_LIGHT_POS_1][0] = -61.0f;
-	_attributes.translateCoords[SCENE_LIGHT_POS_1][1] = 64.0f;
-	_attributes.translateCoords[SCENE_LIGHT_POS_1][2] = 190.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_1][1] = -120.50f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_1][2] = 352.4708f;
 
-	_attributes.translateCoords[SCENE_LIGHT_POS_2][0] = 7.0f;
-	_attributes.translateCoords[SCENE_LIGHT_POS_2][1] = 64.0f;
-	_attributes.translateCoords[SCENE_LIGHT_POS_2][2] = 190.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_2][0] = 3.7741f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_2][1] = -120.50f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_2][2] = 352.4708f;
 
-	_attributes.translateCoords[SCENE_LIGHT_POS_3][0] = 70.0f;
-	_attributes.translateCoords[SCENE_LIGHT_POS_3][1] = 64.0f;
-	_attributes.translateCoords[SCENE_LIGHT_POS_3][2] = 190.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_3][0] = 81.79f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_3][1] = -120.50f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_3][2] = 352.4708f;
 
-	_attributes.lightRadius = 1.25f;
+	_attributes.lightRadius = 4.9582f;
 
+	_attributes.translateCoords[SCENE_AIRPORT_TOP][0] = 0.0f;
+	_attributes.translateCoords[SCENE_AIRPORT_TOP][1] = 10.0f;
+	_attributes.translateCoords[SCENE_AIRPORT_TOP][2] = 0.0f;
+  
 	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][0] = 10.0f;
 	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][1] = 0.0f;
 	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][2] = 0.0f;
 
+	_attributes.lightDirection[0] = -0.0147f;
+	_attributes.lightDirection[1] = 0.7166f;
+	_attributes.lightDirection[2] = -1.496f;
+
+	_attributes.numSpotLight = 0;
 	//_attributes.translateCoords[SCENE_AIRPORT][0] = 0.0f;
 	//_attributes.translateCoords[SCENE_AIRPORT][1] = Y_END_AIRPORT_3;
 	//_attributes.translateCoords[SCENE_AIRPORT][2] = Z_END_AIRPORT_3;
@@ -479,9 +558,14 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	//_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1] = Y_END_ROTATE_SINGLE_AEROPLANE_3;
 	//_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] = Z_END_ROTATE_SINGLE_AEROPLANE_3;
 
-	_attributes.currentScene = SCENE_AIRPORT_MODEL;
 	_attributes.currentSequenceCounter = 0.0f;
 	_attributes.blendValue = BLEND_VALUE_BOX;
+	_attributes.currentScene = SCENE_TERRAIN_MAP;
+	
+	_attributes.PerlinCloudALpha	 =  0.0f;
+	_attributes.PerlinCloudDirection =  1.0f ;		//_CloudDirection i.e. TOP-TO-BOTTOM  OR BOTTOM-TO-TOP
+	_attributes.PerlinCloudSpeed	 =  0.005;		//SPEED OF THE CLOUD	
+
 
 	_cam_speed = CAM_SPEED_AIRPORT_MODEL;
 

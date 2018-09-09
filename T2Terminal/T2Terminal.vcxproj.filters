@@ -210,6 +210,12 @@
     <ClCompile Include="SpotLightBox.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
     </ClCompile>
+    <ClCompile Include="AirportTop.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClCompile>
+    <ClCompile Include="PerlinCloud.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Abhijeet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -292,6 +298,12 @@
     </ClInclude>
     <ClInclude Include="Fonts.h">
       <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClInclude>
+    <ClInclude Include="AirportTop.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinCloud.h">
+      <Filter>Header Files\T2Terminal\Scenes\Abhijeet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
