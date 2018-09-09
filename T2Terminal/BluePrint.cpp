@@ -305,10 +305,10 @@ void Rushabh::BluePrint::Render(HDC hdc, struct Attributes attributes)
 
 	float quadVertices[] =
 	{
-		vertexX, -1.0f, 0.0f,
-		vertexX, 1.0f, 0.0f,
-		-1.0f, 1.0f, 0.0f,
-		-1.0f, -1.0f, 0.0f,
+		vertexX, -2.25f, 0.0f,
+		vertexX, 2.25f, 0.0f,
+		-TRANS_X_BLUE_PRINT, 2.5f, 0.0f,
+		-TRANS_X_BLUE_PRINT, -2.5f, 0.0f,
 	};
 
 	mat4 modelMatrix = mat4::identity();
@@ -322,7 +322,7 @@ void Rushabh::BluePrint::Render(HDC hdc, struct Attributes attributes)
 	modelMatrix = translate(
 		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
 		attributes.translateCoords[SCENE_AIRPORT_MODEL][1]+TRANS_Y_BLUE_PRINT,
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]+ TRANS_Z_BLUE_PRINT);
 	
 	//rotateMatrix = rotate(45.0f, 0.0f, 0.0f);
 
@@ -339,14 +339,12 @@ void Rushabh::BluePrint::Render(HDC hdc, struct Attributes attributes)
 
 	glBindVertexArray(vao);
 
-	glGenBuffers(1, &vbo_position);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_position);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, &vbo_texture);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(texCoord), texCoord, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);

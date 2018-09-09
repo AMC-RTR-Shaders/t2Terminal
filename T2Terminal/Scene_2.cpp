@@ -69,13 +69,13 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 
 void Scene_2::Scene_2::Update()
 {
-	//_spotLight->Update();
-	//_spotLightBox->Update();
- //   _particles->Update();
-	//_rollingCylinder->Update();
-	//_bluePrint->Update();
-	//_wireFrameEffect->Update();
 
+	_spotLight->Update();
+	_spotLightBox->Update();
+    _particles->Update();
+	_rollingCylinder->Update();
+	_bluePrint->Update();
+	//_wireFrameEffect->Update();
 }
 
 void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -92,13 +92,19 @@ void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes att
 
 void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 {
-	//_spotLight->Render(hdc, attributes);
-	//_particles->Render(hdc, attributes);
-	//_scene2Tile->Render(hdc, attributes);
-	//_rollingCylinder->Render(hdc, attributes);
-	//_bluePrint->Render(hdc, attributes);
-	//_spotLightBox->Render(hdc, attributes);
-	//_wireFrameEffect->Render(hdc, attributes);
+	_spotLight->Render(hdc, attributes);
+	_scene2Tile->Render(hdc, attributes);
+	_rollingCylinder->Render(hdc, attributes);
+	_bluePrint->Render(hdc, attributes);
+	if (attributes.currentTransformation == TRANSFORMATION_START_WIRE_FRAME)
+	{
+		_wireFrameEffect->Render(hdc, attributes);
+	}
+	else
+	{
+		_particles->Render(hdc, attributes);
+		_spotLightBox->Render(hdc, attributes);
+  }
 }
 
 void Scene_2::Scene_2::SceneTransition()

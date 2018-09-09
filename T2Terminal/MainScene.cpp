@@ -46,6 +46,10 @@ IScene * T2Terminal::IScene::GetInstance(SCENE_NUMBER scene_number)
 T2Terminal::MainScene::MainScene()
 {
 	_scene = NULL;
+	_scene_1 = NULL;
+	_scene_2 = NULL;
+	_scene_3 = NULL;
+
 	_switch = false;
 }
 
@@ -151,9 +155,9 @@ void T2Terminal::MainScene::Initialize()
 	InitializeTransformationAttributes();
 	InitializeResizeAttributes();
 
-	_scene_1 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_1);
-	if(_scene_1)
-		_scene_1->Initialize();
+	//_scene_1 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_1);
+	//if(_scene_1)
+	//	_scene_1->Initialize();
 
 	_scene_2 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_2);
 	if (_scene_2)
@@ -163,7 +167,7 @@ void T2Terminal::MainScene::Initialize()
 	if (_scene_3)
 		_scene_3->Initialize();
 
-	_scene = _scene_1;
+	_scene = _scene_2;
 
 }
 
@@ -202,7 +206,7 @@ void T2Terminal::MainScene::SceneTransition()
 
 void T2Terminal::MainScene::UnInitialize()
 {	
-	SAFE_SCENE_DELETE(_scene_1)
+//	SAFE_SCENE_DELETE(_scene_1)
 	SAFE_SCENE_DELETE(_scene_2)
 	SAFE_SCENE_DELETE(_scene_3)
 }
@@ -336,12 +340,73 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 		}
 	}
 
+/****************************************************SCENE 2 STARTS *******************************************************************/
+	
 	if (_attributes.currentScene == SCENE_AIRPORT_MODEL)
 	{
-		if (_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] < 1.0f)
+		if (_attributes.currentSequenceCounter > PARTICLE_LIGHT_3_ON)
 		{
-			_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] += 0.0005f;
-			_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] += 0.00025f;
+				_attributes.numSpotLight = 3;
+		}
+		else if (_attributes.currentSequenceCounter > PARTICLE_LIGHT_2_ON)
+		{
+			_attributes.numSpotLight = 2;
+		}
+		else if (_attributes.currentSequenceCounter > PARTICLE_LIGHT_1_ON)
+		{
+			_attributes.numSpotLight = 1;
+		}
+
+		if (_attributes.currentSequenceCounter < PARTICLE_LIGHT_3_ON)
+		{
+			_attributes.currentSequenceCounter += _cam_speed;
+		}
+		else
+		{
+			_attributes.numSpotLight = 3;
+			_attributes.currentScene = SCENE_BLUE_PRINT;
+			_cam_speed /= 1.5;
+		}
+	}
+
+	if (_attributes.currentScene == SCENE_BLUE_PRINT)
+	{
+		if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] < Z_END_AIRPORT_MODEL_1)
+		{
+			float offset = ((Y_START_AIRPORT_MODEL - Y_END_AIRPORT_MODEL_1) / (Z_START_AIRPORT_MODEL - Z_END_AIRPORT_MODEL_1));
+			_attributes.translateCoords[SCENE_AIRPORT_MODEL][1] += _cam_speed * offset;
+			_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] += _cam_speed;
+		}
+		if (_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] < TRANS_X_BLUE_PRINT)
+		{
+			_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] += 0.005f;
+			_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] += 0.0025f/4.5f;
+		}
+		else if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] > Z_END_AIRPORT_MODEL_1)
+		{
+			_attributes.currentScene = SCENE_WIRE_FRAME;
+		}
+	}
+	if (_attributes.currentScene == SCENE_WIRE_FRAME)
+	{
+		if (_attributes.currentTransformation == TRANSFORMATION_START_WIRE_FRAME)
+		{
+			if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] > Z_END_AIRPORT_MODEL_3)
+			{
+				_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] -= _cam_speed/25;
+			}
+		}
+		else if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] < Z_END_AIRPORT_MODEL_2)
+		{
+			float offset = ((Y_END_AIRPORT_MODEL_1 - Y_END_AIRPORT_MODEL_2) / (Z_END_AIRPORT_MODEL_1 - Z_END_AIRPORT_MODEL_2));
+			_attributes.translateCoords[SCENE_AIRPORT_MODEL][1] += _cam_speed * offset;
+			_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] += _cam_speed;
+			offset = ((0.0f - BLEND_VALUE_BOX) / (Z_END_AIRPORT_MODEL_1 - Z_END_AIRPORT_MODEL_2));
+			_attributes.blendValue -= _cam_speed*offset;
+		}
+		else
+		{
+			_attributes.currentTransformation = TRANSFORMATION_START_WIRE_FRAME;
 		}
 	}
 }
@@ -363,7 +428,7 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 
 	_attributes.translateCoords[SCENE_AIRPORT_MODEL][0] = 0.0f;
 	_attributes.translateCoords[SCENE_AIRPORT_MODEL][1] = 0.0f;
-	_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] = -8.0f;
+	_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] = -20.0f;
 
 	_attributes.rotateCoords[SCENE_AIRPORT][0] = -11.0f;
 	_attributes.rotateCoords[SCENE_AIRPORT][1] = 0.0f;
@@ -373,7 +438,7 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1] = 180.0f;
 	_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] = 0.0f;
 	
-	_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] = -1.0f;
+	_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] = -TRANS_X_BLUE_PRINT;
 	_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] = 0.0f;
 
 	_attributes.translateCoords[SCENE_LIGHT_POS_1][0] = -61.0f;
@@ -414,9 +479,11 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	//_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1] = Y_END_ROTATE_SINGLE_AEROPLANE_3;
 	//_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] = Z_END_ROTATE_SINGLE_AEROPLANE_3;
 
-	_attributes.currentScene = SCENE_TERRAIN_MAP;
+	_attributes.currentScene = SCENE_AIRPORT_MODEL;
+	_attributes.currentSequenceCounter = 0.0f;
+	_attributes.blendValue = BLEND_VALUE_BOX;
 
-	_cam_speed = CAM_SPEED_TERRAIN * 2;
+	_cam_speed = CAM_SPEED_AIRPORT_MODEL;
 
 }
 

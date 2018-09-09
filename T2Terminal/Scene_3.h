@@ -9,6 +9,9 @@
 #ifndef _SCENE_3_H_
 #define _SCENE_3_H_
 
+#include "Starfield.h"
+#include "Fonts.h"
+
 #include "IScene.h"
 namespace Scene_3
 {
@@ -19,7 +22,8 @@ namespace Scene_3
 		~Scene_3();
 
 	private:
-
+		Sanket::Starfield *_Starfield;
+		Sanket::Fonts *_Fonts;
 
 	public :
 

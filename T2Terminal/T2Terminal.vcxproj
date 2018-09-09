@@ -154,6 +154,7 @@
     <ClCompile Include="AeroplaneInstanceing.cpp" />
     <ClCompile Include="BluePrint.cpp" />
     <ClCompile Include="Cubemap.cpp" />
+    <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="Scene2Tile.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScene.cpp" />
@@ -168,6 +169,7 @@
     <ClCompile Include="SingleAeroplane.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="SpotLightBox.cpp" />
+    <ClCompile Include="Starfield.cpp" />
     <ClCompile Include="TerminalGlass.cpp" />
     <ClCompile Include="TerrainMap.cpp" />
     <ClCompile Include="Windowing.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="AeroplaneInstanceing.h" />
     <ClInclude Include="BluePrint.h" />
     <ClInclude Include="Cubemap.h" />
+    <ClInclude Include="Fonts.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="MainScene.h" />
@@ -194,6 +197,7 @@
     <ClInclude Include="SingleAeroplane.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="SpotLightBox.h" />
+    <ClInclude Include="Starfield.h" />
     <ClInclude Include="TerminalGlass.h" />
     <ClInclude Include="TerrainMap.h" />
     <ClInclude Include="vmath.h" />

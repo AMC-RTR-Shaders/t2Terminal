@@ -186,9 +186,6 @@
     <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
     </ClCompile>
-    <ClCompile Include="SpotLightBox.cpp">
-      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
-    </ClCompile>
     <ClCompile Include="Particles.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
     </ClCompile>
@@ -203,6 +200,15 @@
     </ClCompile>
     <ClCompile Include="WireFrameEffect.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Praveen</Filter>
+    </ClCompile>
+    <ClCompile Include="Starfield.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClCompile>
+    <ClCompile Include="Fonts.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLightBox.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +286,12 @@
     </ClInclude>
     <ClInclude Include="WireFrameEffect.h">
       <Filter>Header Files\T2Terminal\Scenes\Praveen</Filter>
+    </ClInclude>
+    <ClInclude Include="Starfield.h">
+      <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClInclude>
+    <ClInclude Include="Fonts.h">
+      <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

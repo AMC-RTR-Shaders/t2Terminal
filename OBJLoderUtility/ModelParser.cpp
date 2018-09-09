@@ -173,6 +173,15 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 		}
 		//
 
+		float color[3] = { 240.0f/255.0f, 240.0f/255.0f, 240.0f/255.0f };
+		float color_end[3] = { 151.0f / 255.0f,255.0f / 255.0f,  255.0f / 255.0f };
+		float offset[3] = { 0 };
+
+		for (int i = 0; i < 3; i++)
+		{
+			offset[i] = (color[i] - color_end[i]) / (int)(_objLoader->getFaces()->size());
+		}
+
 		for (i = 0; i < (int)(_objLoader->getFaces()->size()); i++)
 		{
 
@@ -205,19 +214,21 @@ void ThreeDModelLoader::ModelParser::parse(GLuint shaderProgramObject, PROCESS_T
 
 
 			/*filling color*/
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin1_color[0]; //255.0f/255.0f;
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin1_color[1];//128.0f/255.0f;
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin1_color[2];//0.0f/255.0f;
+			_pfColors[_color_cnt++] = color[0]; //255.0f/255.0f;
+			_pfColors[_color_cnt++] = color[1];//128.0f/255.0f;
+			_pfColors[_color_cnt++] = color[2];//0.0f/255.0f;
 
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin2_color[0];//1.0f;
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin2_color[1];//1.0f;
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin2_color[2];//1.0f;
+			_pfColors[_color_cnt++] = color[0];//1.0f;
+			_pfColors[_color_cnt++] = color[1];//1.0f;
+			_pfColors[_color_cnt++] = color[2];//1.0f;
 
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin3_color[0];//0.0f/255.0f;
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin3_color[1];//128.0f/255.0f;
-			_pfColors[_color_cnt++] = wireFrame->triangle_poin3_color[2];//0.0f/255.0f;
-																		 /**/
-
+			_pfColors[_color_cnt++] = color[0];//0.0f/255.0f;
+			_pfColors[_color_cnt++] = color[1];//128.0f/255.0f;
+			_pfColors[_color_cnt++] = color[2];//0.0f/255.0f;
+		
+			color[0] -= offset[0];								   /**/
+			color[1] -= offset[1];
+			color[2] -= offset[2];
 																		 /*filling textcords*/
 			if (_pftexturesCoords != NULL && _objLoader->getTextureCoordinates()->size() > 0)
 			{
