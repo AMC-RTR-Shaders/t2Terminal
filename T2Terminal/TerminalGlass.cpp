@@ -106,7 +106,7 @@ void Rushabh::TerminalGlass::Initialize()
 		"out vec4 FragColor;" \
 		"void main(void)" \
 		"{" \
-		"FragColor = vec4(color,0.5);" \
+		"FragColor = vec4(color,0.3);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -311,8 +311,8 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 	static GLfloat materialFrameAmbient[] = { 0.0f,1.0f,0.0f,1.0f };
 	static GLfloat materialFrameDiffuse[] = { 0.0f,1.0f,0.0f,1.0f };
 	static GLfloat materialFrameSpecular[] = { 0.0f,1.0f,0.0f,1.0f };
-	static GLfloat glassColor[] = { 0.8f,0.8f,0.0f,1.0f };
-	static GLfloat lineColor[] = { 0.0f,0.0f,0.0f,1.0f };
+	static GLfloat glassColor[] = { 0.92f,0.76f,0.65f,1.0f };
+	static GLfloat lineColor[] = { 0.21f,0.09f,0.01f,1.0f };
 
 	static GLfloat material_shininess = 50.0f;
 
@@ -337,7 +337,7 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 		attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1],
 		attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
 	rotateMatrix = rotate(
-		90.0f + attributes.rotateCoords[SCENE_AIRPORT][0],
+		0.0f + attributes.rotateCoords[SCENE_AIRPORT][0],
 		0.0f + attributes.rotateCoords[SCENE_AIRPORT][1],
 		0.0f + attributes.rotateCoords[SCENE_AIRPORT][2]);
 	modelMatrix = modelMatrix * rotateMatrix;
@@ -353,7 +353,7 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 	glDrawArrays(GL_TRIANGLE_FAN, 4, 4);
 	glDrawArrays(GL_TRIANGLE_FAN, 8, 4);
 	glBindVertexArray(0);
-
+	glLineWidth(2.0f);
 	glDisable(GL_BLEND);
 
 	glUniform3fv(_KaUniform, 1, materialFrameAmbient);
@@ -383,8 +383,8 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 			glBindVertexArray(0);
 		}
 
-		increment = quadWidth[i] / 20;
-		for (float x = 0.0f; x < quadWidth[i]; x += increment)
+		increment = quadWidth[i] / 50;
+		for (float x = -quadWidth[i]; x < 0.0f; x += increment)
 		{
 			modelMatrix = mat4::identity();
 			viewMatrix = mat4::identity();
@@ -393,7 +393,7 @@ void Rushabh::TerminalGlass::Render(HDC hdc, struct Attributes attributes)
 				attributes.translateCoords[SCENE_AIRPORT][0] + translateCoords[0][0] + x,
 				attributes.translateCoords[SCENE_AIRPORT][1] + translateCoords[0][1],
 				attributes.translateCoords[SCENE_AIRPORT][2] + translateCoords[0][2]);
-				rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+				//rotateMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 			modelMatrix = modelMatrix * rotateMatrix;
 
 			glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);

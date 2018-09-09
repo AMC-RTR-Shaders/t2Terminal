@@ -70,7 +70,11 @@ https://en.wikipedia.org/wiki/Include_guard
 #define SCENE_CYLINDER_TEXCOORD		6
 #define SCENE_BLUE_PRINT			7
 #define SCENE_WIRE_FRAME			8
-#define SCENE_COUNT					SCENE_WIRE_FRAME + 1
+#define SCENE_LIGHT_POS_1			9
+#define SCENE_LIGHT_POS_2			10
+#define SCENE_LIGHT_POS_3			11
+
+#define SCENE_COUNT					SCENE_LIGHT_POS_3 + 1
 
 #define TRANSFORMATION_SINGLE_AEROPLANE_1	1
 #define TRANSFORMATION_SINGLE_AEROPLANE_2	2
@@ -111,6 +115,7 @@ namespace T2Terminal
 			int currentTransformation;
 			float currentSequenceCounter;
 			float blendValue;
+			float lightRadius;
 		};
 
 		struct ResizeAttributes

@@ -105,6 +105,7 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 	
 	_singleAeroplane->Render(hdc, attributes);
 	_airport->Render(hdc, attributes);
+
 	_terrainMap->Render(hdc, attributes);
 	_cubemap->Render(hdc, attributes);
 
