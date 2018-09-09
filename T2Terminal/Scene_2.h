@@ -17,6 +17,7 @@
 #include "BluePrint.h"
 #include "Scene2Tile.h"
 #include "WireFrameEffect.h"
+#include "AirportTop.h"
 
 namespace Scene_2
 {
@@ -34,6 +35,7 @@ namespace Scene_2
 		Rushabh::RollingCylinder *_rollingCylinder;
 		Rushabh::BluePrint *_bluePrint;
 		Rushabh::Scene2Tile *_scene2Tile;
+		Rushabh::AirportTop *_airportTop;
 
 		Praveen::WireFrameEffect *_wireFrameEffect;
 
