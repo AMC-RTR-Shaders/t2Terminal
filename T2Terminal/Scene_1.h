@@ -20,6 +20,7 @@
 #include "TerrainMap.h"
 #include "SingleAeroplane.h"
 #include "Cubemap.h"
+#include"PerlinCloud.h"
 
 
 namespace Scene_1
@@ -42,6 +43,7 @@ namespace Scene_1
 		Priyanka::Cubemap *_cubemap;
 		Utility::Cube *_cube;
 		Utility::Quad *_quad;
+		Abhijeet::PerlinCloud *_perlinCloud;
 		
 
 
