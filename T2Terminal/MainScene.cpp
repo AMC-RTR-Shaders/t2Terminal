@@ -74,13 +74,22 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		{ 
       case 0x31: //KEY 1
 			_attributes.numSpotLight = 1;
+			_attributes.currentScene = SCENE_LIGHT_POS_1;
 			break;
-		  case 0x32: //KEY 2
+	case 0x32: //KEY 2
 			_attributes.numSpotLight = 2;
+			_attributes.currentScene = SCENE_LIGHT_POS_2;
 			break;
       case 0x33: //KEY 3
 			_attributes.numSpotLight = 3;
+			_attributes.currentScene = SCENE_LIGHT_POS_3;
 			break;
+	  case 0x34: //KEY 4
+		  _attributes.lightRadius += _cam_speed;
+		  break;
+	  case 0x35: //KEY 5
+		  _attributes.lightRadius -= _cam_speed;
+		  break;
 		case Event::KeyBoard::KEYS::T:
       break;
 		case Event::KeyBoard::KEYS::A:
@@ -366,6 +375,20 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	
 	_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] = -1.0f;
 	_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] = 0.0f;
+
+	_attributes.translateCoords[SCENE_LIGHT_POS_1][0] = -61.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_1][1] = 64.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_1][2] = 190.0f;
+
+	_attributes.translateCoords[SCENE_LIGHT_POS_2][0] = 7.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_2][1] = 64.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_2][2] = 190.0f;
+
+	_attributes.translateCoords[SCENE_LIGHT_POS_3][0] = 70.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_3][1] = 64.0f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_3][2] = 190.0f;
+
+	_attributes.lightRadius = 1.25f;
 
 	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][0] = 10.0f;
 	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][1] = 0.0f;

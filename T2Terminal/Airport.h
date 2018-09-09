@@ -47,6 +47,31 @@ namespace Rushabh
 
 		ModelParser *_modelParser;
 
+		GLuint _viewrPositionUniform;
+		GLuint _numSpotLightUniform;
+
+		GLuint _SpotLightLaUniform[3];
+		GLuint _SpotLightLdUniform[3];
+		GLuint _SpotLightLsUniform[3];
+		GLuint _SpotLightLightPositionUniform[3];
+		GLuint _SpotLightCutOffUniform[3];
+		GLuint _SpotLightOuterCutOffUniform[3];
+		GLuint _SpotLightConstantUniform[3];
+		GLuint _SpotLightLinearUniform[3];
+		GLuint _SpotLightQuadraticUniform[3];
+		GLuint _SpotLightLightDirectionUniform[3];
+
+		GLuint _material_Kd;
+		GLuint _material_Ka;
+		GLuint _material_Ks;
+		GLuint _material_shininess_uniform;
+
+		GLuint Vao_Cube;
+		GLuint Vbo_Position;
+
+		GLuint _LKeyPressedUniform;
+
+
 	public:
 
 		virtual BOOL SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) override;
