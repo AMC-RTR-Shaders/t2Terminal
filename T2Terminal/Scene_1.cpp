@@ -113,7 +113,7 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 
 	if (attributes.currentScene == SCENE_TERRAIN_MAP)//SCENE 1
 	{
-		//_terrainMap->Render(hdc, attributes);
+		_terrainMap->Render(hdc, attributes);
 	}
 
 	if (attributes.currentTransformation != TRANSFORMATION_TOP_VIEW_2 && attributes.currentTransformation != TRANSFORMATION_TOP_VIEW_3)

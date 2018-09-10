@@ -13,6 +13,8 @@
 
 #include"IScene.h"
 
+#define TRANS_Z_TABLE 4.0f
+#define TRANS_X_TABLE 5.0f
 
 namespace Sanket
 {

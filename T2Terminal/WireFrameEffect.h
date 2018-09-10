@@ -11,9 +11,9 @@
 
 #include"IScene.h"
 
-#define TRANS_Y_WIREFRAME -0.75f
-#define TRANS_Z_WIREFRAME -1.5f
-#define TRANS_X_WIREFRAME -0.53f
+#define TRANS_Y_WIREFRAME -0.75f - 0.35f 
+#define TRANS_Z_WIREFRAME -1.5f + 0.27f
+#define TRANS_X_WIREFRAME -0.50f
 
 namespace Praveen
 {

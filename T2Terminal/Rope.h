@@ -12,6 +12,9 @@
 
 #include"IScene.h"
 
+#define SCALE_X_ROPE 0.6f
+#define TRANS_Z_ROPE 4.0f
+#define TRANS_X_ROPE 5.0f
 
 namespace Sanket
 {

@@ -552,7 +552,7 @@ void Harsh::SpotLightBox::Render(HDC hdc, struct Attributes attributes)
 	mat4 rotateMatrix = mat4::identity();
 
 	//square block
-	scaleMatrix = scale(5.5f, 0.35f, 2.5f);
+	scaleMatrix = scale(5.5f, 0.35f, 3.2f);
 
 	translateMatrix = translate(
 		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],

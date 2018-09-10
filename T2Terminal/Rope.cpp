@@ -295,6 +295,22 @@ void Sanket::Rope::Render(HDC hdc, struct Attributes attributes)
 	mat4 rotateMatrix = mat4::identity();
 	mat4 translateMatrix = mat4::identity();
 	mat4 scaleMatrix = mat4::identity();
+	mat4 translateGlobalMatrix = mat4::identity();
+	mat4 rotateGlobalMatrix = mat4::identity();
+	mat4 globalTRMatrix = mat4::identity();
+
+	rotateGlobalMatrix = rotate(
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]
+	);
+
+	translateGlobalMatrix = translate(
+		attributes.translateCoords[SCENE_TABLE][0] + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.translateCoords[SCENE_TABLE][1] + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.translateCoords[SCENE_TABLE][2] + attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+
+	globalTRMatrix = translateGlobalMatrix * rotateGlobalMatrix;
 
 	static GLfloat lightAmbient[] = { 0.0f,0.0f,0.0f,1.0f };
 	static GLfloat lightDiffuse[] = { 1.0f,0.0f,0.0f,1.0f };
@@ -321,9 +337,9 @@ void Sanket::Rope::Render(HDC hdc, struct Attributes attributes)
 	glUniform3fv(_KsUniform, 1, materialSpecular);
 	glUniform1f(material_shininess_uniform, material_shininess);
 	
-	modelMatrix = translate(0.0f, 1.0f, -12.0f);
+	modelMatrix = translate(0.0f, 1.0f, -12.0f - TRANS_Z_ROPE) * globalTRMatrix;
 
-	scaleMatrix = scale(0.31f, 0.31f, 0.31f);
+	scaleMatrix = scale(0.31f + SCALE_X_ROPE, 0.31f, 0.31f);
 
 	modelMatrix = modelMatrix * scaleMatrix;
 
@@ -340,11 +356,11 @@ void Sanket::Rope::Render(HDC hdc, struct Attributes attributes)
 	 translateMatrix = mat4::identity();
 	 scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(-2.35f, 0.75f, -8.0f);
+	modelMatrix = translate(-2.35f - TRANS_X_ROPE, 0.75f, -8.0f)* globalTRMatrix;
 
 	rotateMatrix = rotate(72.0f, 0.0f, 1.0f, 0.0f);
 
-	scaleMatrix = scale(0.12f, 0.25f, 0.12f);
+	scaleMatrix = scale(0.12f + SCALE_X_ROPE, 0.25f, 0.12f);
 
 	modelMatrix = modelMatrix *  scaleMatrix;
 
@@ -364,11 +380,11 @@ void Sanket::Rope::Render(HDC hdc, struct Attributes attributes)
 	translateMatrix = mat4::identity();
 	scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(2.35f, 0.75f, -8.0f);
+	modelMatrix = translate(2.35f + TRANS_X_ROPE, 0.75f, -8.0f)* globalTRMatrix;
 
 	rotateMatrix = rotate(112.0f, 0.0f, 1.0f, 0.0f);
 
-	scaleMatrix = scale(0.12f, 0.25f, 0.12f);
+	scaleMatrix = scale(0.12f + SCALE_X_ROPE, 0.25f, 0.12f);
 
 	modelMatrix = modelMatrix *  scaleMatrix;
 
@@ -381,9 +397,9 @@ void Sanket::Rope::Render(HDC hdc, struct Attributes attributes)
 	CHECK_NULL(_modelParser);
 	_modelParser->draw();
 
-	modelMatrix = translate(0.0f, 1.0f, -7.0f);
+	modelMatrix = translate(0.0f, 1.0f, -7.0f + TRANS_Z_ROPE)* globalTRMatrix;
 
-	scaleMatrix = scale(0.31f, 0.31f, 0.31f);
+	scaleMatrix = scale(0.31f + SCALE_X_ROPE, 0.31f, 0.31f);
 
 	modelMatrix = modelMatrix * scaleMatrix;
 
