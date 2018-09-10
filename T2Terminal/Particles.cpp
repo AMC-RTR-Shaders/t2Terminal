@@ -397,11 +397,11 @@ void Rushabh::Particles::Render(HDC hdc, struct Attributes attributes)
 		modelViewMatrix = translate(
 			attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
 			TRANS_Y_PARTICLES + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
-			attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+			attributes.translateCoords[SCENE_AIRPORT_MODEL][2] - TRANS_X_PARTICLES);
 
 		modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 
-		modelViewMatrix = rotate(ROTATE_Z_PARTICLES, 0.0f, 0.0f);
+		modelViewMatrix = rotate(-ROTATE_Z_PARTICLES, 0.0f, 0.0f);
 
 		modelViewProjectionMatrix = modelViewProjectionMatrix * modelViewMatrix;
 

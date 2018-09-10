@@ -462,8 +462,24 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotationMatrix = mat4::identity();
 	mat4 scaleMatrix = mat4::identity();
+	mat4 translateGlobalMatrix = mat4::identity();
+	mat4 rotateGlobalMatrix = mat4::identity();
+	mat4 globalTRMatrix = mat4::identity();
 
-	modelMatrix = translate(0.0f, -2.0f, -8.0f);
+	rotateGlobalMatrix = rotate(
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]
+	);
+
+	translateGlobalMatrix = translate(
+		attributes.translateCoords[SCENE_TABLE][0] + attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.translateCoords[SCENE_TABLE][1] + attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.translateCoords[SCENE_TABLE][2] + attributes.translateCoords[SCENE_AIRPORT_MODEL][2]);
+
+	globalTRMatrix = translateGlobalMatrix * rotateGlobalMatrix;
+
+	modelMatrix = translate(0.0f, -2.0f, -8.0f) * globalTRMatrix;
 	scaleMatrix = scale(1.0f, 0.09f, 1.0f);
 	modelMatrix = modelMatrix *scaleMatrix ;
 
@@ -491,8 +507,9 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// Translate model view matrix.
 
-	modelMatrix = translate(0.0f, 1.0f, -8.0f);
-	scaleMatrix = scale(1.5f, 0.09f, 1.5f);
+	modelMatrix = translate(0.0f, 1.0f, -8.0f) * globalTRMatrix;
+	scaleMatrix = scale(6.5f, 0.09f, 3.6f);
+
 	modelMatrix = modelMatrix * scaleMatrix;
 
 	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
@@ -537,9 +554,9 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder between two cubes.
 
-	modelMatrix = translate(0.0f, 1.0f, -8.0f);
+	modelMatrix = translate(0.0f, 1.0f, -8.0f) * globalTRMatrix;
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
-	scaleMatrix = scale(0.7f, 1.4f, 1.0f);
+	scaleMatrix = scale(1.0f, 1.4f, 1.0f);
 
 	// multiply the modelview and rotation matrix.
 
@@ -560,7 +577,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	rotationMatrix = mat4::identity();
 	scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(-2.7f, 1.6f, -12.0f);
+	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.6f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 	scaleMatrix = scale(0.4f, 0.4f, 0.4f);
 
 	// multiply the modelview and rotation matrix.
@@ -609,7 +626,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(-2.7f, 1.4f, -12.0f);
+	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.4f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 	scaleMatrix = scale(1.5f, 0.05f, 1.0f);
 
@@ -650,11 +667,11 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(-2.7f, -2.3f, -12.0f);
+	modelMatrix = translate(-2.7f - TRANS_X_TABLE, -2.3f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(3.5f, 0.05f, 1.0f);
+	scaleMatrix = scale(3.5f, 0.05f, 1.2f);
 
 	// multiply the modelview and rotation matrix.
 
@@ -680,7 +697,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(-2.7f, -2.3f, -7.0f);
+	modelMatrix = translate(-2.7f - TRANS_X_TABLE, -2.3f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -711,7 +728,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(-2.7f, 1.5f, -7.0f);
+	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.5f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -740,7 +757,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(2.7f, -2.3f, -7.0f);
+	modelMatrix = translate(2.7f + TRANS_X_TABLE, -2.3f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -769,7 +786,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(2.7f, 1.5f, -7.0f);
+	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.5f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -799,7 +816,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(2.7f, -2.3f, -12.0f);
+	modelMatrix = translate(2.7f + TRANS_X_TABLE, -2.3f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -830,7 +847,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(2.7f, 1.5f, -12.0f);
+	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.5f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -855,7 +872,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	rotationMatrix = mat4::identity();
 	scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(0.0f, 1.5f, -12.0f);
+	modelMatrix = translate(0.0f + TRANS_X_TABLE, 1.5f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -900,7 +917,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	rotationMatrix = mat4::identity();
 	scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(2.7f, 1.7f, -12.0f);
+	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.7f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
 	scaleMatrix = scale(0.4f, 0.4f, 0.4f);
 
@@ -937,7 +954,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	rotationMatrix = mat4::identity();
 	scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(2.7f, 1.7f, -7.0f);
+	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.7f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
 	scaleMatrix = scale(0.4f, 0.4f, 0.4f);
 
@@ -974,7 +991,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(-2.7f, 1.4f, -12.0f);
+	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.4f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -999,7 +1016,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	rotationMatrix = mat4::identity();
 	scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(-2.7f, 1.7f, -7.0f);
+	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.7f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
 	scaleMatrix = scale(0.4f, 0.4f, 0.4f);
 
@@ -1034,7 +1051,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// left front draw cylinder
 
-	modelMatrix = translate(-2.7f, 1.4f, -7.0f);
+	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.4f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -1061,7 +1078,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(2.7f, 1.4f, -7.0f);
+	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.4f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
@@ -1090,7 +1107,7 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 
 	// draw cylinder
 
-	modelMatrix = translate(2.7f, 1.4f, -12.0f);
+	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.4f, -12.0f -TRANS_Z_TABLE) * globalTRMatrix;
 
 	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 

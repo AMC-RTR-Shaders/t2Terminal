@@ -121,9 +121,10 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		case Event::KeyBoard::KEYS::A:
 			++_attributes.currentScene;
 			_attributes.currentScene = _attributes.currentScene % 4;
+			_attributes.currentScene = SCENE_AIRPORT_MODEL;
 			break;
 		case Event::KeyBoard::KEYS::S:
-			_attributes.currentScene = SCENE_SINGLE_AEROPLANE;
+			_attributes.currentScene = SCENE_BLUE_PRINT;
 			break;
 
 		case VK_UP:
@@ -180,9 +181,9 @@ void T2Terminal::MainScene::Initialize()
 	InitializeTransformationAttributes();
 	InitializeResizeAttributes();
 
-	_scene_1 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_1);
-	if(_scene_1)
-		_scene_1->Initialize();
+	//_scene_1 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_1);
+	//if(_scene_1)
+	//	_scene_1->Initialize();
 
 	_scene_2 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_2);
 	if (_scene_2)
@@ -192,7 +193,7 @@ void T2Terminal::MainScene::Initialize()
 	if (_scene_3)
 		_scene_3->Initialize();
 
-	_scene = _scene_1;
+	_scene = _scene_2;
 
 }
 
@@ -234,7 +235,7 @@ void T2Terminal::MainScene::SceneTransition()
 
 void T2Terminal::MainScene::UnInitialize()
 {	
-	SAFE_SCENE_DELETE(_scene_1)
+//	SAFE_SCENE_DELETE(_scene_1)
 	SAFE_SCENE_DELETE(_scene_2)
 	SAFE_SCENE_DELETE(_scene_3)
 }
@@ -642,6 +643,10 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 void T2Terminal::MainScene::InitializeTransformationAttributes()
 {
 
+	_attributes.translateCoords[SCENE_BLUE_PRINT][0] = 0.0f;
+	_attributes.translateCoords[SCENE_BLUE_PRINT][1] = 0.0f;
+	_attributes.translateCoords[SCENE_BLUE_PRINT][2] = 0.0f;
+
 	_attributes.translateCoords[SCENE_AIRPORT][0] = 0.0f;
 	_attributes.translateCoords[SCENE_AIRPORT][1] = Y_AIRPORT_START;
 	_attributes.translateCoords[SCENE_AIRPORT][2] = Z_AIRPORT_START;
@@ -664,6 +669,10 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.translateCoords[SCENE_AIRPORT_MODEL][0] = 0.0f;
 	_attributes.translateCoords[SCENE_AIRPORT_MODEL][1] = 0.0f;
 	_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] = -20.0f;
+
+	_attributes.translateCoords[SCENE_TABLE][0] = 0.0f;
+	_attributes.translateCoords[SCENE_TABLE][1] = -2.1f;
+	_attributes.translateCoords[SCENE_TABLE][2] = 6.0f;
 
 	_attributes.rotateCoords[SCENE_AIRPORT][0] = -11.0f;
 	_attributes.rotateCoords[SCENE_AIRPORT][1] = 0.0f;
@@ -728,12 +737,12 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 
 /****************SCENE 2  INITIALIAZATION *************/
 
-	//_cam_speed = CAM_SPEED_AIRPORT_MODEL;
+	_cam_speed = CAM_SPEED_AIRPORT_MODEL;
 
-	//_attributes.globalScene = 2;
-	//_attributes.currentScene = SCENE_AIRPORT_MODEL;
-	//_attributes.blendValue = BLEND_VALUE_BOX;
-	//_attributes.currentSequenceCounter = 0.0f;
+	_attributes.globalScene = 2;
+	_attributes.currentScene = SCENE_AIRPORT_MODEL;
+	_attributes.blendValue = BLEND_VALUE_BOX;
+	_attributes.currentSequenceCounter = 0.0f;
 
 /*****************************************************/
 }

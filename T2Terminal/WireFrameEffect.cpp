@@ -448,7 +448,7 @@ void Praveen::WireFrameEffect::Render(HDC hdc, struct Attributes attributes)
 		attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
 		attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
 
-	modelMatrix = modelMatrix * scale(0.45f, 0.5f, 0.5f) * rotateMatrix;
+	modelMatrix = modelMatrix * scale(0.46f, 0.5f, 0.5f) * rotateMatrix;
 
 	rotateMatrix = vmath::rotate<GLfloat>(_wireFrameEffect_angle, _wireFrameEffect_angle, _wireFrameEffect_angle);
 	//rotateMatrix = vmath::rotate<GLfloat>(287.971619f, 287.971619f, 287.971619f);

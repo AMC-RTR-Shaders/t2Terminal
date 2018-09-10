@@ -4,7 +4,7 @@
 #include"IScene.h"
 
 #define TRANS_Y_BOX -1.0f/2
-#define TRANS_Z_BOX -1.0f
+#define TRANS_Z_BOX -0.5f
  
 namespace Harsh
 {

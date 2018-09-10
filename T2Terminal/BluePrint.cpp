@@ -320,9 +320,9 @@ void Rushabh::BluePrint::Render(HDC hdc, struct Attributes attributes)
 
 
 	modelMatrix = translate(
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][1]+TRANS_Y_BLUE_PRINT,
-		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]+ TRANS_Z_BLUE_PRINT);
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][0] + attributes.translateCoords[SCENE_BLUE_PRINT][0],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][1]+TRANS_Y_BLUE_PRINT + attributes.translateCoords[SCENE_BLUE_PRINT][1],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]+ TRANS_Z_BLUE_PRINT + attributes.translateCoords[SCENE_BLUE_PRINT][2]);
 	
 	//rotateMatrix = rotate(45.0f, 0.0f, 0.0f);
 
