@@ -532,7 +532,7 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	{
 		translateMatrix = translate(
 			attributes.translateCoords[SCENE_AIRPORT][0],
-			attributes.translateCoords[SCENE_AIRPORT][1], 
+			attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_AIRPORT_CUBEMAP][1],
 			attributes.translateCoords[SCENE_AIRPORT][2]);
 		rotateMatrix = rotate(
 			attributes.rotateCoords[SCENE_AIRPORT][0],

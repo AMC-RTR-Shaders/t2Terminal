@@ -67,9 +67,9 @@ void Scene_1::Scene_1::Initialize()
 	//Initializ.
 
 	//_cubeTemplate->Initialize();
-	//_quad->Initialize();
+	_quad->Initialize();
 	_terminalGlass->Initialize();
-	_aeroplaneInstancing->Initialize();
+	//_aeroplaneInstancing->Initialize();
 	_airport->Initialize();
 	_terrainMap->Initialize();
 	_singleAeroplane->Initialize();
