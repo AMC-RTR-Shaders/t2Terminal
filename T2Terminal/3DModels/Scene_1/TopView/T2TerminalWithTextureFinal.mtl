@@ -1,8 +1,18 @@
-# Blender MTL File: 'None'
-# Material Count: 12
+# Blender MTL File: 'T2TerminalWithTextureFinal.blend'
+# Material Count: 13
+
+newmtl Material
+Ns 96.078431
+Ka 1.000000 1.000000 1.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
 
 newmtl MaterialBaseQuad
-Ns 92.156863
+Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
 Ks 0.500000 0.500000 0.500000
@@ -68,7 +78,7 @@ illum 2
 map_Kd Hanger.png
 
 newmtl MaterialHangerExt
-Ns 92.156863
+Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.618115 0.463617
 Ks 0.500000 0.500000 0.500000
@@ -89,7 +99,7 @@ illum 2
 map_Kd pillars.png
 
 newmtl MaterialRoad
-Ns 92.156863
+Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.640000 0.640000 0.640000
 Ks 0.500000 0.500000 0.500000
@@ -100,7 +110,7 @@ illum 2
 map_Kd Road.png
 
 newmtl MaterialRoadPillars
-Ns 92.156863
+Ns 94.117647
 Ka 1.000000 1.000000 1.000000
 Kd 0.200796 0.271156 0.336019
 Ks 0.500000 0.500000 0.500000
