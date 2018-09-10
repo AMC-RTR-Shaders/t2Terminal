@@ -157,6 +157,7 @@
     <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="PerlinCloud.cpp" />
+    <ClCompile Include="Rope.cpp" />
     <ClCompile Include="Scene2Tile.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainScene.cpp" />
@@ -172,6 +173,7 @@
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="SpotLightBox.cpp" />
     <ClCompile Include="Starfield.cpp" />
+    <ClCompile Include="Table.cpp" />
     <ClCompile Include="TerminalGlass.cpp" />
     <ClCompile Include="TerrainMap.cpp" />
     <ClCompile Include="Windowing.cpp" />
@@ -193,15 +195,19 @@
     <ClInclude Include="Quad.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="RollingCylinder.h" />
+    <ClInclude Include="Rope.h" />
     <ClInclude Include="Scene2Tile.h" />
     <ClInclude Include="Scene_1.h" />
     <ClInclude Include="Scene_2.h" />
     <ClInclude Include="Scene_3.h" />
     <ClInclude Include="CubeTemplate.h" />
     <ClInclude Include="SingleAeroplane.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="SphereMesh.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="SpotLightBox.h" />
     <ClInclude Include="Starfield.h" />
+    <ClInclude Include="Table.h" />
     <ClInclude Include="TerminalGlass.h" />
     <ClInclude Include="TerrainMap.h" />
     <ClInclude Include="vmath.h" />

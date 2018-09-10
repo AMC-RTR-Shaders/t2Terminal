@@ -18,6 +18,9 @@
 #include "Scene2Tile.h"
 #include "WireFrameEffect.h"
 #include "AirportTop.h"
+#include "Table.h"
+#include "Rope.h"
+
 
 namespace Scene_2
 {
@@ -38,6 +41,9 @@ namespace Scene_2
 		Rushabh::AirportTop *_airportTop;
 
 		Praveen::WireFrameEffect *_wireFrameEffect;
+
+		Sanket::Table *_Table;
+		Sanket::Rope *_Rope;
 
 	public:
 

@@ -216,6 +216,12 @@
     <ClCompile Include="PerlinCloud.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Abhijeet</Filter>
     </ClCompile>
+    <ClCompile Include="Rope.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClCompile>
+    <ClCompile Include="Table.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Windowing.h">
@@ -304,6 +310,18 @@
     </ClInclude>
     <ClInclude Include="PerlinCloud.h">
       <Filter>Header Files\T2Terminal\Scenes\Abhijeet</Filter>
+    </ClInclude>
+    <ClInclude Include="Rope.h">
+      <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereMesh.h">
+      <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
