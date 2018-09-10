@@ -313,10 +313,15 @@ void Rushabh::SingleAeroplane::Render(HDC hdc, struct Attributes attributes)
 			attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][1],
 			attributes.translateCoords[SCENE_AIRPORT][2] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][2]);
 
+		//rotateMatrix = rotate(
+		//	attributes.rotateCoords[SCENE_AIRPORT][0] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][0],
+		//	attributes.rotateCoords[SCENE_AIRPORT][1] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1],
+		//	attributes.rotateCoords[SCENE_AIRPORT][2] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2]);
 		rotateMatrix = rotate(
-			attributes.rotateCoords[SCENE_AIRPORT][0] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][0],
-			attributes.rotateCoords[SCENE_AIRPORT][1] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1],
-			attributes.rotateCoords[SCENE_AIRPORT][2] + attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2]);
+			attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][0],
+			attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1],
+			attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2]);
+
 	}
 	modelMatrix = translateMatrix * rotateMatrix;
 

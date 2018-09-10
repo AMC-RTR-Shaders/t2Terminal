@@ -244,8 +244,8 @@ void Praveen::WireFrameEffect::Initialize()
 	_wireFrameThreePillar = (GLOBJECT_WIREFRAME_BUILDING*)malloc(sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	ZeroMemory(_wireFrameThreePillar, sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	_wireFrameThreePillar->wireFrameQuery = WIREFRAME_QUERY::WIREFRAME_YES;
-	_wireFrameThreePillar->speedValueToIncrementSolidFaces = 0.3f;
-	_wireFrameThreePillar->speedValueToIncrementWireFaces =  0.3f;
+	_wireFrameThreePillar->speedValueToIncrementSolidFaces = 0.12f;
+	_wireFrameThreePillar->speedValueToIncrementWireFaces =  0.12f;
 	
 	_wireFrameThreePillar->triangle_poin1_color[0] = 240.0f / 255.0f;
 	_wireFrameThreePillar->triangle_poin1_color[1] = 240.0f / 255.0f;
@@ -330,7 +330,7 @@ void Praveen::WireFrameEffect::Update()
 			_wireFrameThreePillar->incrementSolidFaces += _wireFrameThreePillar->speedValueToIncrementSolidFaces;
 			if (_wireFrameThreePillar->incrementSolidFaces > 1.0f)
 			{
-				_wireFrameThreePillar->totalSolidFaces += _wireFrameThreePillar->incrementSolidFaces;
+				_wireFrameThreePillar->totalSolidFaces += (int)_wireFrameThreePillar->incrementSolidFaces;
 				_wireFrameThreePillar->incrementSolidFaces = 0.0f;
 			}
 		}
@@ -345,7 +345,7 @@ void Praveen::WireFrameEffect::Update()
 		_wireFrameThreePillar->incrementWireFaces += _wireFrameThreePillar->speedValueToIncrementWireFaces;
 		if (_wireFrameThreePillar->incrementWireFaces > 1.0f)
 		{
-			_wireFrameThreePillar->totalWireFaces += _wireFrameThreePillar->incrementWireFaces;
+			_wireFrameThreePillar->totalWireFaces += (int)_wireFrameThreePillar->incrementWireFaces;
 			_wireFrameThreePillar->incrementWireFaces = 0.0f;
 		}
 	}
@@ -369,11 +369,11 @@ void Praveen::WireFrameEffect::Update()
 				_wireFrameAllPillar->incrementSolidFaces += _wireFrameAllPillar->speedValueToIncrementSolidFaces;
 				if (_wireFrameAllPillar->incrementSolidFaces > 1.0f)
 				{
-					_wireFrameAllPillar->totalSolidFaces += _wireFrameAllPillar->incrementSolidFaces;
+					_wireFrameAllPillar->totalSolidFaces += (int)_wireFrameAllPillar->incrementSolidFaces;
 					_wireFrameAllPillar->incrementSolidFaces = 0.0f;
 				}
 			}
-			if ((int)_wireFrameAllPillar->totalSolidFaces == _wireFrameAllPillar->lengthOfVertexMap)
+			if ((int)_wireFrameAllPillar->totalSolidFaces == (int)_wireFrameAllPillar->lengthOfVertexMap)
 			{
 				_wireFrameAllPillar->isModelSolidFacesDone = true;
 			}
@@ -384,7 +384,7 @@ void Praveen::WireFrameEffect::Update()
 			_wireFrameAllPillar->incrementWireFaces += _wireFrameAllPillar->speedValueToIncrementWireFaces;
 			if (_wireFrameAllPillar->incrementWireFaces > 1.0f)
 			{
-				_wireFrameAllPillar->totalWireFaces += _wireFrameAllPillar->incrementWireFaces;
+				_wireFrameAllPillar->totalWireFaces += (int)_wireFrameAllPillar->incrementWireFaces;
 				_wireFrameAllPillar->incrementWireFaces = 0.0f;
 			}
 		}

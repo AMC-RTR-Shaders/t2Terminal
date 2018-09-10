@@ -51,6 +51,7 @@ namespace Priyanka
 				
 		HBITMAP _hBitmap[6];
 		GLuint _textureSamplerUniform;
+		GLuint _alphaUniform;
 		GLuint _textureCubemap;
 
 	public:

@@ -82,15 +82,16 @@ https://en.wikipedia.org/wiki/Include_guard
 #define TRANSFORMATION_TOP_VIEW_1			4
 #define TRANSFORMATION_TOP_VIEW_2			5
 #define TRANSFORMATION_TOP_VIEW_3			6
+#define TRANSFORMATION_TOP_VIEW_4			7
 
-#define TRANSFORMATION_START_WIRE_FRAME		7
+#define TRANSFORMATION_START_WIRE_FRAME		8
 
 #define TRANS_X_BLUE_PRINT					4.8f
 #define SCENE_2_SEQUNCRE_COUNTER			0.0f
 #define PARTICLE_LIGHT_1_ON					5.0f
 #define PARTICLE_LIGHT_2_ON					10.0f
 #define PARTICLE_LIGHT_3_ON					12.5f
-
+#define START_SCENE_3						15.0f
 
 namespace T2Terminal
 {
@@ -117,10 +118,12 @@ namespace T2Terminal
 			float blendValue;
 			float lightRadius;
 			float lightDirection[3];
+			float lightAmbient[3];
 			float PerlinCloudAngle;
 			float PerlinCloudALpha;
 			float PerlinCloudSpeed;	
 			int PerlinCloudDirection;
+			int globalScene;
 		};
 
 		struct ResizeAttributes
