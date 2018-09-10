@@ -11,6 +11,7 @@
 
 #include"IScene.h"
 
+#define TRANS_Z_PERLIN_CLOUD -300.0f
 
 namespace Abhijeet
 {

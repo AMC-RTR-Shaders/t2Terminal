@@ -365,11 +365,11 @@ void Abhijeet::PerlinCloud::Render(HDC hdc, struct Attributes attributes)
 	vmath::mat4 modelViewMatrix = mat4::identity();
 	mat4 modelViewProjectionMatrix = mat4::identity();
 
-	//modelViewMatrix = vmath::translate(0.0f, 0.0f, -6.0f);
-	modelViewMatrix = translate(
-		attributes.translateCoords[SCENE_AIRPORT][0] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][0],
-		attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][1] - 100,
-		attributes.translateCoords[SCENE_AIRPORT][2] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][2]);
+	modelViewMatrix = vmath::translate(0.0f, 0.0f, -6.0f);
+	//modelViewMatrix = translate(
+	//	attributes.translateCoords[SCENE_AIRPORT][0] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][0],
+	//	attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][1] - 100,
+	//	attributes.translateCoords[SCENE_AIRPORT][2] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][2]);
 		
 	//_gRotationMatrix = vmath::rotate(attributes.PerlinCloudAngle, 1.0f, 0.0f, 0.0f);
 
