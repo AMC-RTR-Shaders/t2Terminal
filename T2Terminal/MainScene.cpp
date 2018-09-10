@@ -181,9 +181,9 @@ void T2Terminal::MainScene::Initialize()
 	InitializeTransformationAttributes();
 	InitializeResizeAttributes();
 
-	//_scene_1 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_1);
-	//if(_scene_1)
-	//	_scene_1->Initialize();
+	_scene_1 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_1);
+	if(_scene_1)
+		_scene_1->Initialize();
 
 	_scene_2 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_2);
 	if (_scene_2)
@@ -193,7 +193,7 @@ void T2Terminal::MainScene::Initialize()
 	if (_scene_3)
 		_scene_3->Initialize();
 
-	_scene = _scene_2;
+	_scene = _scene_1;
 
 }
 
@@ -235,7 +235,7 @@ void T2Terminal::MainScene::SceneTransition()
 
 void T2Terminal::MainScene::UnInitialize()
 {	
-//	SAFE_SCENE_DELETE(_scene_1)
+	SAFE_SCENE_DELETE(_scene_1)
 	SAFE_SCENE_DELETE(_scene_2)
 	SAFE_SCENE_DELETE(_scene_3)
 }
@@ -737,12 +737,12 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 
 /****************SCENE 2  INITIALIAZATION *************/
 
-	_cam_speed = CAM_SPEED_AIRPORT_MODEL;
+	//_cam_speed = CAM_SPEED_AIRPORT_MODEL;
 
-	_attributes.globalScene = 2;
-	_attributes.currentScene = SCENE_AIRPORT_MODEL;
-	_attributes.blendValue = BLEND_VALUE_BOX;
-	_attributes.currentSequenceCounter = 0.0f;
+	//_attributes.globalScene = 2;
+	//_attributes.currentScene = SCENE_AIRPORT_MODEL;
+	//_attributes.blendValue = BLEND_VALUE_BOX;
+	//_attributes.currentSequenceCounter = 0.0f;
 
 /*****************************************************/
 }
