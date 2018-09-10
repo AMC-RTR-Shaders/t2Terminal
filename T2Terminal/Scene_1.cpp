@@ -71,7 +71,7 @@ void Scene_1::Scene_1::Initialize()
 	_terminalGlass->Initialize();
 	_aeroplaneInstancing->Initialize();
 	_airport->Initialize();
-	_terrainMap->Initialize();
+	//_terrainMap->Initialize();
 	_singleAeroplane->Initialize();
 	_cubemap->Initialize();
 	_perlinCloud->Initialize();
@@ -84,7 +84,7 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 
 void Scene_1::Scene_1::Update()
 {
-	_terrainMap->Update();
+	//_terrainMap->Update();
 	_terminalGlass->Update();
 	_aeroplaneInstancing->Update();
 	_airport->Update();
@@ -96,7 +96,7 @@ void Scene_1::Scene_1::Update()
 
 void Scene_1::Scene_1::ReSize(int width, int height, struct ResizeAttributes attributes)
 {
-	_terrainMap->ReSize(width, height, attributes);
+	//_terrainMap->ReSize(width, height, attributes);
 	_terminalGlass->ReSize(width, height, attributes);
 	_aeroplaneInstancing->ReSize(width, height, attributes);
 	_airport->ReSize(width, height, attributes);
@@ -113,7 +113,7 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 
 	if (attributes.currentScene == SCENE_TERRAIN_MAP)//SCENE 1
 	{
-		_terrainMap->Render(hdc, attributes);
+		//_terrainMap->Render(hdc, attributes);
 	}
 
 	if (attributes.currentTransformation != TRANSFORMATION_TOP_VIEW_2 && attributes.currentTransformation != TRANSFORMATION_TOP_VIEW_3)
@@ -146,7 +146,7 @@ void Scene_1::Scene_1::SceneTransition()
 {
 	_terminalGlass->SceneTransition();
 	_aeroplaneInstancing->SceneTransition();
-	_terrainMap->SceneTransition();
+	//_terrainMap->SceneTransition();
 	_airport->SceneTransition();
 	_singleAeroplane->SceneTransition();
 	_cubemap->SceneTransition();
