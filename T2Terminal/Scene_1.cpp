@@ -109,12 +109,21 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 {
 	_singleAeroplane->Render(hdc, attributes);
 	_airport->Render(hdc, attributes);
-	_terrainMap->Render(hdc, attributes);
 	_cubemap->Render(hdc, attributes);
-	_terminalGlass->Render(hdc, attributes);
-	_perlinCloud->Render(hdc, attributes);
 
+	if (attributes.currentScene == SCENE_TERRAIN_MAP)//SCENE 1
+	{
+		_terrainMap->Render(hdc, attributes);
+	}
 
+	if (attributes.currentTransformation != TRANSFORMATION_TOP_VIEW_2 && attributes.currentTransformation != TRANSFORMATION_TOP_VIEW_3)
+	{
+		_perlinCloud->Render(hdc, attributes);
+	}
+	if (attributes.currentTransformation == TRANSFORMATION_TOP_VIEW_4)
+	{
+		_terminalGlass->Render(hdc, attributes);
+	}
 	//if (attributes.currentScene == SCENE_TERRAIN_MAP)
 	//{
 	//	_terrainMap->Render(hdc, attributes);

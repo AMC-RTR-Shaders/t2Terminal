@@ -426,19 +426,19 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	GLfloat mAmbient[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat mDiffuse[4] = { 1.0f,1.0f,1.0f,1.0f };
 	GLfloat mSpecular[4] = { 1.0f,1.0f,1.0f,1.0f };
-	GLfloat lightAmbientS1[4] = { 0.1f,0.1f,0.1f,1.0f };
+	GLfloat lightAmbientS1[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat lightDiffuseS1[4] = { 1.0f,0.6f,0.2f,1.0f };
 	GLfloat lightSpecularS1[4] = { 1.0f,0.6f,0.2f,1.0f };
 	GLfloat lightPositionS1[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat lightDirectionS1[4] = { 0.0f,0.0f,-1.0f,1.0f };
 	//saffron
-	GLfloat lightAmbientS2[4] = { 0.1f,0.1f,0.1f,1.0f };
+	GLfloat lightAmbientS2[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat lightDiffuseS2[4] = { 1.0f,1.0f,1.0f,1.0f };
 	GLfloat lightSpecularS2[4] = { 1.0f,1.0f,1.0f,1.0f };
 	GLfloat lightPositionS2[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat lightDirectionS2[4] = { 0.0f,0.0f,-1.0f,1.0f };
 	//green
-	GLfloat lightAmbientS3[4] = { 0.1f,0.1f,0.1f,1.0f };
+	GLfloat lightAmbientS3[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat lightDiffuseS3[4] = { 0.07f,0.53f,0.03f,1.0f };
 	GLfloat lightSpecularS3[4] = { 0.07f,0.53f,0.03f,1.0f };
 	GLfloat lightPositionS3[4] = { 0.0f,0.0f,0.0f,1.0f };
@@ -447,7 +447,7 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	glUseProgram(_shaderProgramObject);
 
 	// setting light's properties
-	glUniform3fv(_LaUniform, 1, lightAmbient);
+	glUniform3fv(_LaUniform, 1, attributes.lightAmbient);
 	glUniform3fv(_LdUniform, 1, lightDiffuse);
 	glUniform3fv(_LsUniform, 1, lightSpecular);
 	glUniform4fv(_LightPositionUniform, 1, lightPosition);

@@ -89,9 +89,10 @@ void Priyanka::Cubemap::Initialize()
 		"out vec4 FragColor;" \
 		"in vec3 out_texture0_coord;" \
 		"uniform samplerCube u_texture0_sampler;" \
+		"uniform float u_alpha;"\
 		"void main(void)" \
 		"{" \
-		"FragColor = texture(u_texture0_sampler, out_texture0_coord);" \
+		"FragColor = vec4(texture(u_texture0_sampler, out_texture0_coord).rgb, u_alpha);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -175,36 +176,37 @@ void Priyanka::Cubemap::Initialize()
 	_ViewMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_view_matrix");
 	_projectMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_projection_matrix");
 	_textureSamplerUniform = glGetUniformLocation(_shaderProgramObject, "u_texture0_sampler");
+	_alphaUniform = glGetUniformLocation(_shaderProgramObject, "u_alpha");
 
 	const GLfloat cubeVertices[] =
 	{
 		-SIZE,  SIZE, -SIZE, // back
-		-SIZE, -0, -SIZE,
-		SIZE, -0, -SIZE,
-		SIZE, -0, -SIZE,
+		-SIZE, -SIZE, -SIZE,
+		SIZE, -SIZE, -SIZE,
+		SIZE, -SIZE, -SIZE,
 		SIZE,  SIZE, -SIZE,
 		-SIZE,  SIZE, -SIZE,
 
-		-SIZE, -0,  SIZE,  // left
-		-SIZE, -0, -SIZE,
+		-SIZE, -SIZE,  SIZE,  // left
+		-SIZE, -SIZE, -SIZE,
 		-SIZE,  SIZE, -SIZE,
 		-SIZE,  SIZE, -SIZE,
 		-SIZE,  SIZE,  SIZE,
-		-SIZE, -0,  SIZE,
+		-SIZE, -SIZE,  SIZE,
 
-		SIZE, -0, -SIZE, // right
-		SIZE, -0,  SIZE,
+		SIZE, -SIZE, -SIZE, // right
+		SIZE, -SIZE,  SIZE,
 		SIZE,  SIZE,  SIZE,
 		SIZE,  SIZE,  SIZE,
 		SIZE,  SIZE, -SIZE,
 		SIZE, -SIZE, -SIZE,
 
-		-SIZE, -0,  SIZE, // front
+		-SIZE, -SIZE,  SIZE, // front
 		-SIZE,  SIZE,  SIZE,
 		SIZE,  SIZE,  SIZE,
 		SIZE,  SIZE,  SIZE,
-		SIZE, -0,  SIZE,
-		-SIZE, -0,  SIZE,
+		SIZE, -SIZE,  SIZE,
+		-SIZE, -SIZE,  SIZE,
 
 		-SIZE,  SIZE, -SIZE,  //top
 		SIZE,  SIZE, -SIZE,
@@ -213,12 +215,12 @@ void Priyanka::Cubemap::Initialize()
 		-SIZE,  SIZE,  SIZE,
 		-SIZE,  SIZE, -SIZE,
 
-		-SIZE, -0, -SIZE, // bottom
-		-SIZE, -0,  SIZE,
-		SIZE, -0, -SIZE,
-		SIZE, -0, -SIZE,
-		-SIZE, -0,  SIZE,
-		SIZE, -0, SIZE
+		-SIZE, -SIZE, -SIZE, // bottom
+		-SIZE, -SIZE,  SIZE,
+		SIZE, -SIZE, -SIZE,
+		SIZE, -SIZE, -SIZE,
+		-SIZE, -SIZE,  SIZE,
+		SIZE, -SIZE, SIZE
 	};
 
 	// FOR CUBE
@@ -307,14 +309,20 @@ void Priyanka::Cubemap::Render(HDC hdc, struct Attributes attributes)
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
-
+	glUniform1f(_alphaUniform, attributes.blendValue);
+	
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, _textureCubemap);
 	glUniform1i(_textureSamplerUniform, 0);
 
 	//draw cube
 	glBindVertexArray(_vaoCube);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glDrawArrays(GL_TRIANGLES, 0, 36); // 3 (each with its x,y,z )
+	
+	glDisable(GL_BLEND);
 
 	glBindVertexArray(0);
 
@@ -396,6 +404,8 @@ int Priyanka::Cubemap::LoadGLTexturesCubemap(GLuint *texture, int resArrayPtr)
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
 	return(iStatus);
 }

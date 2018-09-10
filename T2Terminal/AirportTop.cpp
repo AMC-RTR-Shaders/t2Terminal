@@ -12,7 +12,7 @@ Rushabh::AirportTop::AirportTop()
 {
 	_angle = 0.0f;
 
-	_modelParser = new ModelParser("3DModels\\\Scene_2\\ModelGrowingAirport\\scaledTop.obj");
+	_modelParser = new ModelParser("3DModels\\Scene_2\\ModelGrowingAirport\\scaledTop.obj");
 	CHECK_NULL(_modelParser);
 
 	return;

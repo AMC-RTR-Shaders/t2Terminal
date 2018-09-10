@@ -274,9 +274,6 @@ void Sanket::Starfield::Initialize()
 
 	return;
 
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
-
 }
 
 void Sanket::Starfield::Update()
@@ -333,10 +330,6 @@ void Sanket::Starfield::Render(HDC hdc, struct Attributes attributes)
 	glUseProgram(0);
 
 	return;
-
-
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 }
 
 void Sanket::Starfield::SceneTransition()
