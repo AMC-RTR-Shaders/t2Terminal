@@ -115,7 +115,7 @@ void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 {
 //	_wireFrameEffect->Render(hdc, attributes);
 
-//	_spotLight->Render(hdc, attributes);
+	_spotLight->Render(hdc, attributes);
 
 	_Table->Render(hdc, attributes);
 	_Rope->Render(hdc, attributes);

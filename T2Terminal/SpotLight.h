@@ -11,6 +11,7 @@ namespace Harsh
 	#define SIDE_LENGTH 5.0f
 	#define TRANS_Y_SPOTLIGHT -1.0f
 	#define TRASLATE_X_SPOTLIGHT -0.75f
+	#define TRASLATE_Z_SPOTLIGHT -1.0f
 	
 	class SpotLight : virtual public T2Terminal::IScene
 	{
@@ -47,19 +48,10 @@ namespace Harsh
 		GLuint _viewrPositionUniform;
 		GLuint _numSpotLightUniform;
 
-		GLfloat lightAmbient[4] = {0.25f,0.25f,0.25f,1.0f};
+		GLfloat lightAmbient[4] = {0.0f,0.0f,0.0f,1.0f};
 		GLfloat lightDiffuse[4]= {1.0f,1.0f,1.0f,1.0f};
 		GLfloat lightSpecular[4] = {1.0f,1.0f,1.0f,1.0f};
 		GLfloat lightPosition[4] = {0.0f,100.0f,100.0f,1.0f};
-
-		GLfloat material_Ambient[4] = {0.0f,0.0f,0.0f,1.0f};
-		GLfloat material_Diffuse[4]= {1.0f,1.0f,1.0f,1.0f};
-		GLfloat material_Specular[4] = {1.0f,1.0f,1.0f,1.0f};
-		GLfloat material_shininess = 128.0f;
-
-		GLfloat mAmbient[4] = { 0.0f,0.0f,0.0f,1.0f };
-		GLfloat mDiffuse[4] = { 1.0f,1.0f,1.0f,1.0f };
-		GLfloat mSpecular[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightAmbientS1[4] = { 0.1f,0.1f,0.1f,1.0f };
 		GLfloat lightDiffuseS1[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightSpecularS1[4] = { 1.0f,1.0f,1.0f,1.0f };
@@ -80,7 +72,6 @@ namespace Harsh
 
 		mat4 _perspectiveProjectionMatrix;
 
-		bool gbAnimate;
 		bool gbLight;
 
 		GLuint _SpotLightLaUniform[3];

@@ -500,47 +500,47 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	// unbind Cube Vao
 	glBindVertexArray(0);
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// Translate model view matrix.
+	//// Translate model view matrix.
 
-	modelMatrix = translate(0.0f, 1.0f, -8.0f) * globalTRMatrix;
-	scaleMatrix = scale(6.5f, 0.09f, 3.6f);
+	//modelMatrix = translate(0.0f, 1.0f, -8.0f) * globalTRMatrix;
+	//scaleMatrix = scale(6.5f, 0.09f, 3.6f);
 
-	modelMatrix = modelMatrix * scaleMatrix;
+	//modelMatrix = modelMatrix * scaleMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
-
-
-	glUniform3fv(_La0Uniform, 1, light0_ambient);
-	glUniform3fv(_Ld0Uniform, 1, light0_diffuse);
-	glUniform3fv(_Ls0Uniform, 1, light0_specular);
-	glUniform4fv(_Light0PositionUniform, 1, light0_position);
-
-	glUniform3fv(_La1Uniform, 1, light1_ambient);
-	glUniform3fv(_Ld1Uniform, 1, light1_diffuse);
-	glUniform3fv(_Ls1Uniform, 1, light1_specular);
-	glUniform4fv(_Light1PositionUniform, 1, light1_position);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
 
-	glBindVertexArray(vao_Cube);
+	//glUniform3fv(_La0Uniform, 1, light0_ambient);
+	//glUniform3fv(_Ld0Uniform, 1, light0_diffuse);
+	//glUniform3fv(_Ls0Uniform, 1, light0_specular);
+	//glUniform4fv(_Light0PositionUniform, 1, light0_position);
 
-	// Draw Cube.
+	//glUniform3fv(_La1Uniform, 1, light1_ambient);
+	//glUniform3fv(_Ld1Uniform, 1, light1_diffuse);
+	//glUniform3fv(_Ls1Uniform, 1, light1_specular);
+	//glUniform4fv(_Light1PositionUniform, 1, light1_position);
 
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
-	glDrawArrays(GL_TRIANGLE_FAN, 4, 4);
-	glDrawArrays(GL_TRIANGLE_FAN, 8, 4);
-	glDrawArrays(GL_TRIANGLE_FAN, 12, 4);
-	glDrawArrays(GL_TRIANGLE_FAN, 16, 4);
-	glDrawArrays(GL_TRIANGLE_FAN, 20, 4);
 
-	// unbind Cube Vao
-	glBindVertexArray(0);
+	//glBindVertexArray(vao_Cube);
+
+	//// Draw Cube.
+
+	//glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	//glDrawArrays(GL_TRIANGLE_FAN, 4, 4);
+	//glDrawArrays(GL_TRIANGLE_FAN, 8, 4);
+	//glDrawArrays(GL_TRIANGLE_FAN, 12, 4);
+	//glDrawArrays(GL_TRIANGLE_FAN, 16, 4);
+	//glDrawArrays(GL_TRIANGLE_FAN, 20, 4);
+
+	//// unbind Cube Vao
+	//glBindVertexArray(0);
 
 	glUniform3fv(_KaUniform, 1, materialAmbient);
 	glUniform3fv(_KdUniform, 1, materialDiffuse);
