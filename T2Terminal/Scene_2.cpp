@@ -19,6 +19,7 @@ Scene_2::Scene_2::Scene_2()
 	_airportTop = NULL;
 	_Table = NULL;
 	_Rope = NULL;
+	_Door = NULL;
 }
 
 Scene_2::Scene_2::~Scene_2()
@@ -61,10 +62,11 @@ void Scene_2::Scene_2::Initialize()
 	_Table = new Sanket::Table();
 	CHECK_NEW(_Table);
 	
-
 	_Rope = new Sanket::Rope();
 	CHECK_NEW(_Rope);
 	
+	_Door = new Rahul::Door();
+	CHECK_NEW(_Door);
 
 	_spotLight->Initialize();
 	_spotLightBox->Initialize();
@@ -76,6 +78,7 @@ void Scene_2::Scene_2::Initialize()
 	_airportTop->Initialize();
 	_Table->Initialize();
 	_Rope->Initialize();
+	_Door->Initialize();
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -93,8 +96,8 @@ void Scene_2::Scene_2::Update()
 	_airportTop->Update();
 	_Table->Update();
 	_Rope->Update();
-
 	//_wireFrameEffect->Update();
+	_Door->Update();
 }
 
 void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -109,6 +112,7 @@ void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes att
 	_airportTop->ReSize(width, height, attributes);
 	_Table->ReSize(width, height, attributes);
 	_Rope->ReSize(width, height, attributes);
+	_Door->ReSize(width, height, attributes);
 }
 
 void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
@@ -134,7 +138,7 @@ void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 	{
 		_spotLightBox->Render(hdc, attributes);
 	}
-
+	_Door->Render(hdc, attributes);
 }
 
 void Scene_2::Scene_2::SceneTransition()
@@ -148,7 +152,7 @@ void Scene_2::Scene_2::SceneTransition()
 	_airportTop->SceneTransition();
 	_Table->SceneTransition();
 	_Rope->SceneTransition();
-
+	_Door->SceneTransition();
 }
 
 void Scene_2::Scene_2::UnInitialize()
@@ -166,4 +170,5 @@ void Scene_2::Scene_2::UnInitialize()
 
 	SAFE_SCENE_DELETE(_Table)
 	SAFE_SCENE_DELETE(_Rope)
+	SAFE_SCENE_DELETE(_Door)
 }
