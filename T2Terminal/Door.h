@@ -20,8 +20,6 @@ namespace Rahul
 	public:
 
 		Door();
-
-
 		~Door();
 
 	public:
@@ -29,16 +27,9 @@ namespace Rahul
 		GLuint _vertexShaderObject;
 		GLuint _fragmentShaderObject;
 
-		GLuint vbo_position_ted;
-		GLuint vbo_position_led;
-		GLuint vbo_position_red;
-		GLuint vbo_position_lsd;
-		GLuint vbo_position_rsd;
-		GLuint vbo_texture;
-		GLuint vbo_normal;
-
 		// angle of rotating door
 		GLfloat doorRotateAngle = 0.0f;
+		// radius of door rotation
 		GLfloat radius = 15.0f;
 
 		// Left Sliding Door's X axis
@@ -55,9 +46,9 @@ namespace Rahul
 		GLfloat RSD_Z_2;
 		GLfloat RSD_Z_3;
 
-		// x position of front face of rotating left sliding door
+		// x position of rotating left sliding door
 		GLfloat LSD_X_Rotating;
-		// z position of front face of rotating left sliding door
+		// z position of rotating left sliding door
 		GLfloat LSD_Z_Rotating;
 
 		// x position of rotating right sliding door
@@ -75,7 +66,7 @@ namespace Rahul
 		// z position of 3rd vertex of right sliding door
 		GLfloat RSD_Z_4_Point = -29.0f;
 
-		GLint startDoorSliding = 1;
+		GLint startDoorSliding = 0;
 
 	protected:
 		GLuint vao_top_entrance_door;
@@ -84,6 +75,14 @@ namespace Rahul
 		GLuint vao_left_sliding_door;
 		GLuint vao_right_sliding_door;
 		GLuint _shaderProgramObject;
+
+		GLuint vbo_position_ted;
+		GLuint vbo_position_led;
+		GLuint vbo_position_red;
+		GLuint vbo_position_lsd;
+		GLuint vbo_position_rsd;
+		GLuint vbo_texture;
+		GLuint vbo_normal;
 
 		mat4 _perspectiveProjectionMatrix;
 
@@ -105,6 +104,78 @@ namespace Rahul
 
 		GLuint _LightEnabled;
 
+		const GLfloat DoorTexCoords[48] =
+		{
+			// TOP FACE
+			0.0f,0.0f,
+			1.0f,0.0f,
+			1.0f,1.0f,
+			0.0f,1.0f,
+
+			// BOTTOM FACE
+			0.0f,0.0f,
+			1.0f,0.0f,
+			1.0f,1.0f,
+			0.0f,1.0f,
+
+			// FRONT FACE
+			0.0f,0.0f,
+			1.0f,0.0f,
+			1.0f,1.0f,
+			0.0f,1.0f,
+
+			// BACK FACE
+			0.0f,0.0f,
+			1.0f,0.0f,
+			1.0f,1.0f,
+			0.0f,1.0f,
+
+			// LEFT FACE
+			0.0f,0.0f,
+			1.0f,0.0f,
+			1.0f,1.0f,
+			0.0f,1.0f,
+
+			// RIGHT FACE
+			0.0f,0.0f,
+			1.0f,0.0f,
+			1.0f,1.0f,
+			0.0f,1.0f,
+		};
+
+		const GLfloat DoorNormals[72] =
+		{
+			0.0f,1.0f,0.0f,
+			0.0f,1.0f,0.0f,
+			0.0f,1.0f,0.0f,
+			0.0f,1.0f,0.0f,
+
+			0.0f,-1.0f,0.0f,
+			0.0f,-1.0f,0.0f,
+			0.0f,-1.0f,0.0f,
+			0.0f,-1.0f,0.0f,
+
+			0.0f,0.0f,1.0f,
+			0.0f,0.0f,1.0f,
+			0.0f,0.0f,1.0f,
+			0.0f,0.0f,1.0f,
+
+			0.0f,0.0f,-1.0f,
+			0.0f,0.0f,-1.0f,
+			0.0f,0.0f,-1.0f,
+			0.0f,0.0f,-1.0f,
+
+			-1.0f,0.0f,0.0f,
+			-1.0f,0.0f,0.0f,
+			-1.0f,0.0f,0.0f,
+			-1.0f,0.0f,0.0f,
+
+			1.0f,0.0f,0.0f,
+			1.0f,0.0f,0.0f,
+			1.0f,0.0f,0.0f,
+			1.0f,0.0f,0.0f
+		};
+
 	public:
 
 		virtual BOOL SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam) override;
@@ -120,6 +191,17 @@ namespace Rahul
 		virtual void SceneTransition() override;
 
 		virtual void UnInitialize() override;
+
+		void InitTED();
+		void InitLED();
+		void InitRED();
+		void InitLD();
+		void InitRD();
+		void DrawTED();
+		void DrawLED();
+		void DrawRED();
+		void DrawLD();
+		void DrawRD();
 
 	private:
 		int LoadGLTextures(GLuint *texture, TCHAR imageResourceId[]);

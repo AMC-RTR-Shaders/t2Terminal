@@ -136,7 +136,6 @@ void Rahul::Door::Initialize()
 		"uniform sampler2D u_texture0_sampler;" \
 		"void main(void)" \
 		"{" \
-		//"FragColor = texture(u_texture0_sampler,out_texture0_coord);" \ 
 		"FragColor = vec4(phong_ads_color, 1.0) * texture(u_texture0_sampler,out_texture0_coord);" \
 		"}";
 
@@ -246,6 +245,35 @@ void Rahul::Door::Initialize()
 	// LIGHT enabled
 	_LightEnabled = glGetUniformLocation(_shaderProgramObject, "light_enabled");
 
+	InitTED();
+	InitLED();
+	InitRED();
+	InitLD();
+	InitRD();
+
+	LoadGLTextures(&gTexture_Door, MAKEINTRESOURCE(ID_BITMAP_ENTRANCE_DOOR));
+
+	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+	glClearDepth(1.0f);
+
+	glEnable(GL_DEPTH_TEST);
+
+	glDepthFunc(GL_LEQUAL);
+
+	glShadeModel(GL_SMOOTH);
+
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+	glEnable(GL_CULL_FACE); /*Turning oFF cull , as we are doing animation , and so need to paint the back of object when rotating*/
+
+	_perspectiveProjectionMatrix = mat4::identity();
+
+}
+
+// initialize top entrance door
+void Rahul::Door::InitTED()
+{
+
 	GLfloat TopDoorFrameVertices[] =
 	{
 		// TOP FACE
@@ -285,6 +313,37 @@ void Rahul::Door::Initialize()
 		15.0f,15.0f,-30.0f
 	};
 
+	// VAO FOR TOP CUBE
+	glGenVertexArrays(1, &vao_top_entrance_door);
+	glBindVertexArray(vao_top_entrance_door);
+
+	glGenBuffers(1, &vbo_position_ted);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_ted);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(TopDoorFrameVertices), TopDoorFrameVertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &vbo_texture);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &vbo_normal);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(0);
+}
+
+// initialize left entrance door
+void Rahul::Door::InitLED()
+{
 	GLfloat LeftDoorFrameVertices[] =
 	{
 		// TOP FACE
@@ -324,6 +383,37 @@ void Rahul::Door::Initialize()
 		-15.0f,0.0f,-30.0f
 	};
 
+	// VAO FOR LEFT CUBE
+	glGenVertexArrays(1, &vao_left_entrance_door);
+	glBindVertexArray(vao_left_entrance_door);
+
+	glGenBuffers(1, &vbo_position_led);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_led);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(LeftDoorFrameVertices), LeftDoorFrameVertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &vbo_texture);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &vbo_normal);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glBindVertexArray(0);
+}
+
+// initialize righ entrance door
+void Rahul::Door::InitRED()
+{
 	GLfloat RightDoorFrameVertices[] =
 	{
 		// TOP FACE
@@ -363,132 +453,6 @@ void Rahul::Door::Initialize()
 		20.0f,0.0f,-30.0f
 	};
 
-	const GLfloat DoorTexCoords[] =
-	{
-		// TOP FACE
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-
-		// BOTTOM FACE
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-
-		// FRONT FACE
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-
-		// BACK FACE
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-
-		// LEFT FACE
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-
-		// RIGHT FACE
-		0.0f,0.0f,
-		1.0f,0.0f,
-		1.0f,1.0f,
-		0.0f,1.0f,
-	};
-
-	const GLfloat DoorNormals[] =
-	{
-		0.0f,1.0f,0.0f,
-		0.0f,1.0f,0.0f,
-		0.0f,1.0f,0.0f,
-		0.0f,1.0f,0.0f,
-
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-		0.0f,-1.0f,0.0f,
-
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-		0.0f,0.0f,1.0f,
-
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-		0.0f,0.0f,-1.0f,
-
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-		-1.0f,0.0f,0.0f,
-
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f,
-		1.0f,0.0f,0.0f
-	};
-
-	// VAO FOR TOP CUBE
-	glGenVertexArrays(1, &vao_top_entrance_door);
-	glBindVertexArray(vao_top_entrance_door);
-
-	glGenBuffers(1, &vbo_position_ted);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_ted);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(TopDoorFrameVertices), TopDoorFrameVertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_normal);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindVertexArray(0);
-
-	// VAO FOR LEFT CUBE
-	glGenVertexArrays(1, &vao_left_entrance_door);
-	glBindVertexArray(vao_left_entrance_door);
-
-	glGenBuffers(1, &vbo_position_led);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_led);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(LeftDoorFrameVertices), LeftDoorFrameVertices, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_normal);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glBindVertexArray(0);
-
 	// VAO FOR RIGHT CUBE
 	glGenVertexArrays(1, &vao_right_entrance_door);
 	glBindVertexArray(vao_right_entrance_door);
@@ -515,7 +479,11 @@ void Rahul::Door::Initialize()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
+}
 
+// initialize left rotating door
+void Rahul::Door::InitLD()
+{
 	// VAO FOR LEFT SLIDING DOOR
 	glGenVertexArrays(1, &vao_left_sliding_door);
 	glBindVertexArray(vao_left_sliding_door);
@@ -542,7 +510,11 @@ void Rahul::Door::Initialize()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
+}
 
+// initialize right rotating door
+void Rahul::Door::InitRD()
+{
 	// VAO FOR RIGHT SLIDING DOOR
 	glGenVertexArrays(1, &vao_right_sliding_door);
 	glBindVertexArray(vao_right_sliding_door);
@@ -569,24 +541,6 @@ void Rahul::Door::Initialize()
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
-
-	LoadGLTextures(&gTexture_Door, MAKEINTRESOURCE(ID_BITMAP_ENTRANCE_DOOR));
-
-	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
-	glClearDepth(1.0f);
-
-	glEnable(GL_DEPTH_TEST);
-
-	glDepthFunc(GL_LEQUAL);
-
-	glShadeModel(GL_SMOOTH);
-
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-
-	glEnable(GL_CULL_FACE); /*Turning oFF cull , as we are doing animation , and so need to paint the back of object when rotating*/
-
-	_perspectiveProjectionMatrix = mat4::identity();
-
 }
 
 void Rahul::Door::Update()
@@ -597,7 +551,7 @@ void Rahul::Door::Update()
 		if (doorRotateAngle < (3.14f / 2.0f))
 		{
 			// udpate coordinates for left sliding door
-			LSD_X_Rotating = LSD_X_3_Point + (GLfloat)(radius * cos(doorRotateAngle));
+			LSD_X_Rotating = LSD_X_3_Point + (radius * cos(doorRotateAngle));
 			LSD_X_4 = LSD_X_Rotating;
 			LSD_X_1 = LSD_X_Rotating;
 
@@ -675,10 +629,11 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	static GLfloat lightAmbient[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat lightSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
-	static GLfloat lightPosition[] = { 0.0f,100.0f,100.0f,1.0f };
+	static GLfloat lightPosition[] = { 100.0f,100.0f,100.0f,1.0f };
 	static GLfloat materialAmbient[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat materialDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat materialSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
+	static GLfloat zero[] = { 0.0f,0.0f,0.0f,0.0f };
 	static GLfloat material_shininess = 50.0f;
 
 	//START USING SHADER OBJECT	
@@ -712,6 +667,20 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
+	DrawTED();
+	DrawLED();
+	DrawRED();
+	DrawLD();
+	DrawRD();
+
+	//STOP USING SHADER
+	glUseProgram(0);
+
+}
+
+// draw top entrance door
+void Rahul::Door::DrawTED()
+{
 	glBindVertexArray(vao_top_entrance_door);
 
 	glActiveTexture(GL_TEXTURE0);
@@ -726,7 +695,11 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	glDrawArrays(GL_TRIANGLE_FAN, 20, 4);
 
 	glBindVertexArray(0);
+}
 
+// draw left entrance door
+void Rahul::Door::DrawLED()
+{
 	glBindVertexArray(vao_left_entrance_door);
 
 	glActiveTexture(GL_TEXTURE0);
@@ -741,7 +714,11 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	glDrawArrays(GL_TRIANGLE_FAN, 20, 4);
 
 	glBindVertexArray(0);
+}
 
+// draw right entrance door
+void Rahul::Door::DrawRED()
+{
 	glBindVertexArray(vao_right_entrance_door);
 
 	glActiveTexture(GL_TEXTURE0);
@@ -756,7 +733,11 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	glDrawArrays(GL_TRIANGLE_FAN, 20, 4);
 
 	glBindVertexArray(0);
+}
 
+// draw left rotating door
+void Rahul::Door::DrawLD()
+{
 	GLfloat LeftSlidingDoorVertices[] =
 	{
 		LSD_X_1,18.0f,LSD_Z_1,
@@ -778,7 +759,11 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);	// 4(each with its x,y,z) vertices in squareVertices array
 
 	glBindVertexArray(0);
+}
 
+// draw right rotating door
+void Rahul::Door::DrawRD()
+{
 	GLfloat RightSlidingDoorVertices[] =
 	{
 		15.0f,18.0f,-29.0f,
@@ -800,10 +785,6 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);	// 4(each with its x,y,z) vertices in squareVertices array
 
 	glBindVertexArray(0);
-
-	//STOP USING SHADER
-	glUseProgram(0);
-
 }
 
 void Rahul::Door::SceneTransition()
@@ -812,12 +793,52 @@ void Rahul::Door::SceneTransition()
 
 void Rahul::Door::UnInitialize()
 {
+	if (vao_top_entrance_door)
+	{
+		glDeleteBuffers(1, &vao_top_entrance_door);
+		vao_top_entrance_door = 0;
+	}
+	if (vbo_position_ted)
+	{
+		glDeleteBuffers(1, &vbo_position_ted);
+		vbo_position_ted = 0;
+	}
+	if (vbo_texture)
+	{
+		glDeleteBuffers(1, &vbo_texture);
+		vbo_texture = 0;
+	}
+	if (vbo_normal)
+	{
+		glDeleteBuffers(1, &vbo_normal);
+		vbo_normal = 0;
+	}
+	if (vao_left_entrance_door)
+	{
+		glDeleteBuffers(1, &vao_left_entrance_door);
+		vao_left_entrance_door = 0;
+	}
+	if (vao_right_entrance_door)
+	{
+		glDeleteBuffers(1, &vao_right_entrance_door);
+		vao_right_entrance_door = 0;
+	}
+	if (vao_left_sliding_door)
+	{
+		glDeleteBuffers(1, &vao_left_sliding_door);
+		vao_left_sliding_door = 0;
+	}
+	if (vao_right_sliding_door)
+	{
+		glDeleteBuffers(1, &vao_right_sliding_door);
+		vao_right_sliding_door = 0;
+	}
+
 	//DETACH THE FRAGMENT SHADER OBJECT
 	glDetachShader(_shaderProgramObject, _fragmentShaderObject);
 
 	//DETACH THE VERTEX SHADER OBJECT
 	glDetachShader(_shaderProgramObject, _vertexShaderObject);
-
 
 	//DELETE VERTEX SHADER OBJECT
 	glDeleteShader(_vertexShaderObject);
