@@ -66,7 +66,8 @@ namespace Rahul
 		// z position of 3rd vertex of right sliding door
 		GLfloat RSD_Z_4_Point = -29.0f;
 
-		GLint startDoorSliding = 0;
+		GLint StartDoorRotation = 0;
+		GLfloat BlendValue = 0.2f;
 
 	protected:
 		GLuint vao_top_entrance_door;
@@ -98,11 +99,10 @@ namespace Rahul
 		GLuint _KdUniform;
 		GLuint _KsUniform;
 		GLuint material_shininess_uniform;
-
+		GLuint _LightEnabled;
+		GLfloat _Blend_Value_uniform;
 		GLuint gTexture_Door;
 		GLuint gTexture_sampler_uniform;
-
-		GLuint _LightEnabled;
 
 		const GLfloat DoorTexCoords[48] =
 		{

@@ -132,11 +132,12 @@ void Rahul::Door::Initialize()
 		"\n" \
 		"in vec3 phong_ads_color;" \
 		"in vec2 out_texture0_coord;" \
+		"uniform float u_blend_value;" \
 		"out vec4 FragColor;" \
 		"uniform sampler2D u_texture0_sampler;" \
 		"void main(void)" \
 		"{" \
-		"FragColor = vec4(phong_ads_color, 1.0) * texture(u_texture0_sampler,out_texture0_coord);" \
+		"FragColor = vec4(phong_ads_color, u_blend_value) * texture(u_texture0_sampler,out_texture0_coord);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -244,6 +245,8 @@ void Rahul::Door::Initialize()
 
 	// LIGHT enabled
 	_LightEnabled = glGetUniformLocation(_shaderProgramObject, "light_enabled");
+
+	_Blend_Value_uniform = glGetUniformLocation(_shaderProgramObject, "u_blend_value");
 
 	InitTED();
 	InitLED();
@@ -546,7 +549,7 @@ void Rahul::Door::InitRD()
 void Rahul::Door::Update()
 {
 	doorRotateAngle = doorRotateAngle + 0.001f;
-	if (startDoorSliding == 1)
+	if (StartDoorRotation == 1)
 	{
 		if (doorRotateAngle < (3.14f / 2.0f))
 		{
@@ -648,6 +651,7 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	glUniform3fv(_KdUniform, 1, materialDiffuse);
 	glUniform3fv(_KsUniform, 1, materialSpecular);
 	glUniform1i(_LightEnabled, 1);
+	glUniform1f(_Blend_Value_uniform, BlendValue);
 
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
@@ -746,6 +750,9 @@ void Rahul::Door::DrawLD()
 		LSD_X_4,0.0f,LSD_Z_4
 	};
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glBindVertexArray(vao_left_sliding_door);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_lsd);
@@ -759,6 +766,7 @@ void Rahul::Door::DrawLD()
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);	// 4(each with its x,y,z) vertices in squareVertices array
 
 	glBindVertexArray(0);
+	glDisable(GL_BLEND);
 }
 
 // draw right rotating door
@@ -771,6 +779,9 @@ void Rahul::Door::DrawRD()
 		RSD_X_3,0.0f,RSD_Z_3,
 		15.0f,0.0f,-29.0f,
 	};
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glBindVertexArray(vao_right_sliding_door);
 
@@ -785,6 +796,7 @@ void Rahul::Door::DrawRD()
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);	// 4(each with its x,y,z) vertices in squareVertices array
 
 	glBindVertexArray(0);
+	glDisable(GL_BLEND);
 }
 
 void Rahul::Door::SceneTransition()
