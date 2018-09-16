@@ -283,6 +283,7 @@ void Rushabh::SingleAeroplane::Render(HDC hdc, struct Attributes attributes)
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotateMatrix = mat4::identity();
 	mat4 translateMatrix = mat4::identity();
+	mat4 scaleMatrix = mat4::identity();
 
 	static GLfloat lightAmbient[] = { 0.0f,0.0f,0.0f,1.0f };
 	static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
@@ -308,6 +309,11 @@ void Rushabh::SingleAeroplane::Render(HDC hdc, struct Attributes attributes)
 	//}
 	//else
 	{
+		scaleMatrix = scale(
+			attributes.scaleCoords[0], 
+			attributes.scaleCoords[1], 
+			attributes.scaleCoords[2]);
+
 		translateMatrix = translate(
 			attributes.translateCoords[SCENE_AIRPORT][0] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][0],
 			attributes.translateCoords[SCENE_AIRPORT][1] + attributes.translateCoords[SCENE_SINGLE_AEROPLANE][1],
@@ -323,7 +329,7 @@ void Rushabh::SingleAeroplane::Render(HDC hdc, struct Attributes attributes)
 			attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2]);
 
 	}
-	modelMatrix = translateMatrix * rotateMatrix;
+	modelMatrix = translateMatrix *scaleMatrix * rotateMatrix;
 
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);

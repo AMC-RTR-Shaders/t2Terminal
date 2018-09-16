@@ -317,13 +317,13 @@ void Rushabh::Scene2Tile::Initialize()
 
 	const GLfloat Scene2TileTexcoords[] =
 	{
-		2.0f, 2.0f,
+		4.0f, 4.0f,
 
-		0.0f, 2.0f,
+		0.0f, 4.0f,
 
 		0.0f, 0.0f,
 
-		2.0f, 0.0f
+		4.0f, 0.0f
 
 	};
 
@@ -508,27 +508,27 @@ void Rushabh::Scene2Tile::Render(HDC hdc, struct Attributes attributes)
 
 	// Back Wall
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotateMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotateMatrix = mat4::identity();
 
-	modelMatrix = globalTRMatrix * translate(0.0f, TRANS_Y_SIDEWALL_SCENE_2_TILE, -18.0f) * rotate(00.0f, 0.0f, 0.0f);
+	//modelMatrix = globalTRMatrix * translate(0.0f, TRANS_Y_SIDEWALL_SCENE_2_TILE, -18.0f) * rotate(00.0f, 0.0f, 0.0f);
 
-	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	glBindTexture(GL_TEXTURE_2D, gTexture_BackWall);
+	//glBindTexture(GL_TEXTURE_2D, gTexture_BackWall);
 
-	glUniform1i(_Texture_sampler_uniform, 0);
+	//glUniform1i(_Texture_sampler_uniform, 0);
 
-	glBindVertexArray(vao);
+	//glBindVertexArray(vao);
 
-	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+	//glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
-	glBindVertexArray(0);
+	//glBindVertexArray(0);
 
-	glBindTexture(GL_TEXTURE_2D, NULL);
+	//glBindTexture(GL_TEXTURE_2D, NULL);
 
 	//STOP USING SHADER
 	glUseProgram(0);

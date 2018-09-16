@@ -142,6 +142,7 @@ namespace T2Terminal
 			int PerlinCloudDirection;
 			int globalScene;
 			float globalLight[3];
+			float scaleCoords[3];
 		};
 
 		struct ResizeAttributes
