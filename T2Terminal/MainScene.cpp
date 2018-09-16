@@ -126,7 +126,7 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		case Event::KeyBoard::KEYS::A:
 			++_attributes.currentScene;
 			_attributes.currentScene = _attributes.currentScene % 4;
-			_attributes.currentScene = SCENE_PHOTO_ROOM;
+			_attributes.currentScene = SCENE_AIRPORT_MODEL;
 			break;
 		case Event::KeyBoard::KEYS::S:
 			_attributes.currentScene = SCENE_BLUE_PRINT;
@@ -265,7 +265,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 {
 	if (_attributes.globalScene == 1)
 	{
-		_cam_speed *= 1.005f;
+//		_cam_speed *= 1.005f;
 
 		if (_attributes.currentScene == SCENE_TERRAIN_MAP)//SCENE 1
 		{
@@ -489,7 +489,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 					offset = ((Z_END_SINGLE_PLANE - Z_END_SINGLE_PLANE_2) / (Z_END_AIRPORT_2 - Z_END_AIRPORT_3));
 					_attributes.translateCoords[SCENE_SINGLE_AEROPLANE][2] += _cam_speed * offset;
 
-					_cam_speed *= 1.0005f;
+//					_cam_speed *= 1.0005f;
 				}
 				else
 				{
@@ -933,13 +933,13 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 
 /****************SCENE 2  INITIALIAZATION *************/
 
-	//_cam_speed = CAM_SPEED_AIRPORT_MODEL;
+	/*_cam_speed = CAM_SPEED_AIRPORT_MODEL;
 
-	//_attributes.globalScene = 2;
-	//_attributes.currentScene = SCENE_AIRPORT_MODEL;
-	//_attributes.blendValue = BLEND_VALUE_BOX;
-	//_attributes.currentSequenceCounter = 0.0f;
-
+	_attributes.globalScene = 2;
+	_attributes.currentScene = SCENE_AIRPORT_MODEL;
+	_attributes.blendValue = BLEND_VALUE_BOX;
+	_attributes.currentSequenceCounter = 0.0f;
+*/
 /*****************************************************/
 
 

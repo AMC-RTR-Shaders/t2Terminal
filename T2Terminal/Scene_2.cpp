@@ -125,6 +125,7 @@ void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 	_scene2Tile->Render(hdc, attributes);
 	_rollingCylinder->Render(hdc, attributes);
 	_bluePrint->Render(hdc, attributes);
+	_Door->Render(hdc, attributes);
 
 	if (attributes.currentTransformation == TRANSFORMATION_START_WIRE_FRAME)
 	{
@@ -136,7 +137,6 @@ void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 		_particles->Render(hdc, attributes);
 		_spotLightBox->Render(hdc, attributes);
 	}
-	_Door->Render(hdc, attributes);
 }
 
 void Scene_2::Scene_2::SceneTransition()
