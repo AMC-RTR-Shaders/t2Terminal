@@ -155,6 +155,7 @@
     <ClCompile Include="AirportTop.cpp" />
     <ClCompile Include="BluePrint.cpp" />
     <ClCompile Include="Cubemap.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="PerlinCloud.cpp" />
     <ClCompile Include="Rope.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="AirportTop.h" />
     <ClInclude Include="BluePrint.h" />
     <ClInclude Include="Cubemap.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="Fonts.h" />
     <ClInclude Include="IScene.h" />
     <ClInclude Include="KeyBoard.h" />
@@ -226,6 +228,7 @@
     <Image Include="..\TerrainMap.bmp" />
     <Image Include="Carpet.bmp" />
     <Image Include="Ciel.bmp" />
+    <Image Include="Door.bmp" />
     <Image Include="Floor.bmp" />
     <Image Include="marble.bmp" />
     <Image Include="Photo_1.bmp" />
@@ -271,6 +274,8 @@
   <ItemGroup>
     <ResourceCompile Include="Cubemap.rc" />
     <ResourceCompile Include="PhotoRoom.rc" />
+    <ResourceCompile Include="Door.rc" />
+    <ResourceCompile Include="FloorTexture.rc" />
     <ResourceCompile Include="SpotLight.rc" />
     <ResourceCompile Include="RollingCylinder.rc" />
     <ResourceCompile Include="TerrainMap.rc" />

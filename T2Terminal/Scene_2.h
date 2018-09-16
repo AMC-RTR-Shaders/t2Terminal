@@ -20,6 +20,7 @@
 #include "AirportTop.h"
 #include "Table.h"
 #include "Rope.h"
+#include "Door.h"
 
 
 namespace Scene_2
@@ -44,6 +45,8 @@ namespace Scene_2
 
 		Sanket::Table *_Table;
 		Sanket::Rope *_Rope;
+
+		Rahul::Door *_Door;
 
 	public:
 

@@ -11,8 +11,11 @@
 #define _SCENE2TILE_H_
 
 #include"IScene.h"
+#include "FloorTexture.h"
+
 #define TILE_SIDE 20.0f
 #define TRANS_Y_SCENE_2_TILE -7.0f
+#define TRANS_Y_SIDEWALL_SCENE_2_TILE -3.0f
 
 
 namespace Rushabh
@@ -35,7 +38,7 @@ namespace Rushabh
 		GLfloat angle;
 
 		GLuint vbo_position;
-		GLuint vbo_normal;
+		GLuint vbo_texture;
 
 	protected:
 		GLuint vao;
@@ -47,6 +50,7 @@ namespace Rushabh
 		GLuint _modelMatrixUniform;
 		GLuint _ViewMatrixUniform;
 		GLuint _projectMatrixUniform;
+		GLuint _MVPUniform;
 
 		GLuint _LaUniform;
 		GLuint _LdUniform;
@@ -56,6 +60,18 @@ namespace Rushabh
 		GLuint _KdUniform;
 		GLuint _KsUniform;
 		GLuint material_shininess_uniform;
+
+		GLuint gVao_Floor;
+		GLuint gVbo_Floor_position;
+		GLuint gVbo_Floor_texture;
+		GLuint _Texture_sampler_uniform;
+		GLuint gTexture_Floor;
+		GLuint gTexture_SideWall;
+		GLuint gTexture_BackWall;
+
+	private :
+
+		int LoadGLTextures(GLuint *, TCHAR[]);
 
 	public:
 
