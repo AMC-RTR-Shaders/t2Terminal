@@ -226,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cubemap.rc" />
+    <ResourceCompile Include="FloorTexture.rc" />
     <ResourceCompile Include="SpotLight.rc" />
     <ResourceCompile Include="RollingCylinder.rc" />
     <ResourceCompile Include="TerrainMap.rc" />
