@@ -154,6 +154,7 @@
     <ClCompile Include="AeroplaneInstanceing.cpp" />
     <ClCompile Include="AirportTop.cpp" />
     <ClCompile Include="BluePrint.cpp" />
+    <ClCompile Include="CreditScene.cpp" />
     <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Fonts.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="Scene_2.cpp" />
     <ClCompile Include="Scene_3.cpp" />
     <ClCompile Include="CubeTemplate.cpp" />
+    <ClCompile Include="Scene_4.cpp" />
     <ClCompile Include="SingleAeroplane.cpp" />
     <ClCompile Include="PhotoRoom.cpp" />
     <ClCompile Include="SpotLight.cpp" />
@@ -186,6 +188,7 @@
     <ClInclude Include="AeroplaneInstanceing.h" />
     <ClInclude Include="AirportTop.h" />
     <ClInclude Include="BluePrint.h" />
+    <ClInclude Include="CreditScene.h" />
     <ClInclude Include="Cubemap.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="Fonts.h" />
@@ -206,6 +209,7 @@
     <ClInclude Include="Scene_2.h" />
     <ClInclude Include="Scene_3.h" />
     <ClInclude Include="CubeTemplate.h" />
+    <ClInclude Include="Scene_4.h" />
     <ClInclude Include="SingleAeroplane.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SphereMesh.h" />
@@ -273,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cubemap.rc" />
+    <ResourceCompile Include="Scene4.rc" />
     <ResourceCompile Include="PhotoRoom.rc" />
     <ResourceCompile Include="Door.rc" />
     <ResourceCompile Include="FloorTexture.rc" />

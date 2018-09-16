@@ -32,6 +32,10 @@ IScene * T2Terminal::IScene::GetInstance(SCENE_NUMBER scene_number)
 		scene = new Scene_3::Scene_3();
 		break;
 
+	case SCENE_4:
+		scene = new Scene_4::Scene_4();
+		break;
+
 	default:
 		throw std::exception("EXCEPTION : INVALID SCENE NUMBER");
 		break;	
@@ -49,6 +53,7 @@ T2Terminal::MainScene::MainScene()
 	_scene_1 = NULL;
 	_scene_2 = NULL;
 	_scene_3 = NULL;
+	_scene_4 = NULL;
 
 	_switch = false;
 }
@@ -192,7 +197,7 @@ void T2Terminal::MainScene::Initialize()
 {
 	InitializeTransformationAttributes();
 	InitializeResizeAttributes();
-
+/*
 	_scene_1 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_1);
 	if(_scene_1)
 		_scene_1->Initialize();
@@ -203,9 +208,14 @@ void T2Terminal::MainScene::Initialize()
 
 	_scene_3 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_3);
 	if (_scene_3)
-		_scene_3->Initialize();
+		_scene_3->Initialize();*/
 
-	_scene = _scene_3;
+	_scene_4 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_4);
+	if (_scene_4)
+		_scene_4->Initialize();
+  
+	_scene = _scene_4;
+
 }
 
 void T2Terminal::MainScene::Update()
@@ -213,7 +223,7 @@ void T2Terminal::MainScene::Update()
 	if (_scene)
 	{
 		_scene->Update();
-		UpdateTransformationAttributes();
+	    UpdateTransformationAttributes();
 	}
 }
 
@@ -249,6 +259,7 @@ void T2Terminal::MainScene::UnInitialize()
 	SAFE_SCENE_DELETE(_scene_1)
 	SAFE_SCENE_DELETE(_scene_2)
 	SAFE_SCENE_DELETE(_scene_3)
+	SAFE_SCENE_DELETE(_scene_4)
 }
 
 void T2Terminal::MainScene::UpdateTransformationAttributes()
@@ -894,6 +905,8 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 /*****************************************************/
 
 
+
+
 /****************SCENE 3  INITIALIAZATION *************/
 
 _cam_speed = CAM_SPEED_PHOTO_ROOM;
@@ -906,6 +919,12 @@ _zLimit = 2.0f;
 _attributes.globalLight[0] = 0.2f;
 _attributes.globalLight[1] = 0.2f;
 _attributes.globalLight[2] = 0.2f;
+
+  
+ /****************SCENE 4  INITIALIAZATION *************/
+
+_attributes.globalScene = 4;
+
 
 /*****************************************************/
 

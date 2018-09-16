@@ -82,6 +82,7 @@ https://en.wikipedia.org/wiki/Include_guard
 #define SCENE_STAR_FIELD			18
 #define SCENE_COUNT					SCENE_STAR_FIELD + 1
 
+
 #define TRANSFORMATION_SINGLE_AEROPLANE_1	1
 #define TRANSFORMATION_SINGLE_AEROPLANE_2	2
 #define TRANSFORMATION_SINGLE_AEROPLANE_3	3
@@ -116,6 +117,7 @@ namespace T2Terminal
 		SCENE_1,
 		SCENE_2,
 		SCENE_3,
+		SCENE_4,
 	};
 
 	class IScene

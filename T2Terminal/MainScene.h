@@ -14,6 +14,7 @@
 #include "Scene_1.h"
 #include "Scene_2.h"
 #include "Scene_3.h"
+#include "Scene_4.h"
 
 
 #define CAM_SPEED_AIRPORT 5.0f
@@ -190,6 +191,7 @@ namespace T2Terminal
 		IScene *_scene_1;
 		IScene *_scene_2;
 		IScene *_scene_3;
+		IScene *_scene_4;
 
 		bool _switch;
 		int _axis= 0;
