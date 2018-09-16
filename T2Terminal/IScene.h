@@ -77,7 +77,11 @@ https://en.wikipedia.org/wiki/Include_guard
 #define SCENE_PERLIN_CLOUD			13
 #define SCENE_AIRPORT_CUBEMAP		14
 #define SCENE_TABLE					15
-#define SCENE_COUNT					SCENE_TABLE + 1	
+#define SCENE_PHOTO_ROOM			16
+#define SCENE_LIGHT_POS_4			17
+#define SCENE_STAR_FIELD			18
+#define SCENE_COUNT					SCENE_STAR_FIELD + 1
+
 
 #define TRANSFORMATION_SINGLE_AEROPLANE_1	1
 #define TRANSFORMATION_SINGLE_AEROPLANE_2	2
@@ -87,6 +91,14 @@ https://en.wikipedia.org/wiki/Include_guard
 #define TRANSFORMATION_TOP_VIEW_2			6
 #define TRANSFORMATION_TOP_VIEW_3			7
 #define TRANSFORMATION_TOP_VIEW_4			8
+#define TRANSFORMATION_INCREASE_SPOT_LIGHT  9
+#define TRANSFORMATION_DECREASE_SPOT_LIGHT  10
+#define TRANSFORMATION_INCREASE_AMBIENT	    12
+#define TRANSFORMATION_PHOTO_ROTATE         13
+#define TRANSFORMATION_TRANSLATE_FWD        14
+#define TRANSFORMATION_PHOTO_ROTATE_2		15
+
+
 
 #define TRANSFORMATION_START_WIRE_FRAME		9
 
@@ -129,6 +141,7 @@ namespace T2Terminal
 			float PerlinCloudSpeed;	
 			int PerlinCloudDirection;
 			int globalScene;
+			float globalLight[3];
 		};
 
 		struct ResizeAttributes

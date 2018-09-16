@@ -228,11 +228,18 @@
     <ClCompile Include="Table.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
     </ClCompile>
+
     <ClCompile Include="Scene_4.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Scene_4</Filter>
     </ClCompile>
     <ClCompile Include="CreditScene.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClCompile>
+    <ClCompile Include="PhotoRoom.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
+     </ClCompile>
+    <ClCompile Include="Door.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Rahul</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -341,8 +348,14 @@
     <ClInclude Include="CreditScene.h">
       <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
     </ClInclude>
+    <ClInclude Include="PhotoRoom.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rushabh</Filter>
+    </ClInclude>
     <ClInclude Include="resource1.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Door.h">
+      <Filter>Header Files\T2Terminal\Scenes\Rahul</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +366,132 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Floor.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Carpet.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Wood.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Wood1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Wood3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Star.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Side.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="stone.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Ciel.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="zpos.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="zneg.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="ypos.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="yneg.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="xpos.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="xneg.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="marble.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="TerrainMap.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_2.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_3.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_4.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_5.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_6.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_7.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_8.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_9.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_10.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_11.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_12.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_13.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_14.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_15.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_16.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_17.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_18.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_19.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_20.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_21.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_22.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_23.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_24.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Photo_25.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Door.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -370,6 +509,15 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="Scene4.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="PhotoRoom.rc">
+       <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FloorTexture.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="Door.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

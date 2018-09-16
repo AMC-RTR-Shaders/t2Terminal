@@ -316,16 +316,14 @@ void Priyanka::Cubemap::Render(HDC hdc, struct Attributes attributes)
 	glUniform1i(_textureSamplerUniform, 0);
 
 	//draw cube
-	glBindVertexArray(_vaoCube);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	glBindVertexArray(_vaoCube);
 	glDrawArrays(GL_TRIANGLES, 0, 36); // 3 (each with its x,y,z )
-	
-	glDisable(GL_BLEND);
-
 	glBindVertexArray(0);
 
+	glDisable(GL_BLEND);
 	glUseProgram(0);
 
 	return;

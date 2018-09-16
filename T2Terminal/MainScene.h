@@ -21,6 +21,7 @@
 #define CAM_SPEED_TERRAIN 0.01f
 #define CAM_SPEED_LANDING 0.2f
 #define CAM_SPEED_AIRPORT_MODEL 0.002f
+#define CAM_SPEED_PHOTO_ROOM 0.02f;
 
 #define Y_AIRPORT_START				-4500.0f
 #define Z_AIRPORT_START				-6475.0f
@@ -153,6 +154,24 @@
 #define Y_AIRPORT_TOP_START		10.0f
 #define Y_AIRPORT_TOP_END		-0.93f -0.35f
 
+#define X_START_PHOTO_ROOM_1	0.0f
+#define Y_START_PHOTO_ROOM_1	0.0f
+#define Z_START_PHOTO_ROOM_1	-51.0f
+#define Y_ROTATE_START_PHOTO_ROOM_1	0.0f
+
+#define X_END_PHOTO_ROOM_1	28.0f
+#define Y_END_PHOTO_ROOM_1	-1.3f
+#define Z_END_PHOTO_ROOM_1	-27.0f
+#define Y_ROTATE_END_PHOTO_ROOM_1	-40.0f
+
+#define X_START_PHOTO_ROOM_2	-32.0f
+#define Z_START_PHOTO_ROOM_2	45.67f
+
+#define X_END_PHOTO_ROOM_2	0.0f
+#define Y_END_PHOTO_ROOM_2	0.0f
+#define Z_END_PHOTO_ROOM_2	53.0f
+#define Y_ROTATE_END_PHOTO_ROOM_2	0.0f
+
 #define BLEND_VALUE_BOX 0.3f
 #define BLEND_VALUE_CUBE_MAP 1.0f
 #define BLEND_VALUE_CUBE_MAP_MIN 0.4f
@@ -180,6 +199,7 @@ namespace T2Terminal
 
 		int _width;
 		int _height;
+		float  _zLimit;
 		
 		vmath::mat4 _perspectiveProjectionMatrix;
 

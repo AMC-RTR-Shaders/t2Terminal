@@ -317,10 +317,10 @@ void Sanket::Fonts::Render(HDC hdc, struct Attributes attributes)
 	mat4 rotateMatrix = mat4::identity();
 	mat4 translateMatrix = mat4::identity();
 
-	static GLfloat lightAmbient[] = { 0.0f,1.0f,0.0f,1.0f };
+	static GLfloat lightAmbient[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat lightDiffuse[] = { 0.0f,1.0f,0.0f,1.0f };
-	static GLfloat lightSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
-	static GLfloat lightPosition[] = { 100.0f,100.0f,100.0f,1.0f };
+	static GLfloat lightSpecular[] = { 0.0f,1.0f,0.0f,1.0f };
+	static GLfloat lightPosition[] = { 0.0f,0.0f,100.0f,1.0f };
 	static GLfloat material_shininess = 50.0f;
 
 	//START USING SHADER OBJECT	
@@ -334,8 +334,8 @@ void Sanket::Fonts::Render(HDC hdc, struct Attributes attributes)
 
 	//material shininess
 	glUniform1f(material_shininess_uniform, material_shininess);
-
-	translateMatrix = translate(0.6f,0.0f, _shadersDist);
+	mat4 globalTMatrix = translate(0.0f, 0.0f, 0.0f);
+	translateMatrix = translate(0.6f,0.0f, _shadersDist) * globalTMatrix;
 	modelMatrix = modelMatrix * translateMatrix;
 
 	rotateMatrix = rotate(0.0f, 280.0f, 0.0f);
@@ -353,7 +353,7 @@ void Sanket::Fonts::Render(HDC hdc, struct Attributes attributes)
 	 rotateMatrix = mat4::identity();
 	 translateMatrix = mat4::identity();
 
-	translateMatrix = translate(0.6f, 0.0f, _presentDist);
+	translateMatrix = translate(0.6f, 0.0f, _presentDist) * globalTMatrix;
 	modelMatrix = modelMatrix * translateMatrix;
 
 	rotateMatrix = rotate(0.0f, 280.0f, 0.0f);
@@ -371,7 +371,7 @@ void Sanket::Fonts::Render(HDC hdc, struct Attributes attributes)
 	 rotateMatrix = mat4::identity();
 	 translateMatrix = mat4::identity();
 
-	translateMatrix = translate(0.6f, 0.0f, _T2TerminalDist);
+	translateMatrix = translate(0.6f, 0.0f, _T2TerminalDist) * globalTMatrix;
 	modelMatrix = modelMatrix * translateMatrix;
 
 	rotateMatrix = rotate(0.0f, 280.0f, 0.0f);
@@ -389,7 +389,7 @@ void Sanket::Fonts::Render(HDC hdc, struct Attributes attributes)
 	 rotateMatrix = mat4::identity();
 	 translateMatrix = mat4::identity();
 
-	translateMatrix = translate(0.6f, 0.0f, _PoweredByDist);
+	translateMatrix = translate(0.6f, 0.0f, _PoweredByDist) * globalTMatrix;
 	modelMatrix = modelMatrix * translateMatrix;
 
 	rotateMatrix = rotate(0.0f, 280.0f, 0.0f);
@@ -407,7 +407,7 @@ void Sanket::Fonts::Render(HDC hdc, struct Attributes attributes)
 	 rotateMatrix = mat4::identity();
 	 translateMatrix = mat4::identity();
 
-	translateMatrix = translate(0.6f, 0.0f, _AstromedicompDist);
+	translateMatrix = translate(0.6f, 0.0f, _AstromedicompDist) * globalTMatrix ;
 	modelMatrix = modelMatrix * translateMatrix;
 
 	rotateMatrix = rotate(0.0f, 280.0f, 0.0f);

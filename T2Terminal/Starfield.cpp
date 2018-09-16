@@ -299,10 +299,14 @@ void Sanket::Starfield::Render(HDC hdc, struct Attributes attributes)
 	float t = (float)_systemTime.wMilliseconds;
 
 
-	mat4 modelViewMatrix;
-	mat4 modelViewProjectionMatrix;
+	mat4 modelViewMatrix = mat4::identity();
+	mat4 modelViewProjectionMatrix = mat4::identity();
 
-	modelViewMatrix = mat4::identity();
+	//modelViewMatrix = translate(
+	//	attributes.translateCoords[SCENE_PHOTO_ROOM][0], 
+	//	attributes.translateCoords[SCENE_PHOTO_ROOM][1],
+	//	attributes.translateCoords[SCENE_PHOTO_ROOM][2]
+	//);
 
 	modelViewProjectionMatrix = _perspectiveProjectionMatrix * modelViewMatrix;
 

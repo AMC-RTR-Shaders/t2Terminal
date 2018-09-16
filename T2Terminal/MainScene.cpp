@@ -111,12 +111,12 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 	  case 0x39: //key 9
 		  _attributes.lightDirection[1] -= _cam_speed;
 		  break;
-	//  case Event::KeyBoard::KEYS::I:
-	//	  _attributes.lightDirection[2] += _cam_speed;
-	//	  break;
-	//case Event::KeyBoard::KEYS::R:
-	//	_attributes.lightDirection[2] -= _cam_speed;
-	//	break;
+	  case Event::KeyBoard::KEYS::I:
+		  _attributes.lightDirection[2] += _cam_speed;
+		  break;
+	case Event::KeyBoard::KEYS::O:
+		_attributes.lightDirection[2] -= _cam_speed;
+		break;
 	  case Event::KeyBoard::KEYS::R:
 		  _attributes.blendValue += _cam_speed;
 
@@ -126,7 +126,7 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		case Event::KeyBoard::KEYS::A:
 			++_attributes.currentScene;
 			_attributes.currentScene = _attributes.currentScene % 4;
-			_attributes.currentScene = SCENE_AIRPORT_MODEL;
+			_attributes.currentScene = SCENE_PHOTO_ROOM;
 			break;
 		case Event::KeyBoard::KEYS::S:
 			_attributes.currentScene = SCENE_BLUE_PRINT;
@@ -171,6 +171,18 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		case Event::KeyBoard::KEYS::W:
 			_attributes.rotateCoords[_attributes.currentScene][_axis] -= _cam_speed / 10;
 			break;
+		case Event::KeyBoard::KEYS::H:
+			_attributes.globalLight[0] -= 0.1f;
+			_attributes.globalLight[1] -= 0.1f;
+			_attributes.globalLight[2] -= 0.1f;
+			break;
+
+		case Event::KeyBoard::KEYS::J:
+			_attributes.globalLight[0] += 0.05f;
+			_attributes.globalLight[1] += 0.05f;
+			_attributes.globalLight[2] += 0.05f;
+			break;
+
 		}
 
 	default: 
@@ -201,7 +213,7 @@ void T2Terminal::MainScene::Initialize()
 	_scene_4 = T2Terminal::MainScene::GetInstance(SCENE_NUMBER::SCENE_4);
 	if (_scene_4)
 		_scene_4->Initialize();
-
+  
 	_scene = _scene_4;
 
 }
@@ -648,6 +660,111 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			}
 		}
 	}
+
+	/****************************************************SCENE 3 STARTS *******************************************************************/
+
+	if (_attributes.globalScene == 3)
+	{
+		if (_attributes.currentTransformation == TRANSFORMATION_INCREASE_SPOT_LIGHT)
+		{
+			if (_attributes.currentSequenceCounter < _zLimit)
+			{
+				_attributes.currentSequenceCounter += _cam_speed;
+			}
+			else
+			{
+				_zLimit += 2.0f;
+				_attributes.numSpotLight++;
+				if (_attributes.numSpotLight == 25)
+				{
+					_attributes.currentTransformation = TRANSFORMATION_DECREASE_SPOT_LIGHT;
+					_attributes.currentSequenceCounter = 0.0f;
+					_zLimit = 2.0f;
+				}
+			}
+		}
+
+		if (_attributes.currentTransformation == TRANSFORMATION_DECREASE_SPOT_LIGHT)
+		{
+			if (_attributes.currentSequenceCounter < _zLimit)
+			{
+				_attributes.currentSequenceCounter += _cam_speed;
+			}
+			else
+			{
+				_zLimit += 2.0f;
+				_attributes.numSpotLight--;
+				if (_attributes.numSpotLight == 0)
+				{
+					_attributes.currentTransformation = TRANSFORMATION_INCREASE_AMBIENT;
+					_attributes.numSpotLight = 25;
+				}
+			}
+		}
+		if (_attributes.currentTransformation == TRANSFORMATION_INCREASE_AMBIENT)
+		{
+			if (_attributes.globalLight[0] < 0.9f)
+			{
+				_attributes.globalLight[0] += _cam_speed/20;
+				_attributes.globalLight[1] += _cam_speed/20;
+				_attributes.globalLight[2] += _cam_speed/20;
+			}
+			else
+			{
+				_attributes.numSpotLight = 0;
+				_attributes.currentTransformation = TRANSFORMATION_PHOTO_ROTATE;
+				_cam_speed = _cam_speed / 5;
+			}
+		}
+		if (_attributes.currentTransformation == TRANSFORMATION_PHOTO_ROTATE)
+		{
+			if (_attributes.translateCoords[SCENE_PHOTO_ROOM][2] < Z_END_PHOTO_ROOM_1)
+			{
+				_attributes.translateCoords[SCENE_PHOTO_ROOM][2] += _cam_speed;
+				float offset = ((X_END_PHOTO_ROOM_1 - X_START_PHOTO_ROOM_1) / (Z_END_PHOTO_ROOM_1 - Z_START_PHOTO_ROOM_1));
+				_attributes.translateCoords[SCENE_PHOTO_ROOM][0] += _cam_speed * offset;
+				offset = ((Y_END_PHOTO_ROOM_1 - Y_START_PHOTO_ROOM_1) / (Z_END_PHOTO_ROOM_1 - Z_START_PHOTO_ROOM_1));
+				_attributes.translateCoords[SCENE_PHOTO_ROOM][1] += _cam_speed * offset;
+				offset = ((Y_ROTATE_END_PHOTO_ROOM_1 - Y_ROTATE_START_PHOTO_ROOM_1) / (Z_END_PHOTO_ROOM_1 - Z_START_PHOTO_ROOM_1));
+				_attributes.rotateCoords[SCENE_PHOTO_ROOM][1] += _cam_speed * offset;
+			}
+			else
+			{
+				_attributes.currentTransformation = TRANSFORMATION_TRANSLATE_FWD;
+			}
+		}
+		if (_attributes.currentTransformation == TRANSFORMATION_TRANSLATE_FWD)
+		{
+			if (_attributes.translateCoords[SCENE_PHOTO_ROOM][2] < Z_START_PHOTO_ROOM_2)
+			{
+				_attributes.translateCoords[SCENE_PHOTO_ROOM][2] += _cam_speed;
+				float offset = ((X_END_PHOTO_ROOM_1 - X_START_PHOTO_ROOM_2) / (Z_END_PHOTO_ROOM_1 - Z_START_PHOTO_ROOM_2));
+				_attributes.translateCoords[SCENE_PHOTO_ROOM][0] += _cam_speed * offset;
+			}
+			else
+			{
+				_attributes.currentTransformation = TRANSFORMATION_PHOTO_ROTATE_2;
+				_cam_speed /= 2;
+			}
+		}
+		if (_attributes.currentTransformation == TRANSFORMATION_PHOTO_ROTATE_2)
+		{
+			if (_attributes.translateCoords[SCENE_PHOTO_ROOM][2] < Z_END_PHOTO_ROOM_2)
+			{
+				_attributes.translateCoords[SCENE_PHOTO_ROOM][2] += _cam_speed;
+				float offset = ((X_END_PHOTO_ROOM_2 - X_START_PHOTO_ROOM_2) / (Z_END_PHOTO_ROOM_2 - Z_START_PHOTO_ROOM_2));
+				_attributes.translateCoords[SCENE_PHOTO_ROOM][0] += _cam_speed * offset;
+				offset = ((Y_END_PHOTO_ROOM_2 - Y_END_PHOTO_ROOM_1) / (Z_END_PHOTO_ROOM_2 - Z_START_PHOTO_ROOM_2));
+				_attributes.translateCoords[SCENE_PHOTO_ROOM][1] += _cam_speed * offset;
+				offset = ((Y_ROTATE_END_PHOTO_ROOM_2 - Y_ROTATE_END_PHOTO_ROOM_1) / (Z_END_PHOTO_ROOM_2 - Z_START_PHOTO_ROOM_2));
+				_attributes.rotateCoords[SCENE_PHOTO_ROOM][1] += _cam_speed * offset;
+			}
+			else
+			{
+				_attributes.currentScene = SCENE_STAR_FIELD;
+			}
+		}
+	}
 }
 
 void T2Terminal::MainScene::InitializeTransformationAttributes()
@@ -711,7 +828,12 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.translateCoords[SCENE_LIGHT_POS_3][1] = -120.50f;
 	_attributes.translateCoords[SCENE_LIGHT_POS_3][2] = 352.4708f;
 
-	_attributes.lightRadius = 4.9582f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_4][0] = -8.54f;
+	_attributes.translateCoords[SCENE_LIGHT_POS_4][1] = 5.73f,
+	_attributes.translateCoords[SCENE_LIGHT_POS_4][2] = -85.032f;
+
+	//_attributes.lightRadius = 4.9582f;
+	_attributes.lightRadius = 15.0f;
 
 	_attributes.translateCoords[SCENE_AIRPORT_TOP][0] = 0.0f;
 	_attributes.translateCoords[SCENE_AIRPORT_TOP][1] = 10.0f;
@@ -721,9 +843,32 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][1] = 0.0f;
 	_attributes.rotateCoords[SCENE_AIRPORT_MODEL][2] = 0.0f;
 
-	_attributes.lightDirection[0] = -0.0147f;
-	_attributes.lightDirection[1] = 0.7166f;
-	_attributes.lightDirection[2] = -1.496f;
+
+	_attributes.translateCoords[SCENE_PHOTO_ROOM][0] = 0.0f;
+	_attributes.translateCoords[SCENE_PHOTO_ROOM][1] = 0.0f;
+	_attributes.translateCoords[SCENE_PHOTO_ROOM][2] = -51.0f;
+
+	_attributes.rotateCoords[SCENE_PHOTO_ROOM][0] = 0.0f;
+	_attributes.rotateCoords[SCENE_PHOTO_ROOM][1] = 0.0f;
+	_attributes.rotateCoords[SCENE_PHOTO_ROOM][2] = 0.0f;
+
+	//_attributes.translateCoords[SCENE_PHOTO_ROOM][0] = X_START_PHOTO_ROOM_2;
+	//_attributes.translateCoords[SCENE_PHOTO_ROOM][1] = Y_END_PHOTO_ROOM_1;
+	//_attributes.translateCoords[SCENE_PHOTO_ROOM][2] = Z_START_PHOTO_ROOM_2;
+
+	//_attributes.rotateCoords[SCENE_PHOTO_ROOM][0] = 0.0f;
+	//_attributes.rotateCoords[SCENE_PHOTO_ROOM][1] = Y_ROTATE_END_PHOTO_ROOM_1;
+	//_attributes.rotateCoords[SCENE_PHOTO_ROOM][2] = 0.0f;
+
+
+	//_attributes.lightDirection[0] = -0.0147f;
+	//_attributes.lightDirection[1] = 0.7166f;
+	//_attributes.lightDirection[2] = -1.496f;
+
+	_attributes.lightDirection[0] = 0.0f;
+	_attributes.lightDirection[1] = -1.0f;
+	_attributes.lightDirection[2] = 0.0f;
+
 
 	_attributes.numSpotLight = 0;
 
@@ -736,6 +881,9 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 	_attributes.lightAmbient[2] = 0.35f;
 	_attributes.lightAmbient[3] = 1.0f;
 
+	_attributes.globalLight[0] = 1.0f;
+	_attributes.globalLight[1] = 1.0f;
+	_attributes.globalLight[2] = 1.0f;
 
 	_attributes.PerlinCloudALpha	 =  0.0f;
 	_attributes.PerlinCloudDirection =  1 ;		//_CloudDirection i.e. TOP-TO-BOTTOM  OR BOTTOM-TO-TOP
@@ -756,9 +904,27 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 
 /*****************************************************/
 
-/****************SCENE 4  INITIALIAZATION *************/
+
+
+
+/****************SCENE 3  INITIALIAZATION *************/
+
+_cam_speed = CAM_SPEED_PHOTO_ROOM;
+
+_attributes.globalScene = 3;
+_attributes.currentScene = SCENE_PHOTO_ROOM;
+_attributes.currentSequenceCounter = 0.0f;
+_attributes.currentTransformation = TRANSFORMATION_INCREASE_SPOT_LIGHT;
+_zLimit = 2.0f;
+_attributes.globalLight[0] = 0.2f;
+_attributes.globalLight[1] = 0.2f;
+_attributes.globalLight[2] = 0.2f;
+
+  
+ /****************SCENE 4  INITIALIAZATION *************/
 
 _attributes.globalScene = 4;
+
 
 /*****************************************************/
 

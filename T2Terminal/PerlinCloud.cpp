@@ -388,7 +388,7 @@ void Abhijeet::PerlinCloud::Render(HDC hdc, struct Attributes attributes)
 	glDisable(GL_BLEND);
 
 
-	//glUseProgram(0);
+	glUseProgram(0);
 
 	/********************** UPDATE LOGIC ******************/
 	//Update();
