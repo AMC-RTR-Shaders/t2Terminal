@@ -154,6 +154,7 @@
     <ClCompile Include="AeroplaneInstanceing.cpp" />
     <ClCompile Include="AirportTop.cpp" />
     <ClCompile Include="BluePrint.cpp" />
+    <ClCompile Include="CreditScene.cpp" />
     <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="Fonts.cpp" />
     <ClCompile Include="PerlinCloud.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Scene_2.cpp" />
     <ClCompile Include="Scene_3.cpp" />
     <ClCompile Include="CubeTemplate.cpp" />
+    <ClCompile Include="Scene_4.cpp" />
     <ClCompile Include="SingleAeroplane.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="SpotLightBox.cpp" />
@@ -184,6 +186,7 @@
     <ClInclude Include="AeroplaneInstanceing.h" />
     <ClInclude Include="AirportTop.h" />
     <ClInclude Include="BluePrint.h" />
+    <ClInclude Include="CreditScene.h" />
     <ClInclude Include="Cubemap.h" />
     <ClInclude Include="Fonts.h" />
     <ClInclude Include="IScene.h" />
@@ -194,6 +197,7 @@
     <ClInclude Include="PerlinCloud.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
     <ClInclude Include="RollingCylinder.h" />
     <ClInclude Include="Rope.h" />
     <ClInclude Include="Scene2Tile.h" />
@@ -201,6 +205,7 @@
     <ClInclude Include="Scene_2.h" />
     <ClInclude Include="Scene_3.h" />
     <ClInclude Include="CubeTemplate.h" />
+    <ClInclude Include="Scene_4.h" />
     <ClInclude Include="SingleAeroplane.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SphereMesh.h" />
@@ -226,6 +231,7 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cubemap.rc" />
+    <ResourceCompile Include="Scene4.rc" />
     <ResourceCompile Include="SpotLight.rc" />
     <ResourceCompile Include="RollingCylinder.rc" />
     <ResourceCompile Include="TerrainMap.rc" />

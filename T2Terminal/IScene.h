@@ -77,7 +77,7 @@ https://en.wikipedia.org/wiki/Include_guard
 #define SCENE_PERLIN_CLOUD			13
 #define SCENE_AIRPORT_CUBEMAP		14
 #define SCENE_TABLE					15
-#define SCENE_COUNT					SCENE_TABLE + 1
+#define SCENE_COUNT					SCENE_TABLE + 1	
 
 #define TRANSFORMATION_SINGLE_AEROPLANE_1	1
 #define TRANSFORMATION_SINGLE_AEROPLANE_2	2
@@ -105,6 +105,7 @@ namespace T2Terminal
 		SCENE_1,
 		SCENE_2,
 		SCENE_3,
+		SCENE_4,
 	};
 
 	class IScene

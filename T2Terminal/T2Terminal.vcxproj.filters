@@ -136,6 +136,12 @@
     <Filter Include="Header Files\T2Terminal\Scenes\Utility">
       <UniqueIdentifier>{308e7091-dc33-48af-ac69-b6980bac945d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\T2Terminal\Scenes\Scene_4">
+      <UniqueIdentifier>{9112a299-954d-47c3-9440-1b6a9418f6b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\T2Terminal\Scenes\Scene_4">
+      <UniqueIdentifier>{e3db560c-6ac8-48b1-946e-b92abecba864}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -220,6 +226,12 @@
       <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
     </ClCompile>
     <ClCompile Include="Table.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene_4.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Scene_4</Filter>
+    </ClCompile>
+    <ClCompile Include="CreditScene.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
     </ClCompile>
   </ItemGroup>
@@ -323,6 +335,15 @@
     <ClInclude Include="SphereMesh.h">
       <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
     </ClInclude>
+    <ClInclude Include="Scene_4.h">
+      <Filter>Header Files\T2Terminal\Scenes\Scene_4</Filter>
+    </ClInclude>
+    <ClInclude Include="CreditScene.h">
+      <Filter>Header Files\T2Terminal\Scenes\Sanket</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\TerrainMap.bmp">
@@ -346,6 +367,9 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="RollingCylinder.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="Scene4.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
