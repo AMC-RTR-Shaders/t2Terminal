@@ -17,6 +17,45 @@ Rushabh::Scene2Tile::~Scene2Tile()
 	UnInitialize();
 }
 
+int Rushabh::Scene2Tile::LoadGLTextures(GLuint *texture, TCHAR imageResourceId[])
+{
+		HBITMAP hBitmap;
+		BITMAP bmp;
+		int iStatus = FALSE;
+
+		glGenTextures(1, texture); // 1 image
+
+		hBitmap = (HBITMAP)LoadImage(GetModuleHandle(NULL), imageResourceId, IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+
+		if (hBitmap)
+		{
+			iStatus = TRUE;
+			GetObject(hBitmap, sizeof(bmp), &bmp);
+			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+			glBindTexture(GL_TEXTURE_2D, *texture);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			glTexImage2D(GL_TEXTURE_2D,
+				0,
+				GL_RGB,
+				bmp.bmWidth,
+				bmp.bmHeight,
+				0,
+				GL_BGR,
+				GL_UNSIGNED_BYTE,
+				bmp.bmBits);
+
+			// Create mipmaps for this texture for better image quality
+
+			glGenerateMipmap(GL_TEXTURE_2D);
+
+			DeleteObject(hBitmap);
+		}
+
+		return (iStatus);
+
+}
+
 BOOL Rushabh::Scene2Tile::SceneHandler(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
 	return 0;
@@ -30,7 +69,23 @@ void Rushabh::Scene2Tile::Initialize()
 
 	//CREATE SOURCE CODE FOR VERTEX SHADER OBJECT
 	const GLchar *vertexShaderSourcecode =
-		"#version 430" \
+		"#version 400 core" \
+		"\n" \
+		"in vec4 vPosition;" \
+		"in vec2 vTexture0_Coord;" \
+		"out vec2 out_texture0_coord ;" \
+		"uniform mat4 u_model_matrix;" \
+		"uniform mat4 u_view_matrix;" \
+		"uniform mat4 u_projection_matrix;" \
+		/*"uniform mat4 u_mvp_matrix;" \*/
+		"void main(void)" \
+		"{" \
+		/*"gl_Position = u_mvp_matrix * vPosition;" \*/
+		"gl_Position=u_projection_matrix * u_view_matrix * u_model_matrix * vPosition;" \
+		"out_texture0_coord = vTexture0_Coord ; " \
+		"}";
+
+		/*"#version 430" \
 		"\n" \
 		"in vec4 vPosition;" \
 		"in vec3 vNormal;" \
@@ -68,7 +123,9 @@ void Rushabh::Scene2Tile::Initialize()
 		"}" \
 
 		"gl_Position=u_projection_matrix * u_view_matrix * u_model_matrix * vPosition;" \
-		"}";
+		"}";*/
+
+
 
 	//BIND vertexShaderSourcecode CODE TO gVertexShaderObject
 	glShaderSource(_vertexShaderObject, 1, (const GLchar **)&vertexShaderSourcecode, NULL);
@@ -112,13 +169,22 @@ void Rushabh::Scene2Tile::Initialize()
 
 	//CREATE SOURCE CODE FOR FRAGMENT SHADER
 	const GLchar *fragmentShaderSourceCode =
-		"#version 430"\
+		/*"#version 430"\
 		"\n" \
 		"in vec3 phong_ads_color;" \
 		"out vec4 FragColor;" \
 		"void main(void)" \
 		"{" \
 		"FragColor = vec4(phong_ads_color, 1.0);" \
+		"}";*/
+		"#version 400 core" \
+		"\n" \
+		"in vec2 out_texture0_coord;" \
+		"out vec4 FragColor;" \
+		"uniform sampler2D u_texture0_sampler;" \
+		"void main(void)" \
+		"{" \
+		"FragColor = texture(u_texture0_sampler,out_texture0_coord);" \
 		"}";
 
 	//BIND fragmentShaderSourceCode to gFragmentShaderObject
@@ -165,7 +231,8 @@ void Rushabh::Scene2Tile::Initialize()
 	//PRE-LINK BINDING OF SHADER PROGRAM OBJECT WITH VERTEX SHADER POSITION ATTRIBUTE
 	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_VERTEX, "vPosition");
 	//PRE-LINK BINDING OF SHADER PROGRAM OBJECT WITTH TEXTURE SHADER ATTRIBUTE
-	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_NORMAL, "vNormal");
+	//glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_NORMAL, "vNormal");
+	glBindAttribLocation(_shaderProgramObject, AMC_ATTRIBUTE_TEXTURE0, "vTexture0_Coord");
 
 	//LINK THE SHADER
 	glLinkProgram(_shaderProgramObject);
@@ -197,32 +264,40 @@ void Rushabh::Scene2Tile::Initialize()
 		}
 	}
 
+	//_MVPUniform = glGetUniformLocation(_shaderProgramObject, "u_mvp_matrix");
+
+	_Texture_sampler_uniform = glGetUniformLocation(_shaderProgramObject, "u_texture0_sampler");
+
+	//glBindAttribLocation(_shaderProgramObject, VDG_ATTRIBUTE_VERTEX, "vPosition");
+
+	//glBindAttribLocation(_shaderProgramObject, VDG_ATTRIBUTE_TEXTURE0, "vTexture0_Coord");
 
 	//GET MVP UNIFORM LOCATION
+	
 	_modelMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_model_matrix");
 	_ViewMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_view_matrix");
 	_projectMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_projection_matrix");
 
 
-	//AMBIENT COLOR TOKEN
-	_LaUniform = glGetUniformLocation(_shaderProgramObject, "u_La");
+	////AMBIENT COLOR TOKEN
+	//_LaUniform = glGetUniformLocation(_shaderProgramObject, "u_La");
 
-	// DIFUSE COLOR TOKEN
-	_LdUniform = glGetUniformLocation(_shaderProgramObject, "u_Ld");
+	//// DIFUSE COLOR TOKEN
+	//_LdUniform = glGetUniformLocation(_shaderProgramObject, "u_Ld");
 
-	// SPECULAR COLOR TOKEN
-	_LsUniform = glGetUniformLocation(_shaderProgramObject, "u_Ls");
+	//// SPECULAR COLOR TOKEN
+	//_LsUniform = glGetUniformLocation(_shaderProgramObject, "u_Ls");
 
-	_KaUniform = glGetUniformLocation(_shaderProgramObject, "u_Ka");
-	_KdUniform = glGetUniformLocation(_shaderProgramObject, "u_Kd");
-	_KsUniform = glGetUniformLocation(_shaderProgramObject, "u_Ks");
+	//_KaUniform = glGetUniformLocation(_shaderProgramObject, "u_Ka");
+	//_KdUniform = glGetUniformLocation(_shaderProgramObject, "u_Kd");
+	//_KsUniform = glGetUniformLocation(_shaderProgramObject, "u_Ks");
 
-	// LIGHT POSITION TOKEN
-	_LightPositionUniform = glGetUniformLocation(_shaderProgramObject, "u_light_position");
+	//// LIGHT POSITION TOKEN
+	//_LightPositionUniform = glGetUniformLocation(_shaderProgramObject, "u_light_position");
 
 
 	//SHINYNESS COLOR TOKEN
-	material_shininess_uniform = glGetUniformLocation(_shaderProgramObject, "u_material_shininess");;
+	//material_shininess_uniform = glGetUniformLocation(_shaderProgramObject, "u_material_shininess");;
 
 	const GLfloat Scene2TileVertices[] =
 	{
@@ -232,12 +307,24 @@ void Rushabh::Scene2Tile::Initialize()
 		TILE_SIDE, -TILE_SIDE, 0.0f,
 	};
 
-	const GLfloat Scene2TileNormals[] =
+	/*const GLfloat Scene2TileNormals[] =
 	{
 		0.0f, 0.0f, 1.0f,
 		0.0f, 0.0f, 1.0f,
 		0.0f, 0.0f, 1.0f,
 		0.0f, 0.0f, 1.0f,
+	};*/
+
+	const GLfloat Scene2TileTexcoords[] =
+	{
+		2.0f, 2.0f,
+
+		0.0f, 2.0f,
+
+		0.0f, 0.0f,
+
+		2.0f, 0.0f
+
 	};
 
 	glGenVertexArrays(1, &vao);
@@ -251,15 +338,18 @@ void Rushabh::Scene2Tile::Initialize()
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, &vbo_normal);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Scene2TileNormals), Scene2TileNormals, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
+	glGenBuffers(1, &vbo_texture);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Scene2TileTexcoords), Scene2TileTexcoords, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	glBindVertexArray(0);
 
+	LoadGLTextures(&gTexture_Floor, MAKEINTRESOURCE(IDBITMAP_FLOOR_TILE));
+	LoadGLTextures(&gTexture_SideWall, MAKEINTRESOURCE(IDBITMAP_FLOOR_SIDE_WALL));
+	LoadGLTextures(&gTexture_BackWall, MAKEINTRESOURCE(IDBITMAP_FLOOR_BACK_WALL));
 
 	glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 	glClearDepth(1.0f);
@@ -301,6 +391,7 @@ void Rushabh::Scene2Tile::Render(HDC hdc, struct Attributes attributes)
 	mat4 modelMatrix = mat4::identity();
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotateMatrix = mat4::identity();
+	mat4 globalTRMatrix = mat4::identity();
 
 	static GLfloat lightAmbient[] = { 0.0f,0.0f,0.0f,1.0f };
 	static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
@@ -328,6 +419,16 @@ void Rushabh::Scene2Tile::Render(HDC hdc, struct Attributes attributes)
 	glUniform1f(material_shininess_uniform, material_shininess);
 	//
 
+	globalTRMatrix = translate(
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][0],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][1],
+		attributes.translateCoords[SCENE_AIRPORT_MODEL][2]) * 
+		rotate(
+			attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
+			attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
+			attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
+	
+
 	modelMatrix = translate(
 		attributes.translateCoords[SCENE_AIRPORT_MODEL][0], 
 		attributes.translateCoords[SCENE_AIRPORT_MODEL][1] + TRANS_Y_SCENE_2_TILE,
@@ -343,12 +444,91 @@ void Rushabh::Scene2Tile::Render(HDC hdc, struct Attributes attributes)
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
+	glBindTexture(GL_TEXTURE_2D, gTexture_Floor);
+
+	glUniform1i(_Texture_sampler_uniform, 0);
+
 	glBindVertexArray(vao);
 
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
 	glBindVertexArray(0);
 
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+
+	//// right side wall
+	
+	modelMatrix = mat4::identity();
+	viewMatrix = mat4::identity();
+	rotateMatrix = mat4::identity();
+
+	modelMatrix = globalTRMatrix * translate(17.0f, TRANS_Y_SIDEWALL_SCENE_2_TILE,0.0f) * rotate(00.0f, 90.0f, 0.0f);
+	//rotateMatrix = rotate(
+	//	attributes.rotateCoords[SCENE_AIRPORT_MODEL][0],
+	//	90.0f + attributes.rotateCoords[SCENE_AIRPORT_MODEL][1],
+	//	attributes.rotateCoords[SCENE_AIRPORT_MODEL][2]);
+
+//	modelMatrix = modelMatrix * rotateMatrix;
+
+	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+
+	glBindTexture(GL_TEXTURE_2D, gTexture_SideWall);
+
+	glUniform1i(_Texture_sampler_uniform, 0);
+
+	glBindVertexArray(vao);
+
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+	glBindVertexArray(0);
+
+
+	//// Left side wall
+
+	modelMatrix = mat4::identity();
+	viewMatrix = mat4::identity();
+	rotateMatrix = mat4::identity();
+	
+	modelMatrix = globalTRMatrix * translate(-19.0f, TRANS_Y_SIDEWALL_SCENE_2_TILE,0.0f) * rotate(00.0f, 90.0f, 0.0f);
+
+	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+
+	glBindVertexArray(vao);
+
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+	glBindVertexArray(0);
+
+	glBindTexture(GL_TEXTURE_2D, NULL);
+
+	// Back Wall
+
+	modelMatrix = mat4::identity();
+	viewMatrix = mat4::identity();
+	rotateMatrix = mat4::identity();
+
+	modelMatrix = globalTRMatrix * translate(0.0f, TRANS_Y_SIDEWALL_SCENE_2_TILE, -18.0f) * rotate(00.0f, 0.0f, 0.0f);
+
+	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+
+	glBindTexture(GL_TEXTURE_2D, gTexture_BackWall);
+
+	glUniform1i(_Texture_sampler_uniform, 0);
+
+	glBindVertexArray(vao);
+
+	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+
+	glBindVertexArray(0);
+
+	glBindTexture(GL_TEXTURE_2D, NULL);
 
 	//STOP USING SHADER
 	glUseProgram(0);
