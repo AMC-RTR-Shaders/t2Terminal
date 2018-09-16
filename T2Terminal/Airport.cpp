@@ -410,13 +410,21 @@ void Rushabh::Airport::Render(HDC hdc, struct Attributes attributes)
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotateMatrix = mat4::identity();
 	mat4 translateMatrix = mat4::identity();
+	
 
 	static GLfloat lightAmbient[] = { 0.0f,0.0f,0.0f,1.0f };
-	static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
+	static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f ,1.0f };
 	static GLfloat lightSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat lightPosition[] = { 100.0f,100.0f,100.0f,1.0f };
 	//static GLfloat material_shininess = 50.0f;
 
+	lightDiffuse[0] = attributes.globalLight[0];
+	lightDiffuse[1] = attributes.globalLight[1];
+	lightDiffuse[2] = attributes.globalLight[2];
+
+	lightSpecular[0] = attributes.globalLight[0];
+	lightSpecular[1] = attributes.globalLight[1];
+	lightSpecular[2] = attributes.globalLight[2];
 
 	GLfloat material_Ambient[4] = { 0.0f,0.0f,0.0f,1.0f };
 	GLfloat material_Diffuse[4] = { 1.0f,1.0f,1.0f,1.0f };

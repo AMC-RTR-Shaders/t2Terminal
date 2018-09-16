@@ -11,6 +11,8 @@
 
 #include "Starfield.h"
 #include "Fonts.h"
+#include "PhotoRoom.h"
+
 
 #include "IScene.h"
 namespace Scene_3
@@ -24,6 +26,7 @@ namespace Scene_3
 	private:
 		Sanket::Starfield *_Starfield;
 		Sanket::Fonts *_Fonts;
+		Rushabh::PhotoRoom *_PhotoRoom;
 
 	public :
 
