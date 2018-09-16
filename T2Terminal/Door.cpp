@@ -273,48 +273,135 @@ void Rahul::Door::Initialize()
 
 }
 
+// generate cube coordinates
+void Rahul::Door::GenerateCubeCoordinates(float cubeMiddleX, float cubeMiddleY, float cubeMiddleZ, float width, float height, float depth, float CubeCoordinates[])
+{
+	// TOP FACE
+	CubeCoordinates[0] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[1] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[2] = cubeMiddleZ - (depth / 2.0f);
+
+	CubeCoordinates[3] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[4] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[5] = cubeMiddleZ - (depth / 2.0f) ;
+
+	CubeCoordinates[6] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[7] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[8] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[9] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[10] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[11] = cubeMiddleZ + (depth / 2.0f);
+
+	// BOTTOM FACE
+	CubeCoordinates[12] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[13] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[14] = cubeMiddleZ - (depth / 2.0f);
+
+	CubeCoordinates[15] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[16] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[17] = cubeMiddleZ - (depth / 2.0f);
+
+	CubeCoordinates[18] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[19] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[20] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[21] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[22] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[23] = cubeMiddleZ + (depth / 2.0f);
+
+	// FRONT FACE
+	CubeCoordinates[24] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[25] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[26] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[27] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[28] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[29] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[30] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[31] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[32] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[33] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[34] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[35] = cubeMiddleZ + (depth / 2.0f);
+
+	// BACK FACE
+	CubeCoordinates[36] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[37] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[38] = cubeMiddleZ - (depth / 2.0f);
+
+	CubeCoordinates[39] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[40] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[41] = cubeMiddleZ - (depth / 2.0f);
+
+	CubeCoordinates[42] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[43] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[44] = cubeMiddleZ - (depth / 2.0f);
+
+	CubeCoordinates[45] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[46] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[47] = cubeMiddleZ - (depth / 2.0f);
+
+	// LEFT FACE
+	CubeCoordinates[48] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[49] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[50] = cubeMiddleZ - (depth / 2.0f);
+
+	CubeCoordinates[51] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[52] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[53] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[54] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[55] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[56] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[57] = cubeMiddleX - (width / 2.0f);
+	CubeCoordinates[58] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[59] = cubeMiddleZ - (depth / 2.0f);
+
+	// RIGHT FACE
+	CubeCoordinates[60] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[61] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[62] = cubeMiddleZ - (depth / 2.0f);
+
+	CubeCoordinates[63] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[64] = cubeMiddleY + (height / 2.0f);
+	CubeCoordinates[65] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[66] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[67] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[68] = cubeMiddleZ + (depth / 2.0f);
+
+	CubeCoordinates[69] = cubeMiddleX + (width / 2.0f);
+	CubeCoordinates[70] = cubeMiddleY - (height / 2.0f);
+	CubeCoordinates[71] = cubeMiddleZ - (depth / 2.0f);
+}
+
+// initialize texture and normal
+void Rahul::Door::InitTextureNormal()
+{
+	glGenBuffers(1, &vbo_texture);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	glGenBuffers(1, &vbo_normal);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
+	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
 // initialize top entrance door
 void Rahul::Door::InitTED()
 {
-
-	GLfloat TopDoorFrameVertices[] =
-	{
-		// TOP FACE
-		15.0f,18.0f,-30.0f,
-		-15.0f,18.0f,-30.0f,
-		-15.0f,18.0f,-20.0f,
-		15.0f,18.0f,-20.0f,
-
-		// BOTTOM FACE
-		15.0f,15.0f,-30.0f,
-		-15.0f,15.0f,-30.0f,
-		-15.0f,15.0f,-20.0f,
-		15.0f,15.0f,-20.0f,
-
-		// FRONT FACE
-		15.0f,18.0f,-20.0f,
-		-15.0f,18.0f,-20.0f,
-		-15.0f,15.0f,-20.0f,
-		15.0f,15.0f,-20.0f,
-
-		// BACK FACE
-		15.0f,18.0f,-30.0f,
-		-15.0f,18.0f,-30.0f,
-		-15.0f,15.0f,-30.0f,
-		15.0f,15.0f,-30.0f,
-
-		// LEFT FACE
-		-15.0f,18.0f,-30.0f,
-		-15.0f,18.0f,-20.0f,
-		-15.0f,15.0f,-30.0f,
-		-15.0f,15.0f,-20.0f,
-
-		// RIGHT FACE
-		15.0f,18.0f,-30.0f,
-		15.0f,18.0f,-20.0f,
-		15.0f,15.0f,-20.0f,
-		15.0f,15.0f,-30.0f
-	};
+	float* TopDoorFrameVertices = (float*)malloc(sizeof(float) * 24 * 3);
+	GenerateCubeCoordinates(TED_CubeMiddleX, TED_CubeMiddleY, TED_CubeMiddleZ, TED_Width, TED_Height, TED_Depth, TopDoorFrameVertices);
 
 	// VAO FOR TOP CUBE
 	glGenVertexArrays(1, &vao_top_entrance_door);
@@ -322,24 +409,12 @@ void Rahul::Door::InitTED()
 
 	glGenBuffers(1, &vbo_position_ted);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_ted);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(TopDoorFrameVertices), TopDoorFrameVertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 24 * 3 * sizeof(float), TopDoorFrameVertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, &vbo_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_normal);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	InitTextureNormal();
 
 	glBindVertexArray(0);
 }
@@ -347,44 +422,8 @@ void Rahul::Door::InitTED()
 // initialize left entrance door
 void Rahul::Door::InitLED()
 {
-	GLfloat LeftDoorFrameVertices[] =
-	{
-		// TOP FACE
-		-15.0f,18.0f,-30.0f,
-		-20.0f,18.0f,-30.0f,
-		-20.0f,18.0f,-20.0f,
-		-15.0f,18.0f,-20.0f,
-
-		// BOTTOM FACE
-		-15.0f,0.0f,-30.0f,
-		-20.0f,0.0f,-30.0f,
-		-20.0f,0.0f,-20.0f,
-		-15.0f,0.0f,-20.0f,
-
-		// FRONT FACE
-		-15.0f,18.0f,-20.0f,
-		-20.0f,18.0f,-20.0f,
-		-20.0f,0.0f,-20.0f,
-		-15.0f,0.0f,-20.0f,
-
-		// BACK FACE
-		-15.0f,18.0f,-30.0f,
-		-20.0f,18.0f,-30.0f,
-		-20.0f,0.0f,-30.0f,
-		-15.0f,0.0f,-30.0f,
-
-		// LEFT FACE
-		-20.0f,18.0f,-30.0f,
-		-20.0f,18.0f,-20.0f,
-		-20.0f,0.0f,-20.0f,
-		-20.0f,0.0f,-30.0f,
-
-		// RIGHT FACE
-		-15.0f,18.0f,-30.0f,
-		-15.0f,18.0f,-20.0f,
-		-15.0f,0.0f,-20.0f,
-		-15.0f,0.0f,-30.0f
-	};
+	float* LeftDoorFrameVertices = (float*)malloc(sizeof(float) * 24 * 3);
+	GenerateCubeCoordinates(LED_CubeMiddleX, LED_CubeMiddleY, LED_CubeMiddleZ, LED_Width, LED_Height, LED_Depth, LeftDoorFrameVertices);
 
 	// VAO FOR LEFT CUBE
 	glGenVertexArrays(1, &vao_left_entrance_door);
@@ -392,69 +431,21 @@ void Rahul::Door::InitLED()
 
 	glGenBuffers(1, &vbo_position_led);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_led);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(LeftDoorFrameVertices), LeftDoorFrameVertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 24 * 3 * sizeof(float), LeftDoorFrameVertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, &vbo_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_normal);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	InitTextureNormal();
 
 	glBindVertexArray(0);
 }
 
-// initialize righ entrance door
+// initialize right entrance door
 void Rahul::Door::InitRED()
 {
-	GLfloat RightDoorFrameVertices[] =
-	{
-		// TOP FACE
-		20.0f,18.0f,-30.0f,
-		15.0f,18.0f,-30.0f,
-		15.0f,18.0f,-20.0f,
-		20.0f,18.0f,-20.0f,
-
-		// BOTTOM FACE
-		20.0f,0.0f,-30.0f,
-		15.0f,0.0f,-30.0f,
-		15.0f,0.0f,-20.0f,
-		20.0f,0.0f,-20.0f,
-
-		// FRONT FACE
-		20.0f,18.0f,-20.0f,
-		15.0f,18.0f,-20.0f,
-		15.0f,0.0f,-20.0f,
-		20.0f,0.0f,-20.0f,
-
-		// BACK FACE
-		20.0f,18.0f,-30.0f,
-		15.0f,18.0f,-30.0f,
-		15.0f,0.0f,-30.0f,
-		20.0f,0.0f,-30.0f,
-
-		// LEFT FACE
-		15.0f,18.0f,-30.0f,
-		15.0f,18.0f,-20.0f,
-		15.0f,0.0f,-20.0f,
-		15.0f,0.0f,-30.0f,
-
-		// RIGHT FACE
-		20.0f,18.0f,-30.0f,
-		20.0f,18.0f,-20.0f,
-		20.0f,0.0f,-20.0f,
-		20.0f,0.0f,-30.0f
-	};
+	float* RightDoorFrameVertices = (float*)malloc(sizeof(float) * 24 * 3);
+	GenerateCubeCoordinates(RED_CubeMiddleX, RED_CubeMiddleY, RED_CubeMiddleZ, RED_Width, RED_Height, RED_Depth, RightDoorFrameVertices);
 
 	// VAO FOR RIGHT CUBE
 	glGenVertexArrays(1, &vao_right_entrance_door);
@@ -462,24 +453,12 @@ void Rahul::Door::InitRED()
 
 	glGenBuffers(1, &vbo_position_red);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_red);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(RightDoorFrameVertices), RightDoorFrameVertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 24 * 3 * sizeof(float), RightDoorFrameVertices, GL_STATIC_DRAW);
 	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, &vbo_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_normal);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	InitTextureNormal();
 
 	glBindVertexArray(0);
 }
@@ -493,24 +472,12 @@ void Rahul::Door::InitLD()
 
 	glGenBuffers(1, &vbo_position_lsd);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_lsd);
-	glBufferData(GL_ARRAY_BUFFER, 6 * 4 * sizeof(GL_FLOAT), NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 4 * 3 * sizeof(GL_FLOAT), NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, &vbo_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_normal);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	InitTextureNormal();
 
 	glBindVertexArray(0);
 }
@@ -524,24 +491,12 @@ void Rahul::Door::InitRD()
 
 	glGenBuffers(1, &vbo_position_rsd);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_position_rsd);
-	glBufferData(GL_ARRAY_BUFFER, 6 * 4 * sizeof(GL_FLOAT), NULL, GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, 4 * 3 * sizeof(GL_FLOAT), NULL, GL_DYNAMIC_DRAW);
 	glVertexAttribPointer(AMC_ATTRIBUTE_VERTEX, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glEnableVertexAttribArray(AMC_ATTRIBUTE_VERTEX);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	glGenBuffers(1, &vbo_texture);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_texture);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorTexCoords), DoorTexCoords, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_TEXTURE0, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_TEXTURE0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	glGenBuffers(1, &vbo_normal);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_normal);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(DoorNormals), DoorNormals, GL_STATIC_DRAW);
-	glVertexAttribPointer(AMC_ATTRIBUTE_NORMAL, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	glEnableVertexAttribArray(AMC_ATTRIBUTE_NORMAL);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	InitTextureNormal();
 
 	glBindVertexArray(0);
 }
@@ -766,6 +721,7 @@ void Rahul::Door::DrawLD()
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);	// 4(each with its x,y,z) vertices in squareVertices array
 
 	glBindVertexArray(0);
+
 	glDisable(GL_BLEND);
 }
 
@@ -796,6 +752,7 @@ void Rahul::Door::DrawRD()
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);	// 4(each with its x,y,z) vertices in squareVertices array
 
 	glBindVertexArray(0);
+
 	glDisable(GL_BLEND);
 }
 

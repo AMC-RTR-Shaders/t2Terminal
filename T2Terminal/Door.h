@@ -27,6 +27,30 @@ namespace Rahul
 		GLuint _vertexShaderObject;
 		GLuint _fragmentShaderObject;
 
+		// attributes for top entrance door
+		float TED_Width = 30.0f;
+		float TED_Height = 3.0f;
+		float TED_Depth = 10.0f;
+		float TED_CubeMiddleX = 0.0f;
+		float TED_CubeMiddleY = 16.5f;
+		float TED_CubeMiddleZ = -25.0f;
+
+		// attributes for left entrance door
+		float LED_Width = 5.0f;
+		float LED_Height = 18.0f;
+		float LED_Depth = 10.0f;
+		float LED_CubeMiddleX = -17.5f;
+		float LED_CubeMiddleY = 9.0f;
+		float LED_CubeMiddleZ = -25.0f;
+
+		// atttributes for right entrance door
+		float RED_Width = 5.0f;
+		float RED_Height = 18.0f;
+		float RED_Depth = 10.0f;
+		float RED_CubeMiddleX = 17.5f;
+		float RED_CubeMiddleY = 9.0f;
+		float RED_CubeMiddleZ = -25.0f;
+
 		// angle of rotating door
 		GLfloat doorRotateAngle = 0.0f;
 		// radius of door rotation
@@ -192,11 +216,13 @@ namespace Rahul
 
 		virtual void UnInitialize() override;
 
+		void GenerateCubeCoordinates(float startX, float startY, float startZ, float width, float height, float depth, float* CubeCoordinates);
 		void InitTED();
 		void InitLED();
 		void InitRED();
 		void InitLD();
 		void InitRD();
+		void InitTextureNormal();
 		void DrawTED();
 		void DrawLED();
 		void DrawRED();
