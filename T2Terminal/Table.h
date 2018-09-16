@@ -84,15 +84,15 @@ namespace Sanket
 		GLfloat light1_specular[4] = { 1.0f,1.0f,1.0f,0.0f };
 		GLfloat light1_position[4] = { 2.0f,20.0f,-4.0f,0.0f };
 
-		GLfloat materialAmbient[4] = { 0.1f,0.1f,0.1f,1.0f };
-		GLfloat materialDiffuse[4] = { 0.1f,0.1f,0.1f,1.0f };
+		GLfloat materialAmbient[4] = { 0.8f,0.8f,0.8f,1.0f };
+		GLfloat materialDiffuse[4] = { 0.8f,0.8f,0.8f,1.0f };
 		GLfloat materialSpecular[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat materialShininess = 50.0f;
 
-		GLfloat materialAmbientDark[4] = { 0.3f,0.3f,0.3f,1.0f };
+		/*GLfloat materialAmbientDark[4] = { 0.3f,0.3f,0.3f,1.0f };
 		GLfloat materialDiffuseDark[4] = { 0.3f,0.3f,0.3f,1.0f };
 		GLfloat materialSpecularDark[4] = { 0.3f,0.3f,0.3f,1.0f };
-		GLfloat materialShininessDark = 50.0f;
+		GLfloat materialShininessDark = 50.0f;*/
 
 		GLfloat materialAmbientWood[4] = { 0.80f,0.52f,0.25f,1.0f };
 		GLfloat materialDiffuseWood[4] = { 0.80f,0.52f,0.25f,1.0f };
