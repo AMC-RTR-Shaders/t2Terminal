@@ -13,15 +13,15 @@ Rahul::Door::Door()
 	LSD_X_1 = 0.0f;
 	LSD_X_4 = 0.0f;
 	// Left Sliding Door's Front Face Y axis
-	LSD_Z_1 = -29.0f;
-	LSD_Z_4 = -29.0f;
+	LSD_Z_1 = -65.0f;
+	LSD_Z_4 = -65.0f;
 
 	// Right Sliding Door's Front Face X axis
 	RSD_X_2 = 0.0f;
 	RSD_X_3 = 0.0f;
 	// Right Sliding Door's Front Face Y axis
-	RSD_Z_2 = -29.0f;
-	RSD_Z_3 = -29.0f;
+	RSD_Z_2 = -65.0f;
+	RSD_Z_3 = -65.0f;
 }
 
 Rahul::Door::~Door()
@@ -700,8 +700,8 @@ void Rahul::Door::DrawLD()
 	GLfloat LeftSlidingDoorVertices[] =
 	{
 		LSD_X_1,18.0f,LSD_Z_1,
-		-15.0f,18.0f,-29.0f,
-		-15.0f,0.0f,-29.0f,
+		-15.0f,18.0f,-65.0f,
+		-15.0f,0.0f,-65.0f,
 		LSD_X_4,0.0f,LSD_Z_4
 	};
 
@@ -730,10 +730,10 @@ void Rahul::Door::DrawRD()
 {
 	GLfloat RightSlidingDoorVertices[] =
 	{
-		15.0f,18.0f,-29.0f,
+		15.0f,18.0f,-65.0f,
 		RSD_X_2,18.0f,RSD_Z_2,
 		RSD_X_3,0.0f,RSD_Z_3,
-		15.0f,0.0f,-29.0f,
+		15.0f,0.0f,-65.0f,
 	};
 
 	glEnable(GL_BLEND);

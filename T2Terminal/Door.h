@@ -29,27 +29,31 @@ namespace Rahul
 
 		// attributes for top entrance door
 		float TED_Width = 30.0f;
-		float TED_Height = 3.0f;
+		//float TED_Height = 3.0f;
+		float TED_Height = 10.0f;
 		float TED_Depth = 10.0f;
 		float TED_CubeMiddleX = 0.0f;
-		float TED_CubeMiddleY = 16.5f;
-		float TED_CubeMiddleZ = -25.0f;
+		float TED_CubeMiddleY = 23.0f;
+		// float TED_CubeMiddleZ = -25.0f * 3.0f;
+		float TED_CubeMiddleZ = -65.0f;
 
 		// attributes for left entrance door
 		float LED_Width = 5.0f;
-		float LED_Height = 18.0f;
+		float LED_Height = 28.0f;
 		float LED_Depth = 10.0f;
 		float LED_CubeMiddleX = -17.5f;
-		float LED_CubeMiddleY = 9.0f;
-		float LED_CubeMiddleZ = -25.0f;
+		float LED_CubeMiddleY = 14.0f;
+		// float LED_CubeMiddleZ = -25.0f * 3.0f;
+		float LED_CubeMiddleZ = -65.0f;
 
 		// atttributes for right entrance door
 		float RED_Width = 5.0f;
-		float RED_Height = 18.0f;
+		float RED_Height = 28.0f;
 		float RED_Depth = 10.0f;
 		float RED_CubeMiddleX = 17.5f;
-		float RED_CubeMiddleY = 9.0f;
-		float RED_CubeMiddleZ = -25.0f;
+		float RED_CubeMiddleY = 14.0f;
+		// float RED_CubeMiddleZ = -25.0f  * 3.0f;
+		float RED_CubeMiddleZ = -65.0f;
 
 		// angle of rotating door
 		GLfloat doorRotateAngle = 0.0f;
@@ -83,13 +87,14 @@ namespace Rahul
 		// x position of 3rd vertex of left sliding door
 		GLfloat LSD_X_3_Point = -15.0f;
 		// z position of 3rd vertex of left sliding door
-		GLfloat LSD_Z_3_Point = -29.0f;
+		GLfloat LSD_Z_3_Point = -65.0f;
 
 		// x position of 4th vertex of right sliding door
 		GLfloat RSD_X_4_Point = 15.0f;
 		// z position of 3rd vertex of right sliding door
-		GLfloat RSD_Z_4_Point = -29.0f;
+		GLfloat RSD_Z_4_Point = -65.0f;
 
+		// flag to start door rotation
 		GLint StartDoorRotation = 0;
 		GLfloat BlendValue = 1.0f;
 
