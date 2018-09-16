@@ -96,7 +96,7 @@ void Scene_2::Scene_2::Update()
 	_airportTop->Update();
 	_Table->Update();
 	_Rope->Update();
-	//_wireFrameEffect->Update();
+	_wireFrameEffect->Update();
 	_Door->Update();
 }
 

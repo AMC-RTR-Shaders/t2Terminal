@@ -570,565 +570,565 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	draw();
 
 
-	// top sphere
+	//// top sphere
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.6f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
-	scaleMatrix = scale(0.4f, 0.4f, 0.4f);
+	//modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.6f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
+	//scaleMatrix = scale(0.4f, 0.4f, 0.4f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	glUniform3fv(_La0Uniform, 1, light0_ambient);
-	glUniform3fv(_Ld0Uniform, 1, light0_diffuse);
-	glUniform3fv(_Ls0Uniform, 1, light0_specular);
-	glUniform4fv(_Light0PositionUniform, 1, light0_position);
+	//glUniform3fv(_La0Uniform, 1, light0_ambient);
+	//glUniform3fv(_Ld0Uniform, 1, light0_diffuse);
+	//glUniform3fv(_Ls0Uniform, 1, light0_specular);
+	//glUniform4fv(_Light0PositionUniform, 1, light0_position);
 
 
-	glUniform3fv(_La1Uniform, 1, light1_ambient);
-	glUniform3fv(_Ld1Uniform, 1, light1_diffuse);
-	glUniform3fv(_Ls1Uniform, 1, light1_specular);
-	glUniform4fv(_Light1PositionUniform, 1, light1_position);
+	//glUniform3fv(_La1Uniform, 1, light1_ambient);
+	//glUniform3fv(_Ld1Uniform, 1, light1_diffuse);
+	//glUniform3fv(_Ls1Uniform, 1, light1_specular);
+	//glUniform4fv(_Light1PositionUniform, 1, light1_position);
 
-	// Material's properties
-	glUniform3fv(_KaUniform, 1, materialAmbient);
-	glUniform3fv(_KdUniform, 1, materialDiffuse);
-	glUniform3fv(_KsUniform, 1, materialSpecular);
-	glUniform1f(_MaterialShininessUniform, materialShininess);
+	//// Material's properties
+	//glUniform3fv(_KaUniform, 1, materialAmbient);
+	//glUniform3fv(_KdUniform, 1, materialDiffuse);
+	//glUniform3fv(_KsUniform, 1, materialSpecular);
+	//glUniform1f(_MaterialShininessUniform, materialShininess);
 
-	// Sphere Code 
+	//// Sphere Code 
 
-	// *** bind vao ***
-	glBindVertexArray(vao_Sphere);
+	//// *** bind vao ***
+	//glBindVertexArray(vao_Sphere);
 
-	// *** draw, either by glDrawTriangles() or glDrawArrays() or glDrawElements()
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,vbo_Sphere_Elements);
-	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	//// *** draw, either by glDrawTriangles() or glDrawArrays() or glDrawElements()
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,vbo_Sphere_Elements);
+	//glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
 
-	// *** unbind vao ***
-	glBindVertexArray(0);
+	//// *** unbind vao ***
+	//glBindVertexArray(0);
 
 
-	// top edge cylinder
+	//// top edge cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(-2.5f - TRANS_X_TABLE, 1.43f, -11.5f - TRANS_Z_TABLE) * globalTRMatrix;
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
-	scaleMatrix = scale(1.5f, 0.05f, 1.0f);
+	//modelMatrix = translate(-2.5f - TRANS_X_TABLE, 1.43f, -11.5f - TRANS_Z_TABLE) * globalTRMatrix;
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//scaleMatrix = scale(1.5f, 0.05f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniform3fv(_La0Uniform, 1, light0_ambient);
-	glUniform3fv(_Ld0Uniform, 1, light0_diffuse);
-	glUniform3fv(_Ls0Uniform, 1, light0_specular);
-	glUniform4fv(_Light0PositionUniform, 1, light0_position);
+	//glUniform3fv(_La0Uniform, 1, light0_ambient);
+	//glUniform3fv(_Ld0Uniform, 1, light0_diffuse);
+	//glUniform3fv(_Ls0Uniform, 1, light0_specular);
+	//glUniform4fv(_Light0PositionUniform, 1, light0_position);
 
 
-	glUniform3fv(_La1Uniform, 1, light1_ambient);
-	glUniform3fv(_Ld1Uniform, 1, light1_diffuse);
-	glUniform3fv(_Ls1Uniform, 1, light1_specular);
-	glUniform4fv(_Light1PositionUniform, 1, light1_position);
+	//glUniform3fv(_La1Uniform, 1, light1_ambient);
+	//glUniform3fv(_Ld1Uniform, 1, light1_diffuse);
+	//glUniform3fv(_Ls1Uniform, 1, light1_specular);
+	//glUniform4fv(_Light1PositionUniform, 1, light1_position);
 
-	// Material's properties
-	glUniform3fv(_KaUniform, 1, materialAmbientDark);
-	glUniform3fv(_KdUniform, 1, materialDiffuseDark);
-	glUniform3fv(_KsUniform, 1, materialSpecularDark);
-	glUniform1f(_MaterialShininessUniform, materialShininessDark);
+	//// Material's properties
+	//glUniform3fv(_KaUniform, 1, materialAmbientDark);
+	//glUniform3fv(_KdUniform, 1, materialDiffuseDark);
+	//glUniform3fv(_KsUniform, 1, materialSpecularDark);
+	//glUniform1f(_MaterialShininessUniform, materialShininessDark);
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
-	// bottom edge cylinder
+	//// bottom edge cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(-2.5f - TRANS_X_TABLE, -2.3f, -11.5f - TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(-2.5f - TRANS_X_TABLE, -2.3f, -11.5f - TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(3.5f, 0.05f, 1.2f);
+	//scaleMatrix = scale(3.5f, 0.05f, 1.2f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
-	
+	//draw();
+	//
 
-	// bottom edge cylinder
+	//// bottom edge cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(-2.7f - TRANS_X_TABLE, -2.3f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(-2.7f - TRANS_X_TABLE, -2.3f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(3.5f, 0.05f, 1.0f);
+	//scaleMatrix = scale(3.5f, 0.05f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
 
 
-	// Top edge cylinder
+	//// Top edge cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(-2.6f - TRANS_X_TABLE, 1.5f, -6.7f + TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(-2.6f - TRANS_X_TABLE, 1.5f, -6.7f + TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(1.5f, 0.05f, 1.0f);
+	//scaleMatrix = scale(1.5f, 0.05f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
-	// bottom edge cylinder
+	//// bottom edge cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(2.7f + TRANS_X_TABLE, -2.3f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(2.7f + TRANS_X_TABLE, -2.3f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(3.5f, 0.05f, 1.0f);
+	//scaleMatrix = scale(3.5f, 0.05f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
-	// Top edge cylinder
+	//// Top edge cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(2.6f + TRANS_X_TABLE, 1.5f, -6.7f + TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(2.6f + TRANS_X_TABLE, 1.5f, -6.7f + TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(1.5f, 0.05f, 1.0f);
+	//scaleMatrix = scale(1.5f, 0.05f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
 
-	// bottom edge cylinder
+	//// bottom edge cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(2.7f + TRANS_X_TABLE, -2.3f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(2.7f + TRANS_X_TABLE, -2.3f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(3.5f, 0.05f, 1.0f);
+	//scaleMatrix = scale(3.5f, 0.05f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
 
 
-	// Top edge cylinder
+	//// Top edge cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	// Sanket
+	//// Sanket
 
-	modelMatrix = translate(2.6f + TRANS_X_TABLE, 1.5f, -11.50f - TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(2.6f + TRANS_X_TABLE, 1.5f, -11.50f - TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(1.5f, 0.05f, 1.0f);
+	//scaleMatrix = scale(1.5f, 0.05f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(0.0f + TRANS_X_TABLE, 1.5f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(0.0f + TRANS_X_TABLE, 1.5f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(0.5f, 0.5f, 0.5f);
+	//scaleMatrix = scale(0.5f, 0.5f, 0.5f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
 
-	materialAmbient[0] = 1.0f;
-	materialAmbient[1] = 1.0f;
-	materialAmbient[2] = 1.0f;
-	materialAmbient[3] = 1.0f;
-	materialDiffuse[0] = 1.0f;
-	materialDiffuse[1] = 1.0f;
-	materialDiffuse[2] = 1.0f;
-	materialDiffuse[3] = 1.0f;
-	materialSpecular[0] =1.0f;
-	materialSpecular[1] = 1.0f;
-	materialSpecular[2] = 1.0f;
-	materialSpecular[3] = 1.0f;
-	materialShininess = 50.0f;
+	//materialAmbient[0] = 1.0f;
+	//materialAmbient[1] = 1.0f;
+	//materialAmbient[2] = 1.0f;
+	//materialAmbient[3] = 1.0f;
+	//materialDiffuse[0] = 1.0f;
+	//materialDiffuse[1] = 1.0f;
+	//materialDiffuse[2] = 1.0f;
+	//materialDiffuse[3] = 1.0f;
+	//materialSpecular[0] =1.0f;
+	//materialSpecular[1] = 1.0f;
+	//materialSpecular[2] = 1.0f;
+	//materialSpecular[3] = 1.0f;
+	//materialShininess = 50.0f;
 
-	glUniform3fv(_KaUniform, 1, materialAmbient);
-	glUniform3fv(_KdUniform, 1, materialDiffuse);
-	glUniform3fv(_KsUniform, 1, materialSpecular);
-	glUniform1f(_MaterialShininessUniform, materialShininess);
+	//glUniform3fv(_KaUniform, 1, materialAmbient);
+	//glUniform3fv(_KdUniform, 1, materialDiffuse);
+	//glUniform3fv(_KsUniform, 1, materialSpecular);
+	//glUniform1f(_MaterialShininessUniform, materialShininess);
 
-	// top sphere
+	//// top sphere
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.7f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.7f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
-	scaleMatrix = scale(0.4f, 0.4f, 0.4f);
+	//scaleMatrix = scale(0.4f, 0.4f, 0.4f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
 
-	// Sphere Code 
+	//// Sphere Code 
 
-	// *** bind vao ***
-	glBindVertexArray(vao_Sphere);
+	//// *** bind vao ***
+	//glBindVertexArray(vao_Sphere);
 
-	// *** draw, either by glDrawTriangles() or glDrawArrays() or glDrawElements()
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_Sphere_Elements);
-	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	//// *** draw, either by glDrawTriangles() or glDrawArrays() or glDrawElements()
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_Sphere_Elements);
+	//glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
 
-	// *** unbind vao ***
-	glBindVertexArray(0);
+	//// *** unbind vao ***
+	//glBindVertexArray(0);
 
 
 
-	// top sphere
+	//// top sphere
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.7f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.7f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
-	scaleMatrix = scale(0.4f, 0.4f, 0.4f);
+	//scaleMatrix = scale(0.4f, 0.4f, 0.4f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
 
-	// Sphere Code 
+	//// Sphere Code 
 
-	// *** bind vao ***
-	glBindVertexArray(vao_Sphere);
+	//// *** bind vao ***
+	//glBindVertexArray(vao_Sphere);
 
-	// *** draw, either by glDrawTriangles() or glDrawArrays() or glDrawElements()
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_Sphere_Elements);
-	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	//// *** draw, either by glDrawTriangles() or glDrawArrays() or glDrawElements()
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_Sphere_Elements);
+	//glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
 
-	// *** unbind vao ***
-	glBindVertexArray(0);
+	//// *** unbind vao ***
+	//glBindVertexArray(0);
 
-	
-	//  back left cylinder
+	//
+	////  back left cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.4f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.4f, -12.0f - TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(0.7f, 1.9f, 1.0f);
+	//scaleMatrix = scale(0.7f, 1.9f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.7f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.7f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
-	scaleMatrix = scale(0.4f, 0.4f, 0.4f);
+	//scaleMatrix = scale(0.4f, 0.4f, 0.4f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
 
-	// Sphere Code 
+	//// Sphere Code 
 
-	// *** bind vao ***
-	glBindVertexArray(vao_Sphere);
+	//// *** bind vao ***
+	//glBindVertexArray(vao_Sphere);
 
-	// *** draw, either by glDrawTriangles() or glDrawArrays() or glDrawElements()
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_Sphere_Elements);
-	glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
+	//// *** draw, either by glDrawTriangles() or glDrawArrays() or glDrawElements()
+	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo_Sphere_Elements);
+	//glDrawElements(GL_TRIANGLES, gNumElements, GL_UNSIGNED_SHORT, 0);
 
-	// *** unbind vao ***
-	glBindVertexArray(0);
+	//// *** unbind vao ***
+	//glBindVertexArray(0);
 
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// left front draw cylinder
+	//// left front draw cylinder
 
-	modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.4f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(-2.7f - TRANS_X_TABLE, 1.4f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(0.7f, 1.9f, 1.0f);
+	//scaleMatrix = scale(0.7f, 1.9f, 1.0f);
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
-	// front right
+	//// front right
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.4f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.4f, -7.0f + TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(0.7f, 1.9f, 1.0f);
+	//scaleMatrix = scale(0.7f, 1.9f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 
-	// right - back cylinder
+	//// right - back cylinder
 
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotationMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
+	//modelMatrix = mat4::identity();
+	//viewMatrix = mat4::identity();
+	//rotationMatrix = mat4::identity();
+	//scaleMatrix = mat4::identity();
 
-	// draw cylinder
+	//// draw cylinder
 
-	modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.4f, -12.0f -TRANS_Z_TABLE) * globalTRMatrix;
+	//modelMatrix = translate(2.7f + TRANS_X_TABLE, 1.4f, -12.0f -TRANS_Z_TABLE) * globalTRMatrix;
 
-	rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
+	//rotationMatrix = rotate(90.0f, 1.0f, 0.0f, 0.0f);
 
-	scaleMatrix = scale(0.7f, 1.9f, 1.0f);
+	//scaleMatrix = scale(0.7f, 1.9f, 1.0f);
 
-	// multiply the modelview and rotation matrix.
+	//// multiply the modelview and rotation matrix.
 
-	modelMatrix = modelMatrix *  scaleMatrix;
+	//modelMatrix = modelMatrix *  scaleMatrix;
 
-	modelMatrix = modelMatrix * rotationMatrix;
+	//modelMatrix = modelMatrix * rotationMatrix;
 
-	glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
+	//glUniformMatrix4fv(_ModelMatrixUniform, 1, GL_FALSE, modelMatrix);
 
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
+	//glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
 
-	glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
+	//glUniformMatrix4fv(_ProjectionMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
 
-	draw();
+	//draw();
 	
 	//STOP USING SHADER
 	glUseProgram(0);

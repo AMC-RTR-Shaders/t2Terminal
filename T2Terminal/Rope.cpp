@@ -12,7 +12,7 @@ Sanket::Rope::Rope()
 {
 	_angle = 0.0f;
 
-	_modelParser = new ModelParser("3DModels\\Scene_2\\rp4.obj");
+	_modelParser = new ModelParser("3DModels\\Scene_2\\Barricade_9.obj");
 	CHECK_NULL(_modelParser);
 
 	return;
@@ -313,14 +313,18 @@ void Sanket::Rope::Render(HDC hdc, struct Attributes attributes)
 	globalTRMatrix = translateGlobalMatrix * rotateGlobalMatrix;
 
 	static GLfloat lightAmbient[] = { 0.0f,0.0f,0.0f,1.0f };
-	static GLfloat lightDiffuse[] = { 1.0f,0.0f,0.0f,1.0f };
-	static GLfloat lightSpecular[] = { 1.0f,0.0f,0.0f,1.0f };
+	static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
+	static GLfloat lightSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat lightPosition[] = { 100.0f,100.0f,100.0f,1.0f };
 	static GLfloat material_shininess = 50.0f;
 
-	GLfloat materialAmbient[4] = { 1.0f,0.0f,0.0f,1.0f };
-	GLfloat materialDiffuse[4] = { 1.0f,0.0f,0.0f,1.0f };
-	GLfloat materialSpecular[4] = { 1.0f,0.0f,0.0f,1.0f };
+	GLfloat materialAmbient[4] = { 1.0f,1.0f,1.0f,1.0f };
+	GLfloat materialDiffuse[4] = { 1.0f,1.0f,1.0f,1.0f };
+	GLfloat materialSpecular[4] = { 1.0f,1.0f,1.0f,1.0f };
+
+	GLfloat materialAmbient_Dark[4] = { 0.3f,0.3f,0.3f,1.0f };
+	GLfloat materialDiffuse_Dark[4] = { 0.3f,0.3f,0.3f,1.0f };
+	GLfloat materialSpecular_Dark[4] = { 1.0f,0.0f,0.0f,1.0f };
 
 	//START USING SHADER OBJECT	
 	glUseProgram(_shaderProgramObject);
@@ -337,11 +341,7 @@ void Sanket::Rope::Render(HDC hdc, struct Attributes attributes)
 	glUniform3fv(_KsUniform, 1, materialSpecular);
 	glUniform1f(material_shininess_uniform, material_shininess);
 	
-	modelMatrix = translate(0.0f, 1.0f, -12.0f - TRANS_Z_ROPE) * globalTRMatrix;
-
-	scaleMatrix = scale(0.31f + SCALE_X_ROPE, 0.31f, 0.31f);
-
-	modelMatrix = modelMatrix * scaleMatrix;
+	modelMatrix = translate(0.0f, 3.5f, 0.0f - TRANS_Z_ROPE) * globalTRMatrix;
 
 	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
 	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
@@ -350,67 +350,6 @@ void Sanket::Rope::Render(HDC hdc, struct Attributes attributes)
 	CHECK_NULL(_modelParser);
 	_modelParser->draw();
 
-	 modelMatrix = mat4::identity();
-	 viewMatrix = mat4::identity();
-	 rotateMatrix = mat4::identity();
-	 translateMatrix = mat4::identity();
-	 scaleMatrix = mat4::identity();
-
-	modelMatrix = translate(-2.35f - TRANS_X_ROPE, 0.75f, -8.0f)* globalTRMatrix;
-
-	rotateMatrix = rotate(72.0f, 0.0f, 1.0f, 0.0f);
-
-	scaleMatrix = scale(0.12f + SCALE_X_ROPE, 0.25f, 0.12f);
-
-	modelMatrix = modelMatrix *  scaleMatrix;
-
-	modelMatrix = modelMatrix * rotateMatrix;
-
-	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
-
-	CHECK_NULL(_modelParser);
-	_modelParser->draw();
-
-
-	modelMatrix = mat4::identity();
-	viewMatrix = mat4::identity();
-	rotateMatrix = mat4::identity();
-	translateMatrix = mat4::identity();
-	scaleMatrix = mat4::identity();
-
-	modelMatrix = translate(2.35f + TRANS_X_ROPE, 0.75f, -8.0f)* globalTRMatrix;
-
-	rotateMatrix = rotate(112.0f, 0.0f, 1.0f, 0.0f);
-
-	scaleMatrix = scale(0.12f + SCALE_X_ROPE, 0.25f, 0.12f);
-
-	modelMatrix = modelMatrix *  scaleMatrix;
-
-	modelMatrix = modelMatrix * rotateMatrix;
-
-	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
-
-	CHECK_NULL(_modelParser);
-	_modelParser->draw();
-
-	modelMatrix = translate(0.0f, 1.0f, -7.0f + TRANS_Z_ROPE)* globalTRMatrix;
-
-	scaleMatrix = scale(0.31f + SCALE_X_ROPE, 0.31f, 0.31f);
-
-	modelMatrix = modelMatrix * scaleMatrix;
-
-	glUniformMatrix4fv(_modelMatrixUniform, 1, GL_FALSE, modelMatrix);
-	glUniformMatrix4fv(_ViewMatrixUniform, 1, GL_FALSE, viewMatrix);
-	glUniformMatrix4fv(_projectMatrixUniform, 1, GL_FALSE, _perspectiveProjectionMatrix);
-
-	CHECK_NULL(_modelParser);
-	_modelParser->draw();
-
-	//STOP USING SHADER
 	glUseProgram(0);
 
 	return;
