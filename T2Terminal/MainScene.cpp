@@ -126,10 +126,17 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		case Event::KeyBoard::KEYS::A:
 			++_attributes.currentScene;
 			_attributes.currentScene = _attributes.currentScene % 4;
-			_attributes.currentScene = SCENE_AIRPORT_MODEL;
+			_attributes.currentScene = SCENE_AIRPORT;
 			break;
 		case Event::KeyBoard::KEYS::S:
-			_attributes.currentScene = SCENE_BLUE_PRINT;
+			_attributes.translateCoords[SCENE_AIRPORT][0] = -4.521f;
+			_attributes.translateCoords[SCENE_AIRPORT][1] = 21.201f;
+			_attributes.translateCoords[SCENE_AIRPORT][2] = -195.907f;
+
+			_attributes.rotateCoords[SCENE_AIRPORT][0] = 15.971f;
+			_attributes.rotateCoords[SCENE_AIRPORT][1] = -0.431f;
+			_attributes.rotateCoords[SCENE_AIRPORT][2] = 0.0f;
+
 			break;
 
 		case VK_UP:
@@ -265,7 +272,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 {
 	if (_attributes.globalScene == 1)
 	{
-//		_cam_speed *= 1.005f;
+		_cam_speed *= 1.002f;
 
 		if (_attributes.currentScene == SCENE_TERRAIN_MAP)//SCENE 1
 		{
@@ -459,7 +466,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 						_attributes.rotateCoords[SCENE_AIRPORT][2] = 0.0f;
 
 						_attributes.translateCoords[SCENE_AIRPORT_CUBEMAP][1] = 0.0f;
-						_cam_speed = _cam_speed / 4;
+						_cam_speed = _cam_speed / 6;
 					}
 				}
 			}
