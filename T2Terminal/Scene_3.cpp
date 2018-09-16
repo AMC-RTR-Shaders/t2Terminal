@@ -30,8 +30,14 @@ void Scene_3::Scene_3::Initialize()
 	_Fonts = new Sanket::Fonts();
 	CHECK_NEW(_Fonts);
 
+	_PhotoRoom = new Rushabh::PhotoRoom();
+	CHECK_NEW(_PhotoRoom);
+
+
 	_Starfield->Initialize();
 	_Fonts->Initialize();
+	
+	_PhotoRoom->Initialize();
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -41,30 +47,43 @@ CLEAN_LOCAL_ALLOCATION_BELOW:
 
 void Scene_3::Scene_3::Update()
 {
-	_Starfield->Update();
-	_Fonts->Update();
+	_PhotoRoom->Update();
 }
 
 void Scene_3::Scene_3::ReSize(int width, int height, struct ResizeAttributes attributes)
 {
 	_Starfield->ReSize(width, height, attributes);
 	_Fonts->ReSize(width, height, attributes);
+	_PhotoRoom->ReSize(width, height, attributes);
 }
 
 void Scene_3::Scene_3::Render(HDC hdc, struct Attributes attributes)
 {
-	_Starfield->Render(hdc, attributes);
-	_Fonts->Render(hdc, attributes);
+	if (attributes.currentScene == SCENE_STAR_FIELD)
+	{
+		_Starfield->Render(hdc, attributes);
+		_Fonts->Render(hdc, attributes);
+
+		_Starfield->Update();
+		_Fonts->Update();
+	}
+	else
+	{
+		_PhotoRoom->Render(hdc, attributes);
+	}
 }
+
 
 void Scene_3::Scene_3::SceneTransition()
 {
 	_Starfield->SceneTransition();
 	_Fonts->SceneTransition();
+	_PhotoRoom->SceneTransition();
 }
 
 void Scene_3::Scene_3::UnInitialize()
 {
 	SAFE_SCENE_DELETE(_Starfield)
 	SAFE_SCENE_DELETE(_Fonts)
+	SAFE_SCENE_DELETE(_PhotoRoom)
 }
