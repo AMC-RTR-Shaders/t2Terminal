@@ -1,0 +1,4 @@
+#pragma once
+#include "Door.h"
+
+ID_BITMAP_ENTRANCE_DOOR BITMAP "Door.bmp"
