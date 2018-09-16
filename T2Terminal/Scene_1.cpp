@@ -123,10 +123,10 @@ void Scene_1::Scene_1::Render(HDC hdc, struct Attributes attributes)
 	{
 		_perlinCloud->Render(hdc, attributes);
 	}
-	if (attributes.currentTransformation != TRANSFORMATION_TOP_VIEW_4)
-	{
-		_aeroplaneInstancing->Render(hdc, attributes);
-	}
+	//if (attributes.currentTransformation != TRANSFORMATION_TOP_VIEW_4)
+	//{
+	//	_aeroplaneInstancing->Render(hdc, attributes);
+	//}
 	//if (attributes.currentScene == SCENE_TERRAIN_MAP)
 	//{
 	//	_terrainMap->Render(hdc, attributes);

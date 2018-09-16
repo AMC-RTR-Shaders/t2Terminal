@@ -91,7 +91,7 @@ namespace Rahul
 		GLfloat RSD_Z_4_Point = -29.0f;
 
 		GLint StartDoorRotation = 0;
-		GLfloat BlendValue = 0.2f;
+		GLfloat BlendValue = 1.0f;
 
 	protected:
 		GLuint vao_top_entrance_door;

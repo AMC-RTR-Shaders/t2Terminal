@@ -510,9 +510,9 @@ void Rushabh::PhotoRoom::Initialize()
 		0.0f, 1.0f,
 
 		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f,
+		0.0f, 20.0f,
+		5.0f, 20.0f,
+		5.0f, 0.0f,
 
 		0.0f, 0.0f,
 		1.0f, 0.0f,
@@ -520,9 +520,9 @@ void Rushabh::PhotoRoom::Initialize()
 		0.0f, 1.0f,
 
 		0.0f, 0.0f,
-		0.0f, 1.0f,
-		1.0f, 1.0f,
-		1.0f, 0.0f,
+		0.0f, 10.0f,
+		10.0f, 10.0f,
+		10.0f, 0.0f,
 
 		0.0f, 0.0f,
 		1.0f, 0.0f,
@@ -566,10 +566,10 @@ void Rushabh::PhotoRoom::Initialize()
 
 	const GLfloat horizontalQuadTexCoords[] =
 	{
-		1.0f, 1.0f,
 		0.0f, 1.0f,
-		0.0f, 0.0f,
+		1.0f, 1.0f,
 		1.0f, 0.0f,
+		0.0f, 0.0f,
 	};
 
 	const GLfloat horizontalQuadNormals[] =
