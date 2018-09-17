@@ -126,7 +126,7 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 		case Event::KeyBoard::KEYS::A:
 			++_attributes.currentScene;
 			_attributes.currentScene = _attributes.currentScene % 4;
-			_attributes.currentScene = SCENE_AIRPORT;
+			_attributes.currentScene = SCENE_AIRPORT_MODEL;
 			break;
 		case Event::KeyBoard::KEYS::S:
 			_attributes.translateCoords[SCENE_AIRPORT][0] = -4.521f;
@@ -646,26 +646,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 						_attributes.currentSequenceCounter += _cam_speed;
 						if (_attributes.currentSequenceCounter > START_SCENE_3)
 						{
-							_scene = _scene_3;
-
-							_cam_speed = CAM_SPEED_PHOTO_ROOM;
-							
-							_attributes.globalScene = 3;
-							_attributes.currentScene = SCENE_PHOTO_ROOM;
-							_attributes.currentSequenceCounter = 0.0f;
-							_attributes.currentTransformation = TRANSFORMATION_INCREASE_SPOT_LIGHT;
-							_zLimit = 2.0f;
-							_attributes.globalLight[0] = 0.2f;
-							_attributes.globalLight[1] = 0.2f;
-							_attributes.globalLight[2] = 0.2f;
-
-							_attributes.lightDirection[0] = 0.0f;
-							_attributes.lightDirection[1] = -1.0f;
-							_attributes.lightDirection[2] = 0.0f;
-
-							_attributes.lightRadius = 15.0f;
-							
-							_scene->ReSize(_width, _height, _resizeAttributes);
+							_attributes.currentTransformation = TRANSFORMATION_TRANSITION_SCENE_3;
 						}
 					}
 
@@ -676,6 +657,39 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 					_attributes.translateCoords[SCENE_AIRPORT_TOP][1] -= (_cam_speed / 8);
 				}
 				_cam_speed *= 1.0001f;
+			}
+			else if (_attributes.currentTransformation == TRANSFORMATION_TRANSITION_SCENE_3)
+			{
+				if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] < Z_END_AIRPORT_MODEL_4)
+				{
+					float offset = ((Y_END_AIRPORT_MODEL_4 - Y_END_AIRPORT_MODEL_3) / (Z_END_AIRPORT_MODEL_4 - Z_END_AIRPORT_MODEL_3));
+					_attributes.translateCoords[SCENE_AIRPORT_MODEL][1] += _cam_speed * offset;
+					_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] += _cam_speed;
+				}
+				else
+				{
+					_scene = _scene_3;
+
+					_cam_speed = CAM_SPEED_PHOTO_ROOM;
+
+					_attributes.globalScene = 3;
+					_attributes.currentScene = SCENE_PHOTO_ROOM;
+					_attributes.currentSequenceCounter = 0.0f;
+					_attributes.currentTransformation = TRANSFORMATION_INCREASE_SPOT_LIGHT;
+					_zLimit = 2.0f;
+					_attributes.globalLight[0] = 0.2f;
+					_attributes.globalLight[1] = 0.2f;
+					_attributes.globalLight[2] = 0.2f;
+
+					_attributes.lightDirection[0] = 0.0f;
+					_attributes.lightDirection[1] = -1.0f;
+					_attributes.lightDirection[2] = 0.0f;
+
+					_attributes.lightRadius = 15.0f;
+
+					_scene->ReSize(_width, _height, _resizeAttributes);
+				}
+
 			}
 			else if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] < Z_END_AIRPORT_MODEL_2)
 			{
@@ -763,6 +777,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			else
 			{
 				_attributes.currentTransformation = TRANSFORMATION_TRANSLATE_FWD;
+				_cam_speed /= 4;
 			}
 		}
 		if (_attributes.currentTransformation == TRANSFORMATION_TRANSLATE_FWD)
@@ -940,13 +955,13 @@ void T2Terminal::MainScene::InitializeTransformationAttributes()
 
 /****************SCENE 2  INITIALIAZATION *************/
 
-	/*_cam_speed = CAM_SPEED_AIRPORT_MODEL;
+	//_cam_speed = CAM_SPEED_AIRPORT_MODEL;
 
-	_attributes.globalScene = 2;
-	_attributes.currentScene = SCENE_AIRPORT_MODEL;
-	_attributes.blendValue = BLEND_VALUE_BOX;
-	_attributes.currentSequenceCounter = 0.0f;
-*/
+	//_attributes.globalScene = 2;
+	//_attributes.currentScene = SCENE_AIRPORT_MODEL;
+	//_attributes.blendValue = BLEND_VALUE_BOX;
+	//_attributes.currentSequenceCounter = 0.0f;
+
 /*****************************************************/
 
 
