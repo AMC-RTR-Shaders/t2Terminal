@@ -176,6 +176,7 @@
     <ClCompile Include="PhotoRoom.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="SpotLightBox.cpp" />
+    <ClCompile Include="SpotLightNew.cpp" />
     <ClCompile Include="Starfield.cpp" />
     <ClCompile Include="Table.cpp" />
     <ClCompile Include="TerminalGlass.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="SphereMesh.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="SpotLightBox.h" />
+    <ClInclude Include="SpotLightNew.h" />
     <ClInclude Include="Starfield.h" />
     <ClInclude Include="Table.h" />
     <ClInclude Include="TerminalGlass.h" />
