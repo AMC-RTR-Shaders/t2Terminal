@@ -20,6 +20,7 @@ Scene_2::Scene_2::Scene_2()
 	_Table = NULL;
 	_Rope = NULL;
 	_Door = NULL;
+	_spotLightNew = NULL;
 }
 
 Scene_2::Scene_2::~Scene_2()
@@ -68,6 +69,9 @@ void Scene_2::Scene_2::Initialize()
 	_Door = new Rahul::Door();
 	CHECK_NEW(_Door);
 
+	_spotLightNew = new Harsh::SpotLightNew();
+	CHECK_NEW(_spotLightNew);
+
 	_spotLight->Initialize();
 	_spotLightBox->Initialize();
 	_particles->Initialize();
@@ -79,6 +83,7 @@ void Scene_2::Scene_2::Initialize()
 	_Table->Initialize();
 	_Rope->Initialize();
 	_Door->Initialize();
+	_spotLightNew->Initialize();
 
 	return;
 CLEAN_LOCAL_ALLOCATION_BELOW:
@@ -96,6 +101,7 @@ void Scene_2::Scene_2::Update()
 	_airportTop->Update();
 	_Table->Update();
 	_Rope->Update();
+	_spotLightNew->Update();
 	//_wireFrameEffect->Update();
 	//_Door->Update();
 }
@@ -113,18 +119,20 @@ void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes att
 	_Table->ReSize(width, height, attributes);
 	_Rope->ReSize(width, height, attributes);
 	_Door->ReSize(width, height, attributes);
+	_spotLightNew->ReSize(width, height, attributes);
 }
 
 void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 {
 	_spotLight->Render(hdc, attributes);
+	_spotLightNew->Render(hdc, attributes);
 
 	_Table->Render(hdc, attributes);
 	_Rope->Render(hdc, attributes);
 
 	_scene2Tile->Render(hdc, attributes);
 	_rollingCylinder->Render(hdc, attributes);
-	_bluePrint->Render(hdc, attributes);
+	//_bluePrint->Render(hdc, attributes);
 	_Door->Render(hdc, attributes);
 
 	if (attributes.currentTransformation == TRANSFORMATION_START_WIRE_FRAME || attributes.currentTransformation == TRANSFORMATION_TRANSITION_SCENE_3)
@@ -155,6 +163,7 @@ void Scene_2::Scene_2::SceneTransition()
 	_Table->SceneTransition();
 	_Rope->SceneTransition();
 	_Door->SceneTransition();
+	_spotLightNew->SceneTransition();
 }
 
 void Scene_2::Scene_2::UnInitialize()
@@ -173,4 +182,5 @@ void Scene_2::Scene_2::UnInitialize()
 	SAFE_SCENE_DELETE(_Table)
 	SAFE_SCENE_DELETE(_Rope)
 	SAFE_SCENE_DELETE(_Door)
+	SAFE_SCENE_DELETE(_spotLightNew)
 }

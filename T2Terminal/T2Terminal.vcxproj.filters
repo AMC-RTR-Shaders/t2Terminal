@@ -228,7 +228,6 @@
     <ClCompile Include="Table.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Sanket</Filter>
     </ClCompile>
-
     <ClCompile Include="Scene_4.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Scene_4</Filter>
     </ClCompile>
@@ -237,9 +236,12 @@
     </ClCompile>
     <ClCompile Include="PhotoRoom.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rushabh</Filter>
-     </ClCompile>
+    </ClCompile>
     <ClCompile Include="Door.cpp">
       <Filter>Source Files\T2Terminal\Scenes\Rahul</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLightNew.cpp">
+      <Filter>Source Files\T2Terminal\Scenes\Harsh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -356,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="Door.h">
       <Filter>Header Files\T2Terminal\Scenes\Rahul</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLightNew.h">
+      <Filter>Header Files\T2Terminal\Scenes\Harsh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -512,7 +517,7 @@
       <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="PhotoRoom.rc">
-       <Filter>Resource Files</Filter>
+      <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="FloorTexture.rc">
       <Filter>Resource Files</Filter>

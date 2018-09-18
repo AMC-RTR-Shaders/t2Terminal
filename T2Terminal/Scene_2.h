@@ -21,6 +21,7 @@
 #include "Table.h"
 #include "Rope.h"
 #include "Door.h"
+#include "SpotLightNew.h"
 
 
 namespace Scene_2
@@ -33,6 +34,7 @@ namespace Scene_2
 
 	private:
 		Harsh::SpotLight *_spotLight;
+		Harsh::SpotLightNew *_spotLightNew;
 		Harsh::SpotLightBox *_spotLightBox;
 
 		Rushabh::Particles *_particles;
