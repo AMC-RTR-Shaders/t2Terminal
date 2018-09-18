@@ -485,7 +485,7 @@ void Harsh::SpotLightNew::ReSize(int width, int height, struct ResizeAttributes 
 void Harsh::SpotLightNew::Render(HDC hdc, struct Attributes attributes)
 {
 	glDisable(GL_CULL_FACE);
-	float radius = 15.0f;
+	float radius = 14.0f;
 
 	float vertexX = attributes.translateCoords[SCENE_CYLINDER_TRANS][0];
 	float texCoordX = attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0];
@@ -530,7 +530,7 @@ void Harsh::SpotLightNew::Render(HDC hdc, struct Attributes attributes)
 		glUniform3fv(_viewrPositionUniform, 1, vec3(0.0f, 0.0f, 3.0f));
 
 		glUniform1i(_numSpotLightUniform, attributes.numSpotLight);
-		//		glUniform1i(_numSpotLightUniform, 3);
+		//glUniform1i(_numSpotLightUniform, 3);
 
 		glUniform3fv(_SpotLightLaUniform[0], 1, lightAmbientS1);
 		glUniform3fv(_SpotLightLdUniform[0], 1, lightDiffuseS1);

@@ -12,7 +12,7 @@ namespace Harsh
 #define SIDE_LENGTH 1.0f
 #define TRANS_Y_SPOTLIGHT -1.0f
 #define TRASLATE_X_SPOTLIGHT -0.75f
-#define TRASLATE_Z_SPOTLIGHT -1.0f
+#define TRASLATE_Z_SPOTLIGHT -0.5f
 #define TRANS_Y_BLUE_PRINT -1.0f
 #define TRANS_Z_BLUE_PRINT -0.75f
 
@@ -75,13 +75,13 @@ namespace Harsh
 		GLfloat lightDiffuseS2[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightSpecularS2[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightPositionS2[4] = { 5.0f,0.0f,0.0f,1.0f };
-		GLfloat lightDirectionS2[4] = { -0.2f,-1.0f,0.0f,1.0f };
+		GLfloat lightDirectionS2[4] = { -0.4f,-1.0f,0.0f,1.0f };
 
 		GLfloat lightAmbientS3[4] = { 0.1f,0.1f,0.1f,1.0f };
 		GLfloat lightDiffuseS3[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightSpecularS3[4] = { 1.0f,1.0f,1.0f,1.0f };
 		GLfloat lightPositionS3[4] = { -5.0f,0.0f,0.0f,1.0f };
-		GLfloat lightDirectionS3[4] = { 0.2f,-1.0f,0.0f,1.0f };
+		GLfloat lightDirectionS3[4] = { 0.4f,-1.0f,0.0f,1.0f };
 
 		mat4 _perspectiveProjectionMatrix;
 
