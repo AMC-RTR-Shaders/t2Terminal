@@ -504,7 +504,7 @@ void Rahul::Door::InitRD()
 void Rahul::Door::Update()
 {
 	doorRotateAngle = doorRotateAngle + 0.001f;
-	if (StartDoorRotation == 1)
+	if (1 == 1)
 	{
 		if (doorRotateAngle < (3.14f / 2.0f))
 		{
@@ -584,9 +584,9 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	mat4 viewMatrix = mat4::identity();
 	mat4 rotateMatrix = mat4::identity();
 
-	//static GLfloat lightAmbient[] = { 1.0f,1.0f,1.0f,1.0f };
-	//static GLfloat lightDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
-	//static GLfloat lightSpecular[] = { 1.0f,1.0f,1.0f,1.0f };
+	static GLfloat lightAmbient[] = { 0.3f,0.3f,0.3f,1.0f };
+	static GLfloat lightDiffuse[] = { 0.3f,0.3f,0.3f,1.0f };
+	static GLfloat lightSpecular[] = { 0.3f,0.3f,0.3f,1.0f };
 	static GLfloat lightPosition[] = { 100.0f,100.0f,100.0f,1.0f };
 	static GLfloat materialAmbient[] = { 1.0f,1.0f,1.0f,1.0f };
 	static GLfloat materialDiffuse[] = { 1.0f,1.0f,1.0f,1.0f };
@@ -598,9 +598,9 @@ void Rahul::Door::Render(HDC hdc, struct Attributes attributes)
 	glUseProgram(_shaderProgramObject);
 
 	// setting light's properties
-	glUniform3fv(_LaUniform, 1, attributes.globalLight);
-	glUniform3fv(_LdUniform, 1, attributes.globalLight);
-	glUniform3fv(_LsUniform, 1, attributes.globalLight);
+	glUniform3fv(_LaUniform, 1, lightAmbient);
+	glUniform3fv(_LdUniform, 1, lightDiffuse);
+	glUniform3fv(_LsUniform, 1, lightSpecular);
 	glUniform4fv(_LightPositionUniform, 1, lightPosition);
 	glUniform3fv(_KaUniform, 1, materialAmbient);
 	glUniform3fv(_KdUniform, 1, materialDiffuse);

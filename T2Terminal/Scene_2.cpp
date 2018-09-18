@@ -96,8 +96,8 @@ void Scene_2::Scene_2::Update()
 	_airportTop->Update();
 	_Table->Update();
 	_Rope->Update();
-	_wireFrameEffect->Update();
-	_Door->Update();
+	//_wireFrameEffect->Update();
+	//_Door->Update();
 }
 
 void Scene_2::Scene_2::ReSize(int width, int height, struct ResizeAttributes attributes)
@@ -127,10 +127,14 @@ void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 	_bluePrint->Render(hdc, attributes);
 	_Door->Render(hdc, attributes);
 
-	if (attributes.currentTransformation == TRANSFORMATION_START_WIRE_FRAME)
+	if (attributes.currentTransformation == TRANSFORMATION_START_WIRE_FRAME || attributes.currentTransformation == TRANSFORMATION_TRANSITION_SCENE_3)
 	{
 		_wireFrameEffect->Render(hdc, attributes);
 		_airportTop->Render(hdc, attributes);
+	}
+	if (attributes.currentTransformation == TRANSFORMATION_TRANSITION_SCENE_3)
+	{
+		_Door->Update();
 	}
 	else
 	{

@@ -101,6 +101,8 @@ https://en.wikipedia.org/wiki/Include_guard
 
 
 #define TRANSFORMATION_START_WIRE_FRAME		9
+#define TRANSFORMATION_TRANSITION_SCENE_3	16
+
 
 #define TRANS_X_BLUE_PRINT					4.8f
 #define SCENE_2_SEQUNCRE_COUNTER			0.0f
