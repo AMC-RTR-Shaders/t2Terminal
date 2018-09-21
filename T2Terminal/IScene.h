@@ -106,9 +106,9 @@ https://en.wikipedia.org/wiki/Include_guard
 
 #define TRANS_X_BLUE_PRINT					4.8f
 #define SCENE_2_SEQUNCRE_COUNTER			0.0f
-#define PARTICLE_LIGHT_1_ON					5.0f
-#define PARTICLE_LIGHT_2_ON					10.0f
-#define PARTICLE_LIGHT_3_ON					12.5f
+#define PARTICLE_LIGHT_1_ON					2.5f
+#define PARTICLE_LIGHT_2_ON					5.0f
+#define PARTICLE_LIGHT_3_ON					7.5f
 #define START_SCENE_3						15.0f
 
 namespace T2Terminal

@@ -244,8 +244,8 @@ void Praveen::WireFrameEffect::Initialize()
 	_wireFrameThreePillar = (GLOBJECT_WIREFRAME_BUILDING*)malloc(sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	ZeroMemory(_wireFrameThreePillar, sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	_wireFrameThreePillar->wireFrameQuery = WIREFRAME_QUERY::WIREFRAME_YES;
-	_wireFrameThreePillar->speedValueToIncrementSolidFaces = 0.12f;
-	_wireFrameThreePillar->speedValueToIncrementWireFaces =  0.12f;
+	_wireFrameThreePillar->speedValueToIncrementSolidFaces = 0.6f;
+	_wireFrameThreePillar->speedValueToIncrementWireFaces =  1.0f;
 	
 	_wireFrameThreePillar->triangle_poin1_color[0] = 240.0f / 255.0f;
 	_wireFrameThreePillar->triangle_poin1_color[1] = 240.0f / 255.0f;
@@ -270,8 +270,8 @@ void Praveen::WireFrameEffect::Initialize()
 	_wireFrameAllPillar = (GLOBJECT_WIREFRAME_BUILDING*)malloc(sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	ZeroMemory(_wireFrameAllPillar, sizeof(GLOBJECT_WIREFRAME_BUILDING));
 	_wireFrameAllPillar->wireFrameQuery = WIREFRAME_QUERY::WIREFRAME_YES;
-	_wireFrameAllPillar->speedValueToIncrementSolidFaces = 0.5f;
-	_wireFrameAllPillar->speedValueToIncrementWireFaces = 1.0f;
+	_wireFrameAllPillar->speedValueToIncrementSolidFaces = 3.0f;
+	_wireFrameAllPillar->speedValueToIncrementWireFaces = 3.0f;
 
 	_wireFrameAllPillar->triangle_poin1_color[0] = 240.0f / 255.0f;
 	_wireFrameAllPillar->triangle_poin1_color[1] = 240.0f / 255.0f;

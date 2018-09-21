@@ -20,5 +20,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR szCmdLine
 	surface.Register();
 	surface.Show(WIN_WIDTH,WIN_HEIGHT, Windowing::STYLE::NORMAL);
 	surface.IntializeGL();
+	surface.ToggleFullScreen();
 	return surface.StartLooper();	
 }

@@ -478,8 +478,7 @@ void Harsh::SpotLightNew::ReSize(int width, int height, struct ResizeAttributes 
 	if (height == 0)
 		height = 1;
 	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
-
-	_perspectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)width / (GLfloat)height, attributes.nearValue, attributes.farValue);
+	_perspectiveProjectionMatrix = vmath::perspective(45.0f, (GLfloat)width / (GLfloat)height, 0.1f, 1000.0f);
 }
 
 void Harsh::SpotLightNew::Render(HDC hdc, struct Attributes attributes)
