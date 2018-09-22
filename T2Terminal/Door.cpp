@@ -503,7 +503,7 @@ void Rahul::Door::InitRD()
 
 void Rahul::Door::Update()
 {
-	doorRotateAngle = doorRotateAngle + 0.001f;
+	doorRotateAngle = doorRotateAngle + 0.003f;
 	if (1 == 1)
 	{
 		if (doorRotateAngle < (3.14f / 2.0f))

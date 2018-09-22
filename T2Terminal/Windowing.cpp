@@ -124,7 +124,7 @@ BOOL Windowing::OGLSurface::Show(int width, int height , int style)
 {
 	_width = width;
 	_height = height;
-	
+
 	_hwnd = CreateWindowEx(WS_EX_APPWINDOW,
 		_szAppName,
 		_szAppName,

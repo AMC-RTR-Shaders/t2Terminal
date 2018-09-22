@@ -124,18 +124,21 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 			_attributes.blendValue -= _cam_speed;
 		break;
 		case Event::KeyBoard::KEYS::A:
-			++_attributes.currentScene;
-			_attributes.currentScene = _attributes.currentScene % 4;
-			_attributes.currentScene = SCENE_AIRPORT_MODEL;
+			//++_attributes.currentScene;
+			//_attributes.currentScene = _attributes.currentScene % 4;
+			//_attributes.currentScene = SCENE_AIRPORT_MODEL;
+			PlaySound(L"Scene4_GrowingPillar.wav", NULL, SND_ASYNC);
+
 			break;
 		case Event::KeyBoard::KEYS::S:
-			_attributes.translateCoords[SCENE_AIRPORT][0] = -4.521f;
-			_attributes.translateCoords[SCENE_AIRPORT][1] = 21.201f;
-			_attributes.translateCoords[SCENE_AIRPORT][2] = -195.907f;
+			//_attributes.translateCoords[SCENE_AIRPORT][0] = -4.521f;
+			//_attributes.translateCoords[SCENE_AIRPORT][1] = 21.201f;
+			//_attributes.translateCoords[SCENE_AIRPORT][2] = -195.907f;
 
-			_attributes.rotateCoords[SCENE_AIRPORT][0] = 15.971f;
-			_attributes.rotateCoords[SCENE_AIRPORT][1] = -0.431f;
-			_attributes.rotateCoords[SCENE_AIRPORT][2] = 0.0f;
+			//_attributes.rotateCoords[SCENE_AIRPORT][0] = 15.971f;
+			//_attributes.rotateCoords[SCENE_AIRPORT][1] = -0.431f;
+			//_attributes.rotateCoords[SCENE_AIRPORT][2] = 0.0f;
+			PlaySound(L"Scene3_Starfield.wav", NULL, SND_ASYNC);
 
 			break;
 
@@ -222,6 +225,8 @@ void T2Terminal::MainScene::Initialize()
 		_scene_4->Initialize();
   
 	_scene = _scene_1;
+
+	PlaySound(L"Scene1_Start_New_Track.wav", NULL, SND_ASYNC);
 }
 
 void T2Terminal::MainScene::Update()
@@ -272,10 +277,11 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 {
 	if (_attributes.globalScene == 1)
 	{
-		_cam_speed *= 1.002f;
 
 		if (_attributes.currentScene == SCENE_TERRAIN_MAP)//SCENE 1
 		{
+			_cam_speed *= 1.0025f;
+
 			if (_attributes.translateCoords[SCENE_AIRPORT][1] > Y_END_AIRPORT_0_5)
 			{
 				float offset = ((Y_START_SINGLE_PLANE - Y_SINGLE_PLANE_1) / (Y_AIRPORT_START - Y_END_AIRPORT_0_5));
@@ -317,11 +323,14 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 				_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][0] = X_SINGLE_PLANE_ROTATE_POS_1;
 				_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][1] = Y_SINGLE_PLANE_ROTATE_POS_1;
 				_attributes.rotateCoords[SCENE_SINGLE_AEROPLANE][2] = Z_SINGLE_PLANE_ROTATE_POS_1;
+			
 			}
 		}
 
 		if (_attributes.currentScene == SCENE_SINGLE_AEROPLANE)
 		{
+			_cam_speed *= 1.0005f;
+
 			if (_attributes.currentTransformation == TRANSFORMATION_SINGLE_AEROPLANE_1)
 			{
 				if (_attributes.translateCoords[SCENE_SINGLE_AEROPLANE][0] < X_SINGLE_PLANE_POS_1_END)
@@ -475,6 +484,8 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 
 		if (_attributes.currentScene == SCENE_TOP_VIEW)
 		{
+			_cam_speed *= 1.002f;
+
 			if (_attributes.currentTransformation == TRANSFORMATION_TOP_VIEW_2)
 			{
 				if (_attributes.PerlinCloudALpha  > 0.0f)
@@ -558,6 +569,17 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 					_attributes.numSpotLight = 3;
 					_attributes.currentSequenceCounter += _cam_speed / 2;
 				}
+				else if (_attributes.currentSequenceCounter < 1400.0f)
+				{
+					_attributes.currentSequenceCounter += _cam_speed / 2; 
+					if (_attributes.globalLight[0] > 0.0f)
+					{
+						_attributes.globalLight[0] -= _cam_speed / (2 * 300.0f);
+						_attributes.globalLight[1] -= _cam_speed / (2 * 300.0f);
+						_attributes.globalLight[2] -= _cam_speed / (2 * 300.0f);
+						_attributes.numSpotLight = 0;
+					}
+				}
 				else
 				{
 					_scene = _scene_2;
@@ -576,6 +598,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 
 					_scene->ReSize(_width, _height, _resizeAttributes);
 
+					PlaySound(L"Scene2_Blueprint_Pillar_New_Track.wav", NULL, SND_ASYNC);
 				}
 			}
 		}
@@ -621,12 +644,13 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			}
 			if (_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] < TRANS_X_BLUE_PRINT)
 			{
-				_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] += 0.001f;
-				_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] += 0.0005f / 4.5f;
+				_attributes.translateCoords[SCENE_CYLINDER_TRANS][0] += _cam_speed;
+				_attributes.translateCoords[SCENE_CYLINDER_TEXCOORD][0] += _cam_speed / (4.5f*2);
 			}
 			else if (_attributes.translateCoords[SCENE_AIRPORT_MODEL][2] > Z_END_AIRPORT_MODEL_1)
 			{
 				_attributes.currentScene = SCENE_WIRE_FRAME;
+				_cam_speed *= 2;
 			}
 		}
 		if (_attributes.currentScene == SCENE_WIRE_FRAME)
@@ -654,9 +678,9 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 
 				if (_attributes.translateCoords[SCENE_AIRPORT_TOP][1] > Y_AIRPORT_TOP_END)
 				{
-					_attributes.translateCoords[SCENE_AIRPORT_TOP][1] -= (_cam_speed / 8);
+					_attributes.translateCoords[SCENE_AIRPORT_TOP][1] -= (_cam_speed / 10);
 				}
-				_cam_speed *= 1.0001f;
+				_cam_speed *= 1.0005f;
 			}
 			else if (_attributes.currentTransformation == TRANSFORMATION_TRANSITION_SCENE_3)
 			{
@@ -719,8 +743,12 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			}
 			else
 			{
+
 				_zLimit += 2.0f;
 				_attributes.numSpotLight++;
+				if (_attributes.numSpotLight > 5)
+					PlaySound(L"Scene3_SpotlightSound.wav", NULL, SND_ASYNC);
+
 				if (_attributes.numSpotLight == 25)
 				{
 					_attributes.currentTransformation = TRANSFORMATION_DECREASE_SPOT_LIGHT;
@@ -740,10 +768,16 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			{
 				_zLimit += 2.0f;
 				_attributes.numSpotLight--;
+
+				if (_attributes.numSpotLight > 4)
+					PlaySound(L"Scene3_SpotlightSound.wav", NULL, SND_ASYNC);
+
 				if (_attributes.numSpotLight == 0)
 				{
 					_attributes.currentTransformation = TRANSFORMATION_INCREASE_AMBIENT;
 					_attributes.numSpotLight = 25;
+					PlaySound(L"Scene3_PhotoRoom_New_Track.wav", NULL, SND_ASYNC);
+
 				}
 			}
 		}
@@ -759,7 +793,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			{
 				_attributes.numSpotLight = 0;
 				_attributes.currentTransformation = TRANSFORMATION_PHOTO_ROTATE;
-				_cam_speed = _cam_speed / 5;
+				_cam_speed = _cam_speed / 2;
 			}
 		}
 		if (_attributes.currentTransformation == TRANSFORMATION_PHOTO_ROTATE)
@@ -777,7 +811,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			else
 			{
 				_attributes.currentTransformation = TRANSFORMATION_TRANSLATE_FWD;
-				_cam_speed /= 4;
+				_cam_speed /= 2;
 			}
 		}
 		if (_attributes.currentTransformation == TRANSFORMATION_TRANSLATE_FWD)
@@ -791,7 +825,6 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			else
 			{
 				_attributes.currentTransformation = TRANSFORMATION_PHOTO_ROTATE_2;
-				_cam_speed /= 2;
 			}
 		}
 		if (_attributes.currentTransformation == TRANSFORMATION_PHOTO_ROTATE_2)
@@ -809,6 +842,8 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			else
 			{
 				_attributes.currentScene = SCENE_STAR_FIELD;
+				PlaySound(L"Scene3_Starfield.wav", NULL, SND_ASYNC);
+				_attributes.currentTransformation = 0;
 			}
 		}
 		if (_attributes.currentScene == SCENE_STAR_FIELD)
@@ -818,10 +853,12 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 				_scene = _scene_4;
 				_attributes.globalScene = 4;
 				_scene->ReSize(_width, _height, _resizeAttributes);
+				PlaySound(L"Scene4_GrowingPillar.wav", NULL, SND_ASYNC);
+
 			}
 			else
 			{
-				_attributes.translateCoords[SCENE_STAR_FIELD][2] += 0.08f;
+				_attributes.translateCoords[SCENE_STAR_FIELD][2] += 0.08f*4.0f;
 			}
 		}
 	}

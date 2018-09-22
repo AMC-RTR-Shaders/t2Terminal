@@ -140,14 +140,15 @@ void Scene_2::Scene_2::Render(HDC hdc, struct Attributes attributes)
 		_wireFrameEffect->Render(hdc, attributes);
 		_airportTop->Render(hdc, attributes);
 	}
-	if (attributes.currentTransformation == TRANSFORMATION_TRANSITION_SCENE_3)
-	{
-		_Door->Update();
-	}
 	else
 	{
 		_particles->Render(hdc, attributes);
 		_spotLightBox->Render(hdc, attributes);
+	}
+
+	if (attributes.currentTransformation == TRANSFORMATION_TRANSITION_SCENE_3)
+	{
+		_Door->Update();
 	}
 }
 

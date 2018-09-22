@@ -292,12 +292,13 @@ void Sanket::Fonts::Update()
 
 	if (_angle >= 360.0f)
 		_angle = _angle - 360.0f;
+	float incrementFactor = 4.0f;
 
-	_shadersDist += 0.05f;
-	_presentDist += 0.08f;
-	_T2TerminalDist += 0.08f;
-	_PoweredByDist += 0.08f;
-	_AstromedicompDist += 0.08f;
+	_shadersDist += 0.05f * incrementFactor;
+	_presentDist += 0.08f  * incrementFactor;
+	_T2TerminalDist += 0.08f  * incrementFactor;
+	_PoweredByDist += 0.08f  * incrementFactor;
+	_AstromedicompDist += 0.08f  * incrementFactor;
 }
 
 void Sanket::Fonts::ReSize(int width, int height, struct ResizeAttributes attributes)
