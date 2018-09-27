@@ -1,5 +1,5 @@
 # Blender MTL File: 'T2TerminalWithTextureFinal.blend'
-# Material Count: 13
+# Material Count: 16
 
 newmtl Material
 Ns 96.078431
@@ -129,6 +129,16 @@ Ni 1.000000
 d 1.000000
 illum 2
 
+newmtl None.001
+Ns 0.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.800000 0.800000 0.800000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+
 newmtl None_TopView.png
 Ns 0.000000
 Ka 0.000000 0.000000 0.000000
@@ -139,3 +149,25 @@ Ni 1.000000
 d 1.000000
 illum 2
 map_Kd TopView.png
+
+newmtl texture
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.316038 0.316038 0.316038
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd texture.png
+
+newmtl texture_texture.png
+Ns 92.156863
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.316038 0.316038 0.316038
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 2
+map_Kd texture.png
