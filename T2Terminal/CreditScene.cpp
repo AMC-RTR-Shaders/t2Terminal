@@ -364,8 +364,8 @@ void Sanket::CreditScene::Render(HDC hdc, struct Attributes attributes)
 
 	if (vertexY <= 21.0f)
 	{
-		texCoordY += 0.02f / (42.0f);
-		vertexY += 0.02f;
+		texCoordY += 0.1f / (42.0f);
+		vertexY += 0.1f;
 	}
 	else
 	{
