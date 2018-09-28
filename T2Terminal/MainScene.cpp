@@ -127,7 +127,7 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 			//++_attributes.currentScene;
 			//_attributes.currentScene = _attributes.currentScene % 4;
 			//_attributes.currentScene = SCENE_AIRPORT_MODEL;
-			PlaySound(L"Scene4_GrowingPillar.wav", NULL, SND_ASYNC);
+			PlaySound(L"Scene4_GrowingPillar_New_Track.wav", NULL, SND_ASYNC);
 
 			break;
 		case Event::KeyBoard::KEYS::S:
@@ -853,7 +853,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 				_scene = _scene_4;
 				_attributes.globalScene = 4;
 				_scene->ReSize(_width, _height, _resizeAttributes);
-				PlaySound(L"Scene4_GrowingPillar.wav", NULL, SND_ASYNC);
+				PlaySound(L"Scene4_GrowingPillar_New_Track.wav", NULL, SND_ASYNC);
 
 			}
 			else
