@@ -59,6 +59,8 @@ namespace Sanket
 		GLuint bindedTexture;
 		float texCoordY  = 0.0f;
 		float vertexY    = -21.0f;
+		bool startScene = true;
+		bool finishScene = false;
 
 		GLuint _modelMatrixUniform;
 		GLuint _ViewMatrixUniform;
@@ -70,8 +72,9 @@ namespace Sanket
 		GLuint _LdUniform;
 		GLuint _LsUniform;
 		GLuint _LightPositionUniform;
-
+		GLuint _BlackOutUniform;
 		GLfloat _angle;
+		GLfloat _blackOutValue;
 
 		GLuint material_shininess_uniform;
 
