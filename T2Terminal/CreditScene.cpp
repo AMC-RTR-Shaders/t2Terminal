@@ -11,6 +11,7 @@
 Sanket::CreditScene::CreditScene()
 {
 	_angle = 0.0f;
+	_blackOutValue = 0.0f;
 }
 
 Sanket::CreditScene::~CreditScene()
@@ -176,9 +177,10 @@ void Sanket::CreditScene::Initialize()
 		"in vec2 out_texture0_coord;" \
 		"out vec4 FragColor;" \
 		"uniform sampler2D u_texture0_sampler;" \
+		"uniform float u_black_out;"\
 		"void main(void)" \
 		"{" \
-		"FragColor = texture(u_texture0_sampler,out_texture0_coord);" \
+		"FragColor = texture(u_texture0_sampler,out_texture0_coord)*vec4(u_black_out);" \
 		"}";
 	
 
@@ -265,7 +267,7 @@ void Sanket::CreditScene::Initialize()
 	_modelMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_model_matrix");
 	_ViewMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_view_matrix");
 	_projectMatrixUniform = glGetUniformLocation(_shaderProgramObject, "u_projection_matrix");
-
+	_BlackOutUniform = glGetUniformLocation(_shaderProgramObject, "u_black_out");
 
 	
 	/*const GLfloat Scene4QuadVertices[] =
@@ -362,10 +364,17 @@ void Sanket::CreditScene::ReSize(int width, int height, struct ResizeAttributes 
 void Sanket::CreditScene::Render(HDC hdc, struct Attributes attributes)
 {
 
-	if (vertexY <= 21.0f)
+	if (startScene)
 	{
-		texCoordY += 0.1f / (42.0f);
-		vertexY += 0.1f;
+		if (_blackOutValue < 1.0f)
+			_blackOutValue += 0.005f;
+		else
+			startScene = false;
+	}
+	else if (vertexY <= 21.0f)
+	{
+		texCoordY += 0.05f / (42.0f);
+		vertexY += 0.05f;
 	}
 	else
 	{
@@ -384,7 +393,13 @@ void Sanket::CreditScene::Render(HDC hdc, struct Attributes attributes)
 			texCoordY = 0.0f;
 			vertexY = -QUAD_SIDE;
 		}
+		else
+		{
+			if (_blackOutValue > 0.0f)
+				_blackOutValue -= 0.005f;
+		}
 	}
+
 
 	float Scene4QuadVertices[] =
 	{
@@ -439,6 +454,7 @@ void Sanket::CreditScene::Render(HDC hdc, struct Attributes attributes)
 	glBindTexture(GL_TEXTURE_2D, gTexture_Full);
 
 	glUniform1i(_Texture_sampler_uniform, 0);
+	glUniform1f(_BlackOutUniform, _blackOutValue);
 
 	glBindVertexArray(vao);
 
@@ -457,6 +473,7 @@ void Sanket::CreditScene::Render(HDC hdc, struct Attributes attributes)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
 	glBindVertexArray(0);
+
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
@@ -500,6 +517,7 @@ void Sanket::CreditScene::Render(HDC hdc, struct Attributes attributes)
 	glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
 
 	glBindVertexArray(0);
+
 
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
