@@ -395,8 +395,14 @@ void Sanket::CreditScene::Render(HDC hdc, struct Attributes attributes)
 		}
 		else
 		{
-			if (_blackOutValue > 0.0f)
+			if (pauseTime > 0.0f)
+			{
+				pauseTime -= 0.003f;
+			}
+			else if (_blackOutValue > 0.0f)
+			{
 				_blackOutValue -= 0.005f;
+			}
 		}
 	}
 

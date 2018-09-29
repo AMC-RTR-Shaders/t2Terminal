@@ -61,6 +61,7 @@ namespace Sanket
 		float vertexY    = -21.0f;
 		bool startScene = true;
 		bool finishScene = false;
+		float pauseTime = 1.0f;
 
 		GLuint _modelMatrixUniform;
 		GLuint _ViewMatrixUniform;
