@@ -339,9 +339,6 @@ void Sanket::CreditScene::Initialize()
 
 	return;
 
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
-
 }
 
 void Sanket::CreditScene::Update()
