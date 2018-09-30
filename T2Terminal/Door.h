@@ -129,7 +129,7 @@ namespace Rahul
 		GLuint _KsUniform;
 		GLuint material_shininess_uniform;
 		GLuint _LightEnabled;
-		GLfloat _Blend_Value_uniform;
+		GLuint _Blend_Value_uniform;
 		GLuint gTexture_Door;
 		GLuint gTexture_sampler_uniform;
 

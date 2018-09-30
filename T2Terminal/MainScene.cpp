@@ -127,7 +127,6 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 			//++_attributes.currentScene;
 			//_attributes.currentScene = _attributes.currentScene % 4;
 			//_attributes.currentScene = SCENE_AIRPORT_MODEL;
-			PlaySound(L"Scene4_GrowingPillar_New_Track.wav", NULL, SND_ASYNC);
 
 			break;
 		case Event::KeyBoard::KEYS::S:
@@ -138,7 +137,6 @@ BOOL T2Terminal::MainScene::SceneHandler(HWND hwnd, UINT message, WPARAM wparam,
 			//_attributes.rotateCoords[SCENE_AIRPORT][0] = 15.971f;
 			//_attributes.rotateCoords[SCENE_AIRPORT][1] = -0.431f;
 			//_attributes.rotateCoords[SCENE_AIRPORT][2] = 0.0f;
-			PlaySound(L"Scene3_Starfield.wav", NULL, SND_ASYNC);
 
 			break;
 
@@ -811,7 +809,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 			else
 			{
 				_attributes.currentTransformation = TRANSFORMATION_TRANSLATE_FWD;
-				_cam_speed /= 2;
+				_cam_speed /= 1.12f;
 			}
 		}
 		if (_attributes.currentTransformation == TRANSFORMATION_TRANSLATE_FWD)
@@ -853,7 +851,7 @@ void T2Terminal::MainScene::UpdateTransformationAttributes()
 				_scene = _scene_4;
 				_attributes.globalScene = 4;
 				_scene->ReSize(_width, _height, _resizeAttributes);
-				PlaySound(L"Scene4_GrowingPillar_New_Track.wav", NULL, SND_ASYNC);
+//				PlaySound(L"Scene4_GrowingPillar_New_Track.wav", NULL, SND_ASYNC);
 
 			}
 			else

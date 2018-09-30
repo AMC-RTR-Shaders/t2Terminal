@@ -66,8 +66,8 @@ namespace Sanket
 
 		ModelParser *_modelParser;
 
-		float gNumVertices=0; 
-		float gNumElements=0; 
+		int gNumVertices=0; 
+		int gNumElements=0; 
 
 		float sphere_vertices[1146];
 		float sphere_normals[1146];

@@ -339,9 +339,6 @@ void Sanket::CreditScene::Initialize()
 
 	return;
 
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
-
 }
 
 void Sanket::CreditScene::Update()
@@ -373,8 +370,8 @@ void Sanket::CreditScene::Render(HDC hdc, struct Attributes attributes)
 	}
 	else if (vertexY <= 21.0f)
 	{
-		texCoordY += 0.05f / (42.0f);
-		vertexY += 0.05f;
+		texCoordY += 0.1f / (42.0f);
+		vertexY += 0.1f;
 	}
 	else
 	{

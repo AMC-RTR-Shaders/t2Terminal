@@ -315,7 +315,7 @@ void Sanket::Table::Initialize()
 
 	// Cylinder code
 
-	makeSphere(0.15, 2.0, 10, 10);
+	makeSphere(0.15f, 2.0f, 10, 10);
 
 
 	// Sphere 
@@ -412,9 +412,6 @@ void Sanket::Table::Initialize()
 	_perspectiveProjectionMatrix = mat4::identity();
 
 	return;
-
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 
 }
 
@@ -1134,10 +1131,6 @@ void Sanket::Table::Render(HDC hdc, struct Attributes attributes)
 	glUseProgram(0);
 
 	return;
-
-
-CLEAN_LOCAL_ALLOCATION_BELOW:
-	UnInitialize();
 }
 
 void Sanket::Table::SceneTransition()
